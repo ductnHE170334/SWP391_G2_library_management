@@ -5,9 +5,6 @@ import lombok.*;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.*;
-
-import java.util.Date;
 
 @Entity
 @Table(name = "Status")
