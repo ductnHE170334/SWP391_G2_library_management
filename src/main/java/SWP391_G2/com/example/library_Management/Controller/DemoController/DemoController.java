@@ -19,4 +19,9 @@ public class DemoController {
         model.addAttribute("theDate", new java.util.Date());
         return "test/helloWorld";
     }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "Admin/login";
+    }
 }
