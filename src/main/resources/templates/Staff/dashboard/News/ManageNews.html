@@ -4,10 +4,10 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-    <header th:replace="Staff/fragments/header :: html_header" >
+    <header th:replace="Staff/fragments/header :: html_header">
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside th:replace="Staff/fragments/header :: html_navbar" >
+    <aside th:replace="Staff/fragments/header :: html_navbar">
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
@@ -27,13 +27,15 @@
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">News Manage Table</h3>
-
+                            <button class="btn btn-success btn-sm">Add news</button>
                             <div class="box-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                                    <input type="text" name="table_search" class="form-control pull-right"
+                                           placeholder="Search">
 
                                     <div class="input-group-btn">
-                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -41,20 +43,28 @@
                         <!-- /.box-header -->
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Date</th>
-                                    <th>Description</th>
-                                    <th>Action</th>
-                                </tr>
-                                <tr>
-                                    <td>183</td>
-                                    <td>John Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    <td></td>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Title</th>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="news : ${news}">
+                                        <td th:text="${news.id}"></td>
+                                        <td th:text="${news.title}"></td>
+                                        <td th:text="${news.date_created}"></td>
+                                        <td th:text="${news.description}"></td>
+                                        <td>
+                                            <!-- Add action buttons here -->
+                                            <button class="btn btn-primary btn-sm">Edit</button>
+                                            <button class="btn btn-danger btn-sm">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                         <!-- /.box-body -->
