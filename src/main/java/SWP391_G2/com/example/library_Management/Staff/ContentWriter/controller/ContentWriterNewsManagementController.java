@@ -8,11 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -36,6 +41,56 @@ public class ContentWriterNewsManagementController {
         theModel.addAttribute("news", news);
 
         return "Staff/dashboard/News/ManageNews";
+    }
+
+    //Show form to add new
+    @GetMapping("/showFormForAdd")
+    public String showFormForAdd(Model theModel){
+        News news = new News();
+
+        theModel.addAttribute("news", news);
+
+        return "Staff/dashboard/News/AddNews";
+    }
+
+    @PostMapping("/save")
+    public String saveNew(@ModelAttribute("news") News news, @RequestParam("image") MultipartFile image) {
+        // Check if the image is not empty
+        if (!image.isEmpty()) {
+            try {
+                // Get the original filename
+                String originalFilename = image.getOriginalFilename();
+                // Create a unique filename using timestamp
+                String newFilename = System.currentTimeMillis() + "_" + originalFilename;
+
+                // Define the upload directory path relative to the application's root directory
+                String uploadDir = "src/uploads/";
+                Path uploadPath = Paths.get(uploadDir).toAbsolutePath().normalize();
+
+                // Create the directory if it does not exist
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                // Save the file to the defined path
+                Path filePath = uploadPath.resolve(newFilename);
+                image.transferTo(filePath.toFile());
+
+                // Set the file name in the news object (this will be stored in the database)
+                news.setImage_url(newFilename);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "error";  // Handle the error
+            }
+        }
+
+        // Set the current date and time
+        news.setDate_created(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+
+        // Save the news
+        contentWriterNewsService.save(news);
+
+        return "redirect:/news/list";
     }
 
     //Delete a new

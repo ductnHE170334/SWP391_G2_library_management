@@ -26,4 +26,8 @@ public class ContentWriterNewsService {
     public List<News> findNewsByTitle(String title){
         return contentWriterNewsRepository.findNewsByTitle(title);
     }
+
+    public void save(News news) {
+        contentWriterNewsRepository.save(news);
+    }
 }
