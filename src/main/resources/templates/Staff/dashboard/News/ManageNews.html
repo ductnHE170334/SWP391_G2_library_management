@@ -62,7 +62,7 @@
                                     <td th:text="${news.description}"></td>
                                     <td>
                                         <!-- Add action buttons here -->
-                                        <button class="btn btn-primary btn-sm">Edit</button>
+                                        <a th:href="@{/news/showFormForEdit(newId=${news.id})}" class="btn btn-primary btn-sm">Edit</a>
                                         <a th:href="@{/news/delete(newId=${news.id})}"
                                            class="btn btn-danger btn-sm"
                                            onclick="if (!(confirm('Are you sure you want to delete this new?'))) return false">

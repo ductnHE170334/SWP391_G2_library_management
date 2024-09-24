@@ -105,4 +105,15 @@ public class ContentWriterNewsManagementController {
 
     }
 
+    //Show form to edit new
+    @GetMapping("/showFormForEdit")
+    public String showFormForEdit(@RequestParam("newId") int id, Model theModel){
+        //Get news by Id
+        News news = contentWriterNewsService.findById(id);
+
+        theModel.addAttribute("news", news);
+
+        return "Staff/dashboard/News/EditNews";
+    }
+
 }

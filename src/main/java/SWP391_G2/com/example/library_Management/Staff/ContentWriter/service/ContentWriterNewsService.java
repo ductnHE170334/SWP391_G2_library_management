@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContentWriterNewsService {
@@ -21,6 +22,22 @@ public class ContentWriterNewsService {
 
     public void deleteById(int id){
         contentWriterNewsRepository.deleteById(id);
+    }
+
+    public News findById(int id) {
+        Optional<News> result = contentWriterNewsRepository.findById(id);
+
+        News news = null;
+
+        if (result.isPresent()) {
+            news = result.get();
+        }
+        else {
+            // we didn't find the employee
+            throw new RuntimeException("Did not find new id - " + id);
+        }
+
+        return news;
     }
 
     public List<News> findNewsByTitle(String title){
