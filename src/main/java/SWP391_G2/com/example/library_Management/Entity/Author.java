@@ -3,13 +3,16 @@ package SWP391_G2.com.example.library_Management.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "Author")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
+@EqualsAndHashCode
+@ToString
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +23,8 @@ public class Author {
 
     @Column(name = "description")
     private String description;
+
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+
+    private Set<Book> books;
 }
