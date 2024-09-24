@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Staff/fragments/header :: html">
+<head>
+    <title>Edit Book</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+
+        <h2>Edit Book</h2>
+    <form role="form" action="#" th:action="@{/books/save}" th:object="${book}" method="POST" onsubmit="return validateForm()">
+        <input type="hidden" th:field="*{id}" />
+        <div class="box-body">
+            <div class="form-group">
+                <label for="bookName">Book Name <span style="color:red;">*</span></label>
+                <input type="text" class="form-control" id="bookName" placeholder="Enter book name" th:field="*{name}">
+            </div>
+            <div class="form-group">
+                <label>Select Publisher <span style="color:red;">*</span></label>
+                <select class="form-control" th:field="*{publisher}">
+                    <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.name}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Select Categories <span style="color:red;">*</span></label>
+                <div th:each="category : ${categories}">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" th:field="*{categories}" th:value="${category.id}">
+                            <span th:text="${category.name}"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Select Authors <span style="color:red;">*</span></label>
+                <div th:each="author : ${authors}">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" th:field="*{authors}" th:value="${author.id}">
+                            <span th:text="${author.name}"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control" rows="3" placeholder="Enter description" th:field="*{description}"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile">File input</label>
+                <input type="file" id="exampleInputFile">
+                <p class="help-block">Example block-level help text here.</p>
+            </div>
+        </div>
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        function validateForm() {
+            const bookName = document.getElementById("bookName").value.trim();
+            const categoryCheckboxes = document.querySelectorAll('.category-checkbox');
+            const authorCheckboxes = document.querySelectorAll('.author-checkbox');
+
+            // Kiểm tra bookName
+            if (bookName === "") {
+                alert("Please enter a book name.");
+                return false; // Ngăn không cho form được nộp
+            }
+
+            // Kiểm tra ít nhất một category được chọn
+            let categoryChecked = Array.from(categoryCheckboxes).some(checkbox => checkbox.checked);
+            if (!categoryChecked) {
+                alert("Please select at least one category.");
+                return false;
+            }
+
+            // Kiểm tra ít nhất một author được chọn
+            let authorChecked = Array.from(authorCheckboxes).some(checkbox => checkbox.checked);
+            if (!authorChecked) {
+                alert("Please select at least one author.");
+                return false;
+            }
+
+            return true; // Cho phép form được nộp
+        }
+    </script>
+
+
+
+</div>
+
+</body>
+</html>
