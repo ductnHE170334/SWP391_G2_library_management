@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="Staff/fragments/header :: html">
+<head th:replace="Staff/fragments/header :: html_head">
 </head>
-<body>
+<body class="hold-transition skin-blue sidebar-mini">
+<header th:replace="Staff/fragments/admin_header :: admin_header"></header>
+<aside th:replace="Staff/fragments/admin_sidebar :: admin_sidebar">
+
+</aside>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Data Tables
+            BOOK ITEM MANAGEMENT
             <small>advanced tables</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Tables</a></li>
-            <li class="active">Data tables</li>
+            <li><a th:href="@{'/books'}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a th:href="@{'/books'}">Book</a></li>
+            <li class="active">ManageBook_item</li>
         </ol>
     </section>
 
