@@ -12,8 +12,7 @@
     <h1>Edit Author</h1>
 
     <form th:action="@{/authors/update}" method="post">
-        <input type="hidden" name="id" th:value="${author.id}"/>
-
+        <input type="hidden" name="id" th:value=
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" id="name" name="name" class="form-control" th:value="${author.name}" required>
