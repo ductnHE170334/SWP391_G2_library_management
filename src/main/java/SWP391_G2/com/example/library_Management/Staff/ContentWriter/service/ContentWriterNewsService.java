@@ -4,6 +4,9 @@ import SWP391_G2.com.example.library_Management.Entity.News;
 import SWP391_G2.com.example.library_Management.Staff.ContentWriter.repository.ContentWriterNewsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
@@ -16,8 +19,9 @@ public class ContentWriterNewsService {
     @Autowired
     private ContentWriterNewsRepository contentWriterNewsRepository;
 
-    public List<News> getAllNews(){
-        return contentWriterNewsRepository.findAll();
+    public Page<News> getAllNews(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return contentWriterNewsRepository.findAll(pageable);
     }
 
     public void deleteById(int id){
@@ -40,8 +44,9 @@ public class ContentWriterNewsService {
         return news;
     }
 
-    public List<News> findNewsByTitle(String title){
-        return contentWriterNewsRepository.findNewsByTitle(title);
+    public Page<News> findNewsByTitle(String title, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return contentWriterNewsRepository.findNewsByTitle(title, pageable);
     }
 
     public void save(News news) {

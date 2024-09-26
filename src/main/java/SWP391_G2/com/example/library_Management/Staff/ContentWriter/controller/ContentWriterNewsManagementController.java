@@ -5,6 +5,7 @@ import SWP391_G2.com.example.library_Management.Staff.ContentWriter.service.Cont
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,19 +27,20 @@ public class ContentWriterNewsManagementController {
     @Autowired
     private ContentWriterNewsService contentWriterNewsService;
 
-    //List all news
     @GetMapping("/list")
-    public String listNews(Model theModel, @Param("title") String title){
-        //Get list from db
-        List<News> news = contentWriterNewsService.getAllNews();
+    public String listNews(Model theModel, @Param("title") String title, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size){
+        Page<News> newsPage;
 
         if(title != null) {
-            news = contentWriterNewsService.findNewsByTitle(title);
+            newsPage = contentWriterNewsService.findNewsByTitle(title, page, size);
             theModel.addAttribute("searchtitle", title);
+        } else {
+            newsPage = contentWriterNewsService.getAllNews(page, size);
         }
 
-        //Add to spring model
-        theModel.addAttribute("news", news);
+        theModel.addAttribute("newsPage", newsPage);
+        theModel.addAttribute("currentPage", page);
+        theModel.addAttribute("totalPages", newsPage.getTotalPages());
 
         return "Staff/dashboard/News/ManageNews";
     }
