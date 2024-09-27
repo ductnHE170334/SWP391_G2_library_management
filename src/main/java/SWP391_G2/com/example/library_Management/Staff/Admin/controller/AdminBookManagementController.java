@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -20,12 +21,22 @@ public class AdminBookManagementController {
     @Autowired
     private AdminBookService adminBookService;
 
-    @GetMapping
-    public String listBook(Model theModel) {
-        List<Book> books = adminBookService.getAllBooks();
-        theModel.addAttribute("books", books);
-        return "Staff/dashboard/Book/ManageBook";
-    }
+//    @GetMapping
+//    public String listBook(Model theModel) {
+//        List<Book> books = adminBookService.getAllBooks();
+//        theModel.addAttribute("books", books);
+//        return "Staff/dashboard/Book/ManageBook";
+//    }
+@GetMapping
+public String listBook(@RequestParam(value = "page", defaultValue = "1") int page,
+                       @RequestParam(value = "size", defaultValue = "4") int size,
+                       Model theModel) {
+    Page<Book> bookPage = adminBookService.getAllBooksPaginated(page, size);
+    theModel.addAttribute("books", bookPage.getContent());
+    theModel.addAttribute("currentPage", page);
+    theModel.addAttribute("totalPages", bookPage.getTotalPages());
+    return "Staff/dashboard/Book/ManageBook";
+}
     @GetMapping("/addBook")
     public String viewAddBook(Model theModel){
         Book book = new Book();
