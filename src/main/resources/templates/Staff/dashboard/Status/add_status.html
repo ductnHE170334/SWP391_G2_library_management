@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="Staff/fragments/header :: html_head">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Add New Status</h1>
+
+    <form th:action="@{/status/add}" method="post">
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <input type="text" id="status" name="status" class="form-control" th:value="${status.status}" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+        <a href="/status/list" class="btn btn-secondary">Cancel</a>
+    </form>
+
+    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+    <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div> <!-- For error messages -->
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
