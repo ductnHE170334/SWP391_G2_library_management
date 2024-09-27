@@ -27,7 +27,7 @@ public class AdminCategoryManagementController {
     public String getCategory(Model model) {
         List<Category> categories = adminCategoryService.getCategories();
         model.addAttribute("categories", categories);
-        return "test/list_category";
+        return "Staff/dashboard/Category/list_category";
     }
 
     // Get a category by ID
@@ -35,15 +35,15 @@ public class AdminCategoryManagementController {
     public String getCategoryById(@PathVariable("id") String id, Model model) {
         Category category = adminCategoryService.getCategory(id);
         model.addAttribute("category", category);
-        return "test/list_category";
+        return "Staff/dashboard/Category/list_category";
     }
 
     // Hiển thị form chỉnh sửa danh mục
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable String id, Model model) {
         Category category = adminCategoryService.getCategory(id);
-        model.addAttribute("category", category); // Thêm danh mục vào mô hình
-        return "test/update_category"; // Trả về view cho form chỉnh sửa
+        model.addAttribute("category", category);
+        return "Staff/dashboard/Category/update_category";
     }
 
     // update category
@@ -73,7 +73,7 @@ public class AdminCategoryManagementController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("category", new Category()); // Khởi tạo đối tượng Category mới
-        return "test/add_category"; // Trả về view cho form thêm danh mục
+        return "Staff/dashboard/Category/add_category"; // Trả về view cho form thêm danh mục
     }
 
     // Thêm danh mục
@@ -91,7 +91,7 @@ public class AdminCategoryManagementController {
         if (categories.isEmpty()) {
             model.addAttribute("message", "No categories found for the search term: " + name);
         }
-        return "test/list_category";
+        return "Staff/dashboard/Category/list_category";
     }
 
 
