@@ -28,7 +28,7 @@ public class ContentWriterNewsManagementController {
     private ContentWriterNewsService contentWriterNewsService;
 
     @GetMapping("/list")
-    public String listNews(Model theModel, @Param("title") String title, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size){
+    public String listNews(Model theModel, @Param("title") String title, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size){
         Page<News> newsPage;
 
         if(title != null) {
@@ -114,6 +114,12 @@ public class ContentWriterNewsManagementController {
         News news = contentWriterNewsService.findById(id);
 
         theModel.addAttribute("news", news);
+
+        // Add the image URL to the model
+        if (news.getImage_url() != null) {
+            String imageUrl = "/uploads/" + news.getImage_url();
+            theModel.addAttribute("imageUrl", imageUrl);
+        }
 
         return "Staff/dashboard/News/EditNews";
     }
