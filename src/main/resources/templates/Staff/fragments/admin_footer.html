@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="Staff/fragments/header :: html_head">
+
+</head>
+<body>
+<footer th:fragment="admin_footer">
+    <!-- jQuery 2.2.3 -->
+    <script th:src="@{/Staff/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script th:src="@{/Staff/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- Slimscroll -->
+    <script th:src="@{/Staff/plugins/slimScroll/jquery.slimscroll.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/Staff/plugins/fastclick/fastclick.js}"></script>
+    <!-- AdminLTE App -->
+    <script th:src="@{/Staff/dist/js/app.min.js}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script th:src="@{/Staff/dist/js/demo.js}"></script>
+</footer>
+</body>
+</html>

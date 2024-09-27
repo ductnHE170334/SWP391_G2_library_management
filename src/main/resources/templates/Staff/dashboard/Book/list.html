@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Book List</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+  <h1 class="mb-4">Book List</h1>
+
+  <!-- Search Form -->
+  <form action="#" th:action="@{/mybooks}" method="get" class="form-inline my-3">
+    <div class="form-group">
+      <input type="text" name="search" th:value="${search}" class="form-control" placeholder="Search by name" />
+    </div>
+    <button type="submit" class="btn btn-primary ml-2">Search</button>
+  </form>
+
+  <!-- Book Table -->
+  <table class="table table-striped table-bordered">
+    <thead class="thead-light">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>Publisher</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${bookPage.content}">
+      <td th:text="${book.id}"></td>
+      <td th:text="${book.name}"></td>
+      <td th:text="${book.description}"></td>
+      <td th:text="${book.quantity}"></td>
+      <td th:text="${book.publisher.name}"></td> <!-- Assuming Publisher has a name field -->
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+        <a class="page-link" th:href="@{/books(page=${currentPage - 1}, size=${size}, search=${search})}">Previous</a>
+      </li>
+      <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${i == currentPage} ? 'active'">
+        <a class="page-link" th:href="@{/books(page=${i}, size=${size}, search=${search})}" th:text="${i}"></a>
+      </li>
+      <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+        <a class="page-link" th:href="@{/books(page=${currentPage + 1}, size=${size}, search=${search})}">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
