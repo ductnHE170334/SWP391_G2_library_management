@@ -28,7 +28,7 @@ public class LibrarianStatusManagementController {
     public String getStatus(Model model) {
         List<Status> statuses = librarianStatusService.getStatus();
         model.addAttribute("statuses", statuses);
-        return "test/list_status";
+        return "Staff/dashboard/Status/list_status";
     }
 
     // Get a status by ID
@@ -36,7 +36,7 @@ public class LibrarianStatusManagementController {
     public String getStatusById(@PathVariable("id") String id, Model model) {
         Status status = librarianStatusService.getStatus(id);
         model.addAttribute("status", status);
-        return "test/list_status";
+        return "Staff/dashboard/Status/list_status";
     }
 
 
@@ -45,7 +45,7 @@ public class LibrarianStatusManagementController {
     public String showUpdateForm(@PathVariable String id, Model model) {
         Status status = librarianStatusService.getStatus(id);
         model.addAttribute("status", status); // Add status to the model
-        return "test/update_status"; // Return view for edit form
+        return "Staff/dashboard/Status/update_status"; // Return view for edit form
     }
 
     // Update status
@@ -72,7 +72,7 @@ public class LibrarianStatusManagementController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("status", new Status()); // Initialize a new Status object
-        return "test/add_status"; // Return view for add form
+        return "Staff/dashboard/Status/add_status"; // Return view for add form
     }
 
     // Add status
@@ -90,7 +90,7 @@ public class LibrarianStatusManagementController {
         if (statuses.isEmpty()) {
             model.addAttribute("message", "No statuses found for the search term: " + status);
         }
-        return "test/list_status";
+        return "Staff/dashboard/Status/list_status";
     }
 
 }
