@@ -11,8 +11,8 @@
 <div class="container">
     <h1>Edit Author</h1>
 
-    <form th:action="@{/authors/update}" method="post">
-        <input type="hidden" name="id" th:value=
+    <form th:action="@{/authors/update}" th:object="${author}" method="post">
+        <input type="hidden" name="id" th:value="${author.id}"/>
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" id="name" name="name" class="form-control" th:value="${author.name}" required>
