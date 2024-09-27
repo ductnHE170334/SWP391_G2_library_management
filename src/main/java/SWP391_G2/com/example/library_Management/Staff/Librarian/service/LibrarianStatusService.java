@@ -50,5 +50,4 @@ public class LibrarianStatusService {
     public List<Status> searchStatusByName(String status) {
         return librarianStatusRepository.findByStatusContainingIgnoreCase(status);
     }
-
 }
