@@ -66,7 +66,7 @@ public class ContentWriterNewsManagementController {
                 String newFilename = System.currentTimeMillis() + "_" + originalFilename;
 
                 // Define the upload directory path relative to the application's root directory
-                String uploadDir = "src/uploads/";
+                String uploadDir = "src/main/resources/static/uploads/";
                 Path uploadPath = Paths.get(uploadDir).toAbsolutePath().normalize();
 
                 // Create the directory if it does not exist
