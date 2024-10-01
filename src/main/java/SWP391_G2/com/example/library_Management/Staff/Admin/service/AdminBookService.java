@@ -11,7 +11,10 @@ import SWP391_G2.com.example.library_Management.Staff.Admin.repository.AdminPubl
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,9 +29,13 @@ public class AdminBookService {
     private AdminAuthorRepository adminAuthorRepository;
     @Autowired
     private AdminPublisherRepository adminPublisherRepository;
-    public List<Book> getAllBooks() {
-        return adminBookRepository.findAll();
-    }
+//    public List<Book> getAllBooks() {
+//        return adminBookRepository.findAll();
+//    }
+public Page<Book> getAllBooksPaginated(int pageNumber, int pageSize) {
+    Pageable pageable = PageRequest.of(pageNumber - 1, pageSize); // PageRequest is zero-based, so subtract 1
+    return adminBookRepository.findAll(pageable);
+}
 
     public List<Category> getAllCategories() {
         return adminCategoryRepository.findAll();
