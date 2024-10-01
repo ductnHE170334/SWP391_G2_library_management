@@ -3,30 +3,33 @@ package SWP391_G2.com.example.library_Management.Staff.Admin.controller;
 import SWP391_G2.com.example.library_Management.Entity.Category;
 import SWP391_G2.com.example.library_Management.Staff.Admin.service.AdminCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/category")
 public class AdminCategoryManagementController {
 
-    @Autowired
-    private AdminCategoryService adminCategoryService;
+    private final AdminCategoryService adminCategoryService;
 
     // Constructor injection for adminCategoryService
-    public AdminCategoryManagementController(AdminCategoryService theAdminCategoryService) {
-        adminCategoryService = theAdminCategoryService;
+    public AdminCategoryManagementController(AdminCategoryService adminCategoryService) {
+        this.adminCategoryService = adminCategoryService;
     }
 
-    // Get all categories and return the view list_category.html
+    // Get all categories and return the view list_category.html with pagination
     @GetMapping("/list")
-    public String getCategory(Model model) {
-        List<Category> categories = adminCategoryService.getCategories();
-        model.addAttribute("categories", categories);
+    public String getCategory(@RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "10") int size,
+                              Model model) {
+        Page<Category> categories = adminCategoryService.getCategories(PageRequest.of(page, size));
+        model.addAttribute("categories", categories.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", categories.getTotalPages());
         return "Staff/dashboard/Category/list_category";
     }
 
@@ -46,7 +49,7 @@ public class AdminCategoryManagementController {
         return "Staff/dashboard/Category/update_category";
     }
 
-    // update category
+    // Update category
     @PostMapping("/update/{id}")
     public String updateCategory(@PathVariable String id, @RequestParam String name, RedirectAttributes redirectAttributes) {
         adminCategoryService.updateCategory(id, name);
@@ -54,10 +57,8 @@ public class AdminCategoryManagementController {
         return "redirect:/category/list";
     }
 
-
-
-    //delete category
-    @PostMapping("/{id}")
+    // Delete category
+    @PostMapping("/{id}/delete")
     public String deleteCategory(@PathVariable String id, RedirectAttributes redirectAttributes) {
         try {
             adminCategoryService.deleteCategory(id);
@@ -67,7 +68,6 @@ public class AdminCategoryManagementController {
         }
         return "redirect:/category/list";
     }
-
 
     // Hiển thị form thêm danh mục
     @GetMapping("/add")
@@ -83,16 +83,21 @@ public class AdminCategoryManagementController {
         redirectAttributes.addFlashAttribute("message", "Category added successfully!");
         return "redirect:/category/list";
     }
-    // Tìm kiếm danh mục theo tên
+
+    // Tìm kiếm danh mục theo tên với phân trang
     @GetMapping("/search")
-    public String searchCategories(@RequestParam("name") String name, Model model) {
-        List<Category> categories = adminCategoryService.searchCategoriesByName(name);
-        model.addAttribute("categories", categories);
+    public String searchCategories(@RequestParam("name") String name,
+                                   @RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "10") int size,
+                                   Model model) {
+        Page<Category> categories = adminCategoryService.searchCategoriesByName(name, page, size);
+        model.addAttribute("categories", categories.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", categories.getTotalPages());
         if (categories.isEmpty()) {
             model.addAttribute("message", "No categories found for the search term: " + name);
         }
         return "Staff/dashboard/Category/list_category";
     }
-
 
 }
