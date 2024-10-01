@@ -54,6 +54,23 @@
   <div class="text-right">
     <a th:href="@{/category/add}" class="btn btn-success">Add New Category</a>
   </div>
+
+  <!-- Phân trang -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" th:class="${currentPage == 0} ? 'disabled'">
+        <a class="page-link" th:href="@{/category/list(page=${currentPage - 1}, size=${size})}" tabindex="-1">Previous</a>
+      </li>
+      <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${i == currentPage} ? 'active'">
+        <a class="page-link" th:href="@{/category/list(page=${i}, size=${size})}" th:text="${i + 1}"></a>
+      </li>
+      <li class="page-item" th:class="${currentPage + 1 == totalPages} ? 'disabled'">
+        <a class="page-link" th:href="@{/category/list(page=${currentPage + 1}, size=${size})}">Next</a>
+      </li>
+    </ul>
+  </nav>
+
+
 </div>
 
 </body>
