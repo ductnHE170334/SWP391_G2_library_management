@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Staff/fragments/header :: html_head">
+<head>
+    <title>Edit Book</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<header th:replace="Staff/fragments/admin_header :: admin_header"></header>
+<aside th:replace="Staff/fragments/admin_sidebar :: admin_sidebar">
+
+</aside>
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            General Form Elements
+            <small>Preview</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a th:href="@{'/books'}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a th:href="@{'/books'}">Book</a></li>
+            <li class="active">Edit book</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">BOOK EDIT FORM</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form role="form" action="#" th:action="@{/books/save}" th:object="${book}" method="POST" id="bookForm" onsubmit="return validateForm()">
+                        <div class="box-body">
+                            <div th:if="${errorMessage}" class="alert alert-danger">
+                                <span th:text="${errorMessage}"></span>
+                            </div>
+                            <input type="hidden" th:field="*{id}" />
+
+                            <div class="form-group">
+                                <label for="bookName">Book Name <span style="color:red;">*</span></label>
+                                <input type="text" class="form-control" id="bookName" placeholder="Enter book name" th:field="*{name}">
+                            </div>
+                            <div class="form-group">
+                                <label>Select</label>
+                                <select class="form-control" th:field="*{publisher}">
+                                    <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.name}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Categories <span style="color:red;">*</span></label>
+                                <div th:each="category : ${categories}">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="category-checkbox" th:field="*{categories}" th:value="${category.id}">
+                                            <span th:text="${category.name}"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Author <span style="color:red;">*</span></label>
+                                <div th:each="author : ${authors}">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" class="author-checkbox" th:field="*{authors}" th:value="${author.id}">
+                                            <span th:text="${author.name}"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control" rows="3" placeholder="Enter description" th:field="*{description}"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputFile">File input</label>
+                                <input type="file" id="exampleInputFile">
+                                <p class="help-block">Example block-level help text here.</p>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+
+                    <script>
+                        function validateForm() {
+                            const bookName = document.getElementById("bookName").value.trim();
+                            const categoryCheckboxes = document.querySelectorAll('.category-checkbox');
+                            const authorCheckboxes = document.querySelectorAll('.author-checkbox');
+
+                            // testBook name empty or not
+                            if (bookName === "") {
+                                alert("Please enter a book name.");
+                                return false;
+                            }
+
+                            // Check at least 1 category is chosen
+                            let categoryChecked = Array.from(categoryCheckboxes).some(checkbox => checkbox.checked);
+                            if (!categoryChecked) {
+                                alert("Please select at least one category.");
+                                return false;
+                            }
+
+                            // Check at least 1 author is chosen
+                            let authorChecked = Array.from(authorCheckboxes).some(checkbox => checkbox.checked);
+                            if (!authorChecked) {
+                                alert("Please select at least one author.");
+                                return false;
+                            }
+
+                            return true;
+                        }
+                    </script>
+
+
+
+                </div>
+                <!-- /.box -->
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+    </section>
+
+
+
+</div>
+
+</body>
+</html>
