@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/staff/login")
-public class StaffLoginController {
+@RequestMapping("/staff")
+public class StaffAuthenticationController {
     @Autowired
     private StaffLoginService staffLoginService;
 }
