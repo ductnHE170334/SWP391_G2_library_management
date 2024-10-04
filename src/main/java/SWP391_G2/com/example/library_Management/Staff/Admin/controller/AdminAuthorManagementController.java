@@ -19,11 +19,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/authors")
 public class AdminAuthorManagementController {
+    private final AdminAuthorService adminAuthorService;
     private AdminAuthorRepository authorRepository;
 
     @Autowired
-    public AdminAuthorManagementController(AdminAuthorRepository authorRepository) {
+    public AdminAuthorManagementController(AdminAuthorRepository authorRepository, AdminAuthorService adminAuthorService) {
         this.authorRepository = authorRepository;
+        this.adminAuthorService = adminAuthorService;
     }
 
 
@@ -74,7 +76,7 @@ public class AdminAuthorManagementController {
 
     @GetMapping("/edit/{id}")
     public String showEditAuthorForm(@PathVariable("id") int id, Model model) {
-        Author author = authorRepository.findById(id).get();
+        Author author = adminAuthorService.findById(id);
         model.addAttribute("author", author);
         return "staff/dashboard/author/edit";
     }
