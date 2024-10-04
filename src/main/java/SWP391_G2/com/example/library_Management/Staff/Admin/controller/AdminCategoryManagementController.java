@@ -24,7 +24,7 @@ public class AdminCategoryManagementController {
     // Get all categories and return the view list_category.html with pagination
     @GetMapping("/list")
     public String getCategory(@RequestParam(defaultValue = "0") int page,
-                              @RequestParam(defaultValue = "10") int size,
+                              @RequestParam(defaultValue = "6") int size,
                               Model model) {
         Page<Category> categories = adminCategoryService.getCategories(PageRequest.of(page, size));
         model.addAttribute("categories", categories.getContent());
@@ -58,7 +58,7 @@ public class AdminCategoryManagementController {
     }
 
     // Delete category
-    @PostMapping("/{id}/delete")
+    @PostMapping("/{id}")
     public String deleteCategory(@PathVariable String id, RedirectAttributes redirectAttributes) {
         try {
             adminCategoryService.deleteCategory(id);
@@ -88,7 +88,7 @@ public class AdminCategoryManagementController {
     @GetMapping("/search")
     public String searchCategories(@RequestParam("name") String name,
                                    @RequestParam(defaultValue = "0") int page,
-                                   @RequestParam(defaultValue = "10") int size,
+                                   @RequestParam(defaultValue = "6") int size,
                                    Model model) {
         Page<Category> categories = adminCategoryService.searchCategoriesByName(name, page, size);
         model.addAttribute("categories", categories.getContent());

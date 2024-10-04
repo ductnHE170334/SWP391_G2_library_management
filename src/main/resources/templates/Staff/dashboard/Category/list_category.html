@@ -5,9 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
 
-<div class="container mt-5">
+
+<body class="hold-transition skin-blue sidebar-mini " >
+<header th:replace="Staff/fragments/admin_header :: admin_header"></header>
+<aside th:replace="Staff/fragments/admin_sidebar :: admin_sidebar"></aside>
+<div class="content-wrapper">
   <h1 class="text-center">Category Manage</h1>
 
   <!-- Form tìm kiếm Category -->
@@ -16,8 +19,8 @@
       <input type="text" class="form-control" name="name" placeholder="Search by Category Name" th:value="${searchName}">
     </div>
     <button type="submit" class="btn btn-primary mb-2">Search</button>
+    <a th:href="@{/category/add}" class="btn btn-success mb-2 mx-sm-2">Add New Category</a>
   </form>
-
 
   <!-- Thông báo hiển thị tin nhắn nếu có -->
   <div th:if="${message}" class="alert alert-info" th:text="${message}" id="flash-message"></div>
@@ -50,11 +53,6 @@
     </tbody>
   </table>
 
-  <!-- Nút thêm Category mới -->
-  <div class="text-right">
-    <a th:href="@{/category/add}" class="btn btn-success">Add New Category</a>
-  </div>
-
   <!-- Phân trang -->
   <nav aria-label="Page navigation">
     <ul class="pagination">
@@ -69,9 +67,8 @@
       </li>
     </ul>
   </nav>
-
-
 </div>
 
+<footer th:replace="Staff/fragments/admin_footer :: admin_footer"></footer>
 </body>
 </html>
