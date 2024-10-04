@@ -3,25 +3,25 @@ package SWP391_G2.com.example.library_Management.Staff.Admin.service;
 import SWP391_G2.com.example.library_Management.Entity.Category;
 import SWP391_G2.com.example.library_Management.Staff.Admin.repository.AdminCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AdminCategoryService {
 
-    @Autowired
-    private AdminCategoryRepository adminCategoryRepository;
+    private final AdminCategoryRepository adminCategoryRepository;
 
     // Constructor injection
     @Autowired
-    public AdminCategoryService(AdminCategoryRepository theAdminCategoryRepository) {
-        adminCategoryRepository = theAdminCategoryRepository;
+    public AdminCategoryService(AdminCategoryRepository adminCategoryRepository) {
+        this.adminCategoryRepository = adminCategoryRepository;
     }
 
-    // Get all categories
-    public List<Category> getCategories() {
-        return adminCategoryRepository.findAll();
+    // Get all categories with pagination
+    public Page<Category> getCategories(Pageable pageable) {
+        return adminCategoryRepository.findAll(pageable);
     }
 
     // Get a specific category by ID
@@ -41,13 +41,16 @@ public class AdminCategoryService {
     public void deleteCategory(String id) {
         adminCategoryRepository.deleteById(id);
     }
+
     // Add a new category
     public Category addCategory(Category category) {
         return adminCategoryRepository.save(category);
     }
-    // Search for categories by name
-    public List<Category> searchCategoriesByName(String name) {
-        return adminCategoryRepository.findByNameContainingIgnoreCase(name);
+
+    // Search for categories by name with pagination
+    public Page<Category> searchCategoriesByName(String name, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return adminCategoryRepository.findByNameContainingIgnoreCase(name, pageable);
     }
 
 }
