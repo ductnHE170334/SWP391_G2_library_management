@@ -33,6 +33,6 @@ public class NewsPageController {
         theModel.addAttribute("currentPage", page);
         theModel.addAttribute("totalPages", newsPage.getTotalPages());
 
-        return "Staff/dashboard/News/ManageNews";
+        return "Customer/News/NewsPage";
     }
 }

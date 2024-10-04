@@ -142,64 +142,55 @@
                     <!-- End: Search Section -->
                     <div class="row">
                         <div class="col-md-9 col-md-push-3 news-events-list-view">
-                            <div class="news-list-box">
-                                <div class="single-news-list">
-                                    <figure>
-                                        <a href="news-events-detail.html"><img
-                                                src="images/news-event/news-listing-01.jpg" alt="News &amp; Event"></a>
-                                    </figure>
-                                    <div class="content-block">
-                                        <div class="member-info">
-                                            <div class="content_meta_category">
-                                                <span class="arrow-right"></span>
-                                                <a href="#." rel="category tag">EVENT</a>
+                            <div th:each="news : ${newsPage.content}">
+                                <div class="news-list-box">
+                                    <div class="single-news-list">
+                                        <figure>
+                                            <div th:if="${imageUrl != null}">
+                                                <a href="news-events-detail.html"><img
+                                                        th:src="@{${imageUrl}}" alt="News &amp; Event"></a>
                                             </div>
-                                            <ul class="news-event-info">
-                                                <li>
-                                                    <a href="#" target="_blank">
-                                                        <i class="fa fa-calendar"></i>
-                                                        July 25, 2016
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" target="_blank">
-                                                        <i class="fa fa-clock-o"></i>
-                                                        10:15 AM - 10:15 PM
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" target="_blank">
-                                                        <i class="fa fa-map-marker"></i>
-                                                        New York, USA
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <h3><a href="news-events-detail.html">It uses a dictionary of over 200
-                                                Latin</a></h3>
-                                            <p>Morbi in erat laoreet, eleifend mi sit amet, eleifend mauris. Duis magna
-                                                turpis, semper ac ligula id, elementum hendrerit augue. Aliquam euismod
-                                                sem ut justo ultrices, in eleifend sapien hendrerit. Vestibulum
-                                                sollicitudin dapibus aliquet. Suspendisse a commodo ante. Pellentesque
-                                                habitant morbi tristique senectus et netus et malesuada fames ac turpis
-                                                egestas. Quisque bibendum est turpis, at tristique velit. Quisque
-                                                bibendum est turpis, at tristique velit.</p>
-                                            <a class="btn btn-primary" href="news-events-detail.html">Read More</a>
+                                        </figure>
+                                        <div class="content-block">
+                                            <div class="member-info">
+                                                <div class="content_meta_category">
+                                                    <span class="arrow-right"></span>
+                                                    <a href="#." rel="category tag">EVENT</a>
+                                                </div>
+                                                <ul class="news-event-info">
+                                                    <li>
+                                                        <a href="#" target="_blank">
+                                                            <i class="fa fa-calendar"
+                                                               th:text="${news.date_created}"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <h3><a href="news-events-detail.html" th:text="${news.title}"></a></h3>
+                                                <p th:text="${news.description}"></p>
+                                                <a class="btn btn-primary" href="news-events-detail.html">Read More</a>
+                                            </div>
                                         </div>
+                                        <div class="clearfix"></div>
                                     </div>
-                                    <div class="clearfix"></div>
                                 </div>
                             </div>
                             <nav class="navigation pagination text-center">
                                 <h2 class="screen-reader-text">Posts navigation</h2>
                                 <div class="nav-links">
-                                    <a class="prev page-numbers" href="#."><i class="fa fa-long-arrow-left"></i>
-                                        Previous</a>
-                                    <a class="page-numbers" href="#.">1</a>
-                                    <span class="page-numbers current">2</span>
-                                    <a class="page-numbers" href="#.">3</a>
-                                    <a class="page-numbers" href="#.">4</a>
-                                    <a class="next page-numbers" href="#.">Next <i
-                                            class="fa fa-long-arrow-right"></i></a>
+                                    <a class="prev page-numbers"
+                                       th:href="@{/newsPage/list(page=${currentPage - 1}, size=${size}, title=${searchtitle})}"
+                                       th:classappend="${currentPage == 0} ? 'disabled'">
+                                        <i class="fa fa-long-arrow-left"></i> Previous
+                                    </a>
+                                    <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                                        <a class="page-numbers" th:href="@{/newsPage/list(page=${i}, size=${size}, title=${searchtitle})}"
+                                           th:classappend="${i == currentPage} ? 'current'" th:text="${i + 1}">1</a>
+                                    </span>
+                                    <a class="next page-numbers"
+                                       th:href="@{/newsPage/list(page=${currentPage + 1}, size=${size}, title=${searchtitle})}"
+                                       th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
+                                        Next <i class="fa fa-long-arrow-right"></i>
+                                    </a>
                                 </div>
                             </nav>
                         </div>
@@ -212,6 +203,101 @@
                                                name="s" type="text">
                                         <button type="submit"><i class="fa fa-search"></i></button>
                                     </form>
+                                </div>
+                                <div class="widget widget_related_search">
+                                    <h4 class="widget-title" data-control>Related Searches</h4>
+                                    <div class="widget_categories">
+                                        <ul>
+                                            <li><a href="#">Love stories <span>(18)</span></a></li>
+                                            <li><a href="#">Texas <span>(04)</span></a></li>
+                                            <li><a href="#">Rich people <span>(03)</span></a></li>
+                                            <li><a href="#">Humorous stories <span>(02)</span></a></li>
+                                            <li><a href="#">Widows <span>(02)</span></a></li>
+                                            <li><a href="#">Women <span>(11)</span></a></li>
+                                            <li><a href="#">Babysitters <span>(25)</span></a></li>
+                                            <li><a href="#">Law firms <span>(09)</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="widget widget_recent_entries">
+                                    <h4 class="widget-title" data-control>Recent News</h4>
+                                    <ul>
+                                        <li>
+                                            <figure>
+                                                <img src="images/order-item-04.jpg" alt="product"/>
+                                            </figure>
+                                            <a href="#">It uses a dictionary</a>
+                                            <span><i class="fa fa-calendar"></i> &nbsp; July 25, 2016</span>
+                                            <span><i class="fa fa-clock-o"></i> &nbsp; 10:15 AM - 10:15 PM</span>
+                                            <span><i class="fa fa-map-marker"></i> &nbsp; New York, USA</span>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                        <li>
+                                            <figure>
+                                                <img src="images/order-item-05.jpg" alt="product"/>
+                                            </figure>
+                                            <a href="#">It uses a dictionary</a>
+                                            <span><i class="fa fa-calendar"></i> &nbsp; July 25, 2016</span>
+                                            <span><i class="fa fa-clock-o"></i> &nbsp; 10:15 AM - 10:15 PM</span>
+                                            <span><i class="fa fa-map-marker"></i> &nbsp; New York, USA</span>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                        <li>
+                                            <figure>
+                                                <img src="images/order-item-06.jpg" alt="product"/>
+                                            </figure>
+                                            <a href="#">It uses a dictionary</a>
+                                            <span><i class="fa fa-calendar"></i> &nbsp; July 25, 2016</span>
+                                            <span><i class="fa fa-clock-o"></i> &nbsp; 10:15 AM - 10:15 PM</span>
+                                            <span><i class="fa fa-map-marker"></i> &nbsp; New York, USA</span>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="widget widget_archives">
+                                    <h4 class="widget-title" data-control>News Archives</h4>
+                                    <form action="http://libraria.demo.presstigers.com/index.html" method="get">
+                                        <div class="form-group">
+                                            <select name="month" id="month" class="form-control">
+                                                <option>Select Month</option>
+                                                <option>Month 01</option>
+                                                <option>Month 02</option>
+                                                <option>Month 03</option>
+                                                <option>Month 04</option>
+                                                <option>Month 05</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="widget widget_tag_cloud">
+                                    <h4 class="widget-title" data-control>News Tags</h4>
+                                    <ul>
+                                        <li><a href="#">Fashion</a></li>
+                                        <li><a href="#">Life Style</a></li>
+                                        <li><a href="#">Beauty</a></li>
+                                        <li><a href="#">Music</a></li>
+                                        <li><a href="#">Health</a></li>
+                                        <li><a href="#">Travel</a></li>
+                                        <li><a href="#">Library</a></li>
+                                    </ul>
+                                </div>
+                                <div class="widget twitter-widget">
+                                    <h3 class="footer-widget-title">Recent Tweets</h3>
+                                    <span class="underline left"></span>
+                                    <div id="twitter-feed-sidebar">
+                                        <ul>
+                                            <li>
+                                                <p><a href="#">@TemplateLibraria</a> Sed ut perspiciatis unde omnis iste
+                                                    natus error sit voluptatem. <a href="#">template-libraria.com</a>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><a href="#">@TemplateLibraria</a> Sed ut perspiciatis unde omnis iste
+                                                    natus error sit voluptatem. <a href="#">template-libraria.com</a>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </aside>
                         </div>
@@ -237,7 +323,7 @@
 </footer>
 <!-- End: Footer -->
 
-<div th:replace="Customer/fragments/footer :: script">
+<div th:replace="Customer/fragments/footer_script :: script">
 
 </div>
 </body>
