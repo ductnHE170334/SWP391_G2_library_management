@@ -2,7 +2,73 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="Staff/fragments/header :: html_head">
 </head>
-<body>
-$END$
+<body class="hold-transition skin-blue sidebar-mini">
+<header th:replace="Staff/fragments/admin_header :: admin_header"></header>
+<aside th:replace="Staff/fragments/admin_sidebar :: admin_sidebar">
+
+</aside>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            BOOK ITEM MANAGEMENT
+            <small>advanced tables</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a th:href="@{'/books'}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a th:href="@{'/books'}">Book</a></li>
+            <li class="active">ManageBook_item</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Book Item Table</h3>
+                    </div>
+                    <a th:href="@{'/bookitems/addBookItem/' + ${book.id}}" class="btn btn-primary btn-block margin-bottom" style="
+    width: 15%;
+">Add book item</a>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Book Name</th>
+                                <th>Condition</th>
+                                <th>Action</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="bookItem : ${bookItems}">
+                                <td th:text="${bookItem.id}"></td>
+                                <td th:text="${bookItem.book.name}"></td> <!-- Truy cập book thông qua bookItem -->
+                                <td th:text="${bookItem.condition}"></td> <!-- Truy cập book thông qua bookItem -->
+                                <td>
+                                    <a th:href="@{'/bookitems/editBookItem/' + ${bookItem.id}}" class="btn btn-success">Edit</a>
+                                    <a th:href="@{'/bookitems/deleteBookItem/' + ${bookItem.id}}" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
 </body>
 </html>

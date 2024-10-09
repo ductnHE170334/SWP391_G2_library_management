@@ -2,7 +2,103 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="Staff/fragments/header :: html_head">
 </head>
-<body>
-$END$
+<body class="hold-transition skin-blue sidebar-mini">
+<header th:replace="Staff/fragments/admin_header :: admin_header"></header>
+<aside th:replace="Staff/fragments/admin_sidebar :: admin_sidebar">
+
+</aside>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+           BOOK MANAGEMENT
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><a th:href="@{'/books'}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a th:href="@{'/books'}">Book</a></li>
+
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Book Table</h3>
+                    </div>
+                    <a href="/books/addBook" class="btn btn-primary btn-block margin-bottom" style="width: 15%;">Add book</a>
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Book Name</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Publisher</th>
+                                <th>Category</th>
+                                <th>Author</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="book : ${books}">
+                                <td th:text="${book.id}"></td>
+                                <td th:text="${book.name}"></td>
+                                <td th:text="${book.description}"></td>
+                                <td th:text="${book.quantity}"></td>
+                                <td th:text="${book.publisher.name}"></td>
+                                <td>
+                                    <span th:each="categoryBook, iterStat : ${book.categories}"
+                                          th:text="${categoryBook.name} + (iterStat.hasNext ? ', ' : '')"> </span>
+                                </td>
+                                <td>
+                                    <span th:each="authorBook, iterStat : ${book.authors}"
+                                          th:text="${authorBook.name} + (iterStat.hasNext ? ', ' : '')"> </span>
+                                </td>
+                                <td>
+                                    <a th:href="@{'/books/editBook/' + ${book.id}}" class="btn btn-success">Edit</a>
+                                    <a th:href="@{'/books/deleteBook/' + ${book.id}}" class="btn btn-danger">Delete</a>
+                                    <a th:href="@{'/bookitems/' + ${book.id}}" class="btn btn-primary">View book item</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- Pagination controls -->
+
+                        <div class="text-center">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <li th:classappend="${currentPage == 1} ? 'disabled'">
+                                        <a th:href="@{/books(page=${currentPage - 1}, size=${4})}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li th:each="pageNum : ${#numbers.sequence(1, totalPages)}" th:classappend="${pageNum == currentPage} ? 'active'">
+                                        <a th:href="@{/books(page=${pageNum}, size=${4})}" th:text="${pageNum}">1</a>
+                                    </li>
+                                    <li th:classappend="${currentPage == totalPages} ? 'disabled'">
+                                        <a th:href="@{/books(page=${currentPage + 1}, size=${4})}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- /.content -->
+</div>
 </body>
+<footer th:replace="Staff/fragments/admin_footer :: admin_footer">
+
+</footer>
 </html>

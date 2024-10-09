@@ -1,5 +1,6 @@
 package SWP391_G2.com.example.library_Management.Entity;
 
+import SWP391_G2.com.example.library_Management.Customer.Enum.BorrowRequestStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,4 +34,9 @@ public class Borrow_history {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", unique = true)  // Foreign key to Customer
     private Customer customer;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private BorrowRequestStatus status;
+
 }
