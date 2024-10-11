@@ -3,27 +3,30 @@ package SWP391_G2.com.example.library_Management.Customer.Config;
 import SWP391_G2.com.example.library_Management.Customer.service.CustomerService;
 import SWP391_G2.com.example.library_Management.Entity.Customer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import java.util.ArrayList;
+@Configuration
 @EnableWebSecurity
 public class SercurityConfig {
-    private CustomerService customerService;
 
-    @Bean
+    private final CustomerService customerService;
+
+    public SercurityConfig(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
                         // Cho phép truy cập không cần xác thực vào các trang login, register, và các file tĩnh
-                        .requestMatchers("/customer/login", "/customer/register", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/customer/login", "/customer/register","/fonts/**", "/css/**", "/js/**", "/images/**").permitAll()
                         // Các yêu cầu khác phải được xác thực
                         .anyRequest().authenticated()
                 )
@@ -42,9 +45,23 @@ public class SercurityConfig {
 
         return http.build();
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public org.springframework.security.core.userdetails.UserDetailsService userDetailsService() {
+        return (email) -> {
+            Customer customer = customerService.findByEmail(email);
+            if (customer == null) {
+                throw new UsernameNotFoundException("User not found");
+            }
+            return org.springframework.security.core.userdetails.User
+                    .withUsername(customer.getEmail())
+                    .password(customer.getPassword())
+                    .roles("USER")
+                    .build();
+        };
     }
 }
