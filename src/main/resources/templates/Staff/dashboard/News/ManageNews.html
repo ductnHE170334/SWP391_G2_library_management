@@ -55,8 +55,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="news : ${newsPage.content}">
-                                    <td th:text="${news.id}"></td>
+                                <tr th:each="news, newsStat : ${newsPage.content}">
+                                    <td th:text="${newsStat.count}"></td>
                                     <td th:text="${news.title}"></td>
                                     <td th:text="${news.date_created}"></td>
                                     <td th:text="${news.description}"></td>
