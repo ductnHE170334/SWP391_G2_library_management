@@ -57,7 +57,7 @@ public class CustomerCartService {
         System.out.println("Name of customer: " + customer.getLastName());
         Book_item bookItem = customerBookItemRepository.findById(String.valueOf(bookItemId)).get();
         System.out.println("Book item "+ bookItem.getBook().getName());
-        borrowIndex.setCustomer_id(customer);
+        borrowIndex.setCustomer(customer);
         borrowIndex.setBook_item_id(bookItem);
         borrowIndex.setBorrow_date(LocalDateTime.now());
         LocalDateTime returnDate = LocalDateTime.now().plusDays(7);
