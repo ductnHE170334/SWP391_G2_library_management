@@ -128,7 +128,7 @@ public class CustomerCartController {
 //            model.addAttribute("books", books);
 //        }
 
-        return "Customer/RequestBorrow/checkOutBook";
+        return "Customer/RequestBorrow/vcheckOutBook";
     }
 
 
