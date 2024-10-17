@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="Customer/fragments/header :: html_head">
+</head>
+
+<body>
+<header th:replace="Customer/fragments/customer_header :: customer_header"></header>
+<section class="page-banner services-banner">
+    <div class="container">
+        <div class="banner-header">
+            <h2>Books & Media Listing</h2>
+            <span class="underline center"></span>
+            <p class="lead">Proin ac eros pellentesque dolor pharetra tempo.</p>
+        </div>
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="index-2.html">Home</a></li>
+                <li>Books & Media</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div id="content" class="site-content">
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+            <div class="cart-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="cart-head">
+                            <div class="col-xs-12 col-sm-6 account-option">
+                                <strong>Scott Fitzgerald</strong>
+                                <ul>
+                                    <li><a href="#">Edit Account</a></li>
+                                    <li class="divider">|</li>
+                                    <li><a href="#">Edit Pin </a></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 library-info">
+                                <ul>
+                                    <li>
+                                        <strong>Home Library:</strong>
+                                        Stephen A. Schwarzman Building
+                                    </li>
+                                    <li>
+                                        <strong>Email:</strong>
+                                        <a href="mailto:scottfitzgerald@gmail.com">scottfitzgerald@gmail.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="page type-page status-publish hentry">
+                                <div class="entry-content">
+                                    <div class="woocommerce table-tabs" id="responsiveTabs">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><b class="arrow-up"></b><a data-toggle="tab"
+                                                                                          href="#sectionA">Book Bag</a>
+                                            </li>
+                                            <li><b class="arrow-up"></b> <a data-toggle="tab" th:href="@{/borrow/{customerId}(customerId=${customerId})}" >Track book borrow request</a>
+                                            </li>
+
+                                        </ul>
+                                        <div class="tab-content">
+                                            <form method="post" action="/cart/cart-page">
+                                                <input type="hidden" name="customerId" th:value="${customerId}" />
+                                                <!-- Hidden field to pass customerId -->
+                                                <table class="table table-bordered shop_table cart">
+                                                    <thead>
+                                                    <tr>
+
+                                                        <th class="product-name">Title</th>
+                                                        <th class="product-name">BorrowDate</th>
+                                                        <th class="product-name">ReturnDate</th>
+                                                        <th class="product-name">Status</th>
+                                                        <th class="product-quantity">Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="borrow : ${borrowIndexList}">
+                                                        <td data-title="Product" class="product-name">
+            <span class="product-thumbnail">
+                <a th:href="@{/book/details/{id}(id=${borrow.book_item_id.book.id})}">
+                    <img th:src="@{/images/cart/cart-product-1.jpg}" alt="cart-product-1">
+                </a>
+            </span>
+                                                            <span class="product-detail">
+                <a th:href="@{/book/details/{id}(id=${borrow.book_item_id.book.id})}">
+                    <strong th:text="${borrow.book_item_id.book.name}">Book Title</strong>
+                </a>
+                <p><strong>Author:</strong>
+                    <span th:each="author : ${borrow.book_item_id.book.authors}">
+                        <span th:text="${author.name}">Author Name</span>
+                    </span>
+                </p>
+                <p><strong>Condition:</strong>
+                    <span th:text="${borrow.book_item_id.condition}">Condition</span>
+                </p>
+            </span>
+                                                        </td>
+                                                        <!-- In trực tiếp ngày đi mượn và ngày trả -->
+                                                        <td th:text="${borrow.borrow_date}">Borrow Date</td>
+                                                        <td th:text="${borrow.return_date}">Return Date</td>
+                                                        <td th:text="${borrow.status_id.status}">Status</td>
+                                                        <td data-title="action" class="product-action">
+                                                            <div class="form-delete">
+                                                                <a th:href="@{/cart/delete(customerId=${customerId}, bookItemId=${borrow.book_item_id.id})}" class="btn btn-link">Delete</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+
+
+                                                </table>
+                                                <!-- Submit button for borrowing books -->
+                                                <input type="submit" class="btn btn-default" name="continue" value="Request to borrow book">
+                                            </form>
+
+
+
+                                        </div>
+                                    </div>
+                                </div><!-- .entry-content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>
