@@ -1,6 +1,7 @@
 package SWP391_G2.com.example.library_Management.HomePage.service;
 
 import SWP391_G2.com.example.library_Management.Entity.Author;
+import SWP391_G2.com.example.library_Management.Entity.Category;
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageAuthorRepository;
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageBookRepository;
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageCategoryRepository;
@@ -20,6 +21,10 @@ public class HomePageService {
 
     public List<Author> getAllAuthors() {
         return homePageAuthorRepository.findAll();
+    }
+
+    public List<Category> getAllCategories() {
+        return homePageCategoryRepository.findAll();
     }
 
 }
