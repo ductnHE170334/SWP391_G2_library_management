@@ -7,6 +7,9 @@ import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageAuth
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageBookRepository;
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,5 +31,9 @@ public class HomePageService {
         return homePageCategoryRepository.findAll();
     }
 
-    public List<Book> getAllBooks(){ return  homePageBookRepository.findAll(); }
+    public Page<Book> getAllBooks(int page, int size)
+    {
+        Pageable pageable = PageRequest.of(page, size);
+        return  homePageBookRepository.findAll(pageable);
+    }
 }
