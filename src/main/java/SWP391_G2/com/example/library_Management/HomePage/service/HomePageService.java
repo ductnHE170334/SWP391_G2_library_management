@@ -1,6 +1,7 @@
 package SWP391_G2.com.example.library_Management.HomePage.service;
 
 import SWP391_G2.com.example.library_Management.Entity.Author;
+import SWP391_G2.com.example.library_Management.Entity.Book;
 import SWP391_G2.com.example.library_Management.Entity.Category;
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageAuthorRepository;
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageBookRepository;
@@ -13,7 +14,7 @@ import java.util.List;
 @Service
 public class HomePageService {
     @Autowired
-    private HomePageBookRepository homePageRepository;
+    private HomePageBookRepository homePageBookRepository;
     @Autowired
     private HomePageAuthorRepository homePageAuthorRepository;
     @Autowired
@@ -27,4 +28,5 @@ public class HomePageService {
         return homePageCategoryRepository.findAll();
     }
 
+    public List<Book> getAllBooks(){ return  homePageBookRepository.findAll(); }
 }
