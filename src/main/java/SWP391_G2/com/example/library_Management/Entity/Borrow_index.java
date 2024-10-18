@@ -3,6 +3,7 @@ package SWP391_G2.com.example.library_Management.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -25,10 +26,10 @@ public class Borrow_index {
     private String book_condition_after;
 
     @Column(name = "borrow_date")
-    private Date borrow_date;
+    private LocalDateTime borrow_date;
 
     @Column(name = "return_date")
-    private Date return_date;
+    private LocalDateTime return_date;
 
     // One-to-One relationship with Status
     @OneToOne(fetch = FetchType.LAZY)
@@ -38,12 +39,12 @@ public class Borrow_index {
     // One-to-One relationship with Customer
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", unique = true)  // Foreign key to Book
-    private Customer customer_id;
+    private Customer customer;
 
     // One-to-One relationship with Staff
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "staff_id", unique = true)  // Foreign key to Book
-    private Staff staff_id;
+    private Staff staff;
 
     //One-to-One relationship with Book_item
     @OneToOne(fetch = FetchType.LAZY)

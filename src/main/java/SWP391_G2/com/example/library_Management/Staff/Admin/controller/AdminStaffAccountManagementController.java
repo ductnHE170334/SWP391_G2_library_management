@@ -32,6 +32,7 @@ public class AdminStaffAccountManagementController {
         model.addAttribute("staffs", staff.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", staff.getTotalPages());
+        model.addAttribute("roles", adminStaffAccountService.getAllRoles());
         return "Staff/dashboard/Account/list_staff";
     }
 
@@ -114,11 +115,11 @@ public class AdminStaffAccountManagementController {
     public String showAddForm(Model model) {
         model.addAttribute("staff", new Staff());
         model.addAttribute("roles", adminStaffAccountService.getAllRoles());
-        return "Staff/dashboard/Account/add_staff";
+        return "Staff/dashboard/Account/list_staff";
     }
 
     // Add a new staff
-    @PostMapping("/add")
+    @PostMapping("/list")
     public String addStaff(@ModelAttribute Staff staff,
                            @RequestParam int roleId,
                            @RequestParam(value = "confirmPassword", required = false) String confirmPassword,
@@ -128,20 +129,20 @@ public class AdminStaffAccountManagementController {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         if (!staff.getEmail().matches(emailRegex)) {
             redirectAttributes.addFlashAttribute("error", "Invalid email format!");
-            return "redirect:/staff/add"; // Redirect back to the add form
+            return "redirect:/staff/list";
         }
 
         // Validate phone format
         String phoneRegex = "^\\d{10,15}$";
         if (!staff.getPhone().matches(phoneRegex)) {
             redirectAttributes.addFlashAttribute("error", "Invalid phone number format!");
-            return "redirect:/staff/add"; // Redirect back to the add form
+            return "redirect:/staff/list";
         }
 
         // Check if passwords match
         if (staff.getPassword() == null || !staff.getPassword().equals(confirmPassword)) {
             redirectAttributes.addFlashAttribute("error", "Passwords do not match!");
-            return "redirect:/staff/add"; // Redirect back to the add form
+            return "redirect:/staff/list";
         }
 
         List<Role> roles = adminStaffAccountService.getAllRoles();
