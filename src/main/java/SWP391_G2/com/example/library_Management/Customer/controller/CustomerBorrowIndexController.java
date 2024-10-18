@@ -1,7 +1,9 @@
 package SWP391_G2.com.example.library_Management.Customer.controller;
 
+import SWP391_G2.com.example.library_Management.Customer.repository.CustomerRepository;
 import SWP391_G2.com.example.library_Management.Customer.service.CustomerBorrowIndexService;
 import SWP391_G2.com.example.library_Management.Entity.Borrow_index;
+import SWP391_G2.com.example.library_Management.Entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,10 +28,19 @@ public class CustomerBorrowIndexController {
             System.out.println("Borrow ID: " + borrow.getId());
         }
 
-        // Thêm danh sách vào model để hiển thị trong view
         model.addAttribute("borrowIndexList", borrowIndexList);
         model.addAttribute("customerId",customerId);
 
         return "Customer/bookTracking";
     }
+    @GetMapping("/delete/{customerId}/{bookItemId}")
+    public String deleteBorrowIndex(@PathVariable Long customerId, @PathVariable Long bookItemId, Model model) {
+        System.out.println("Customer ID: " + customerId);
+        System.out.println("Book Item ID: " + bookItemId);
+
+        customerBorrowIndexService.deleteBorrowIndex(customerId, bookItemId);
+
+        return "redirect:/borrow/" + customerId;
+    }
+
 }

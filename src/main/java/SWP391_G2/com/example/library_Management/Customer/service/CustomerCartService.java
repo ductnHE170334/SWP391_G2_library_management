@@ -58,10 +58,7 @@ public class CustomerCartService {
         Book_item bookItem = customerBookItemRepository.findById(String.valueOf(bookItemId)).get();
         System.out.println("Book item "+ bookItem.getBook().getName());
         borrowIndex.setCustomer(customer);
-        borrowIndex.setBook_item_id(bookItem);
-        borrowIndex.setBorrow_date(LocalDateTime.now());
-        LocalDateTime returnDate = LocalDateTime.now().plusDays(7);
-        borrowIndex.setReturn_date(returnDate);
+        borrowIndex.setBook_item(bookItem);
         Status status = customerBorrowStatusRepository.findById(String.valueOf(1)).get();
         borrowIndex.setStatus_id(status);
         customerBorrowIndexRepository.save(borrowIndex);
