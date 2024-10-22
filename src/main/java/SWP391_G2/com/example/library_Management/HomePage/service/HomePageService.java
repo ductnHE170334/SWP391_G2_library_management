@@ -36,4 +36,9 @@ public class HomePageService {
         Pageable pageable = PageRequest.of(page, size);
         return  homePageBookRepository.findAll(pageable);
     }
+
+    //Get book by id
+    public Book getBook(int id) {
+        return homePageBookRepository.findById(id).get();
+    }
 }

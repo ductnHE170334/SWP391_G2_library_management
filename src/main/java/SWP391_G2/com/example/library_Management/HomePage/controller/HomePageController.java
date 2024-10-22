@@ -22,6 +22,7 @@ public class HomePageController {
     @Autowired
     private HomePageService homePageService;
 
+    //Get all information for the home page
     @GetMapping("/list")
     public String homePage(Model theModel, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
         Page<Book> booksPage;
@@ -44,4 +45,25 @@ public class HomePageController {
 
         return "Customer/HomePage/HomePage";
     }
+
+    //Get book detail
+    @GetMapping("/bookDetail")
+    public String bookDetail(@RequestParam("bookId") int theId, Model theModel) {
+        //get the book from the service
+        Book theBook = homePageService.getBook(theId);
+
+        //get the author from the service
+        List<Author> theAuthors = homePageService.getAllAuthors();
+
+        //get all categories from the service
+        List<Category> theCategories = homePageService.getAllCategories();
+
+        // add to the spring model
+        theModel.addAttribute("book", theBook);
+        theModel.addAttribute("authors", theAuthors);
+        theModel.addAttribute("categories", theCategories);
+
+        return "Customer/HomePage/BookDetail";
+    }
+
 }
