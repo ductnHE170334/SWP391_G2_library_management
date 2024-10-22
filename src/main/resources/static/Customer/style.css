@@ -19226,3 +19226,29 @@ a:focus {
 .bx-wrapper .bx-pager.bx-default-pager a.active {
   background: #ff7236;
 }
+.pagination {
+  display: flex; /* Flexbox layout for pagination */
+  justify-content: center; /* Center pagination controls */
+  margin-top: 20px; /* Space above pagination */
+}
+
+.pagination a {
+  text-decoration: none; /* Remove underline */
+  color: #007bff; /* Blue color for links */
+  font-size: 1em; /* Font size for pagination links */
+  padding: 10px 15px; /* Padding inside links */
+  border: 1px solid #007bff; /* Blue border */
+  border-radius: 4px; /* Rounded corners */
+  margin: 0 5px; /* Space between pagination items */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+}
+
+.pagination a:hover {
+  background-color: #007bff; /* Blue background on hover */
+  color: #ffffff; /* White text on hover */
+}
+
+.pagination .pagination-prev,
+.pagination .pagination-next {
+  font-weight: 600; /* Semi-bold text for prev/next buttons */
+}

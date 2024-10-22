@@ -39,7 +39,9 @@ public class AdminBookItemManagementController {
     @GetMapping("/editBookItem/{id}")
     public String viewEditBookItem(@PathVariable("id") int id, Model model){
         Book_item bookItem = adminBookItemService.getBookItemById(id);
+
         System.out.println("Book name"+bookItem.getBook().getName());
+
         model.addAttribute("bookItem",bookItem);
         return "Staff/dashboard/Book/EditBook_item";
     }

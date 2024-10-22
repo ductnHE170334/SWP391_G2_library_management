@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<style>
+    /* Body styling */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0; /* Loại bỏ margin mặc định */
+        padding: 0; /* Loại bỏ padding mặc định */
+        height: 100vh; /* Chiều cao toàn bộ màn hình */
+        background-color: #f4f6f9; /* Màu nền nhẹ cho toàn bộ trang */
+        position: relative; /* Cần thiết cho căn giữa */
+    }
+
+
+    /* Main content wrapper */
+    .content-wrapper {
+        max-width: 600px; /* Chiều rộng tối đa cho phần nội dung */
+        background-color: #ffffff; /* Màu nền trắng cho phần nội dung */
+        border-radius: 8px; /* Bo tròn góc */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+        padding: 20px; /* Padding cho phần nội dung */
+        width: 100%; /* Chiều rộng 100% */
+        box-sizing: border-box; /* Bao gồm padding và border trong chiều rộng */
+    }
+
+    /* Table styling */
+    .table {
+        width: 100%;                /* Chiều rộng của bảng là 100% so với phần tử cha */
+        margin-bottom: 20px;       /* Khoảng cách phía dưới bảng là 20px, tạo không gian giữa bảng và phần tử phía dưới */
+        border-collapse: collapse;  /* Kết hợp các viền của các ô trong bảng lại với nhau, giúp bảng trông gọn gàng hơn */
+        border-radius: 8px;        /* Bo tròn các góc của bảng với bán kính 8px */
+        overflow: hidden;          /* Ẩn các phần nội dung bị tràn ra ngoài khung bảng */
+    }
+
+    .table th, .table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .table th {
+        background-color: #f8f9fa;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Button styling */
+    .btn {
+        padding: 8px 12px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    /* Alert messages */
+    .alert {
+        margin-bottom: 20px;
+        border-radius: 4px;
+    }
+
+    /* Pagination styles */
+    .pagination {
+        justify-content: center;
+    }
+
+    .pagination .page-item {
+        margin: 0 5px;
+    }
+
+    .pagination .page-link {
+        padding: 8px 12px;
+        border-radius: 4px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .pagination .active .page-link {
+        font-weight: bold;
+    }
+</style>
+<head th:replace="Staff/fragments/header :: html_head">
+    <title>Add Staff</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<header th:replace="Staff/fragments/admin_header :: admin_header"></header>
+<aside th:replace="Staff/fragments/admin_sidebar :: admin_sidebar"></aside>
+<div class="content-wrapper">
+    <h1 class="text-center">Add Staff</h1>
+
+    <!-- Display error message -->
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        <span th:text="${error}"></span>
+    </div>
+
+    <form th:action="@{/staff/add}" method="post">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="roleId">Role</label>
+            <select id="roleId" name="roleId" class="form-control" required>
+                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+            </select>
+        </div>
+
+        <!-- Submit and Cancel Buttons -->
+        <button type="submit" class="btn btn-primary">Add Staff</button>
+        <a th:href="@{/staff/list}" class="btn btn-secondary">Cancel</a> <!-- Cancel button -->
+    </form>
+
+    <footer th:replace="Staff/fragments/admin_footer :: admin_footer"></footer>
+</div>
+</body>
+</html>
