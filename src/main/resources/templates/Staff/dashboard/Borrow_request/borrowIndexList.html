@@ -50,7 +50,11 @@
                                 <td th:text="${borrowIndex.id}"></td>
                                 <td th:text="${borrowIndex.book_item.book.id}"></td>
                                 <td th:text="${borrowIndex.book_item.book.name}"></td>
-                                <td th:text="${borrowIndex.customer.firstName}"></td>
+
+                                <!-- Bọc firstName và lastName trong thẻ a -->
+                                <td>
+                                    <a th:href="@{${borrowIndex.customer.id}}" th:text="${borrowIndex.customer.firstName + ' ' + borrowIndex.customer.lastName}"></a>
+                                </td>
 
                                 <!-- Định dạng ngày yêu cầu (created_requested_at) -->
                                 <td th:text="${#temporals.format(borrowIndex.created_requested_at, 'dd-MM-yyyy HH:mm:ss')}"></td>
@@ -68,6 +72,7 @@
                                     <a th:href="@{'/librarian/requestBorrow/deny/' + ${borrowIndex.id}}" class="btn btn-danger">Deny</a>
                                 </td>
                             </tr>
+
 
 
                             </tbody>
