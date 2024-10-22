@@ -18441,9 +18441,11 @@ a:focus {
   margin: 0 0 30px;
 }
 .sidebar .widget-sub-title::after {
-  content: "\f067";
-  font-size: 11px;
-  top: 2px;
+  content: "\002B"; /* Unicode for plus sign */
+  display: inline-block;
+  font-size: 16px;
+  color: #2f2f2f;
+  margin-left: 10px;
 }
 .sidebar .widget-sub-title i {
   color: #a1a1a1;
@@ -18455,8 +18457,11 @@ a:focus {
   padding-bottom: 30px;
 }
 .sidebar .open > .widget-sub-title::after {
-  content: "\f068";
-  transform: none;
+  content: "\2212"; /* Unicode for minus sign */
+  display: inline-block;
+  font-size: 16px;
+  color: #2f2f2f;
+  margin-left: 10px;
 }
 .sidebar .underline {
   margin-bottom: 30px;
@@ -18498,6 +18503,7 @@ a:focus {
 .sidebar .widget_categories ul li a {
   color: #464646;
   display: block;
+  cursor: pointer;
 }
 .sidebar .widget_categories ul li a span {
   float: right;
