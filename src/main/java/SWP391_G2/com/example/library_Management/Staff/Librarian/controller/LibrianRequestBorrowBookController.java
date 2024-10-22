@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -38,6 +39,19 @@ public class LibrianRequestBorrowBookController {
         theModel.addAttribute("totalItems", borrowIndicesPage.getTotalElements());
 
         return "Staff/dashboard/Borrow_request/borrowIndexList"; // Trả về view tương ứng
+
+    }
+    @GetMapping("/accept/{id}")
+    public String acceptBorrowRequest(@PathVariable("id") int id) {
+        librarianBorrowIndexService.updateBorrowStatus(id, 2); // status_id = 2
+        return "redirect:/librarian/requestBorrow"; // Chuyển hướng về trang danh sách
+    }
+
+    // Phương thức xử lý Deny (thay đổi status_id thành 4)
+    @GetMapping("/deny/{id}")
+    public String denyBorrowRequest(@PathVariable("id") int id) {
+        librarianBorrowIndexService.updateBorrowStatus(id, 4); // status_id = 4
+        return "redirect:/librarian/requestBorrow"; // Chuyển hướng về trang danh sách
     }
 
 }
