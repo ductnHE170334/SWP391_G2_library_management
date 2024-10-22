@@ -54,8 +54,8 @@
                             <div class="form-group">
                                 <label>Select Condition</label>
                                 <select class="form-control" th:field="*{condition}">
-                                    <option th:value="Good" th:text="'Good'" th:selected="${bookItem.condition == 'Good'}"></option>
-                                    <option th:value="Lost" th:text="'Lost'" th:selected="${bookItem.condition == 'Lost'}"></option>
+                                    <option th:value="Available" th:text="'Available'" th:selected="${bookItem.condition == 'Available'}"></option>
+                                    <option th:value="Unavailable" th:text="'Unavailable'" th:selected="${bookItem.condition == 'Unavailable'}"></option>
                                 </select>
                             </div>
                         </div>
