@@ -1,13 +1,10 @@
 package SWP391_G2.com.example.library_Management.Customer.Config;
 
 import SWP391_G2.com.example.library_Management.Customer.service.CustomerService;
-import SWP391_G2.com.example.library_Management.Entity.Customer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,7 +52,7 @@ public class SercurityConfig {
         return (email) -> {
             Customer customer = customerService.findByEmail(email);
             if (customer == null) {
-                throw new UsernameNotFoundException("User not found");
+                throw new UsernameNotFoundException("Users not found");
             }
             return org.springframework.security.core.userdetails.User
                     .withUsername(customer.getEmail())

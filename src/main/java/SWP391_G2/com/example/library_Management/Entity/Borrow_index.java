@@ -3,7 +3,6 @@ package SWP391_G2.com.example.library_Management.Entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -46,12 +45,12 @@ public class Borrow_index {
     // One-to-One relationship with Customer
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", unique = true)
-    private Customer customer;
+    private Users customer;
 
     // One-to-One relationship with Staff
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "staff_id", unique = true)  // Foreign key to Book
-    private User staff_id;
+    private Users staff_id;
 
     // One-to-One relationship with Book_item
     @OneToOne(fetch = FetchType.LAZY)

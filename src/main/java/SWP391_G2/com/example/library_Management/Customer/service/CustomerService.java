@@ -1,7 +1,6 @@
 package SWP391_G2.com.example.library_Management.Customer.service;
 
 import SWP391_G2.com.example.library_Management.Customer.repository.CustomerRepository;
-import SWP391_G2.com.example.library_Management.Entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

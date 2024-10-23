@@ -3,7 +3,6 @@ package SWP391_G2.com.example.library_Management.Customer.controller;
 
 import SWP391_G2.com.example.library_Management.Customer.dto.request.CustomerLoginRequest;
 import SWP391_G2.com.example.library_Management.Customer.service.CustomerService;
-import SWP391_G2.com.example.library_Management.Entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
