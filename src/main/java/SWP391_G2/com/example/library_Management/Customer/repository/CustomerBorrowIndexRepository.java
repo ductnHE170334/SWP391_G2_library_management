@@ -2,7 +2,6 @@ package SWP391_G2.com.example.library_Management.Customer.repository;
 
 import SWP391_G2.com.example.library_Management.Entity.Book_item;
 import SWP391_G2.com.example.library_Management.Entity.Borrow_index;
-import SWP391_G2.com.example.library_Management.Entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -5,7 +5,6 @@ import SWP391_G2.com.example.library_Management.Customer.repository.CustomerBorr
 import SWP391_G2.com.example.library_Management.Customer.repository.CustomerRepository;
 import SWP391_G2.com.example.library_Management.Entity.Book_item;
 import SWP391_G2.com.example.library_Management.Entity.Borrow_index;
-import SWP391_G2.com.example.library_Management.Entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
