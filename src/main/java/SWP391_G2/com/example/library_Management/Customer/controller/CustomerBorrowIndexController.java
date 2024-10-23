@@ -1,9 +1,7 @@
 package SWP391_G2.com.example.library_Management.Customer.controller;
 
-import SWP391_G2.com.example.library_Management.Customer.repository.CustomerRepository;
 import SWP391_G2.com.example.library_Management.Customer.service.CustomerBorrowIndexService;
 import SWP391_G2.com.example.library_Management.Entity.Borrow_index;
-import SWP391_G2.com.example.library_Management.Entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

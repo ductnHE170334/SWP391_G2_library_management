@@ -31,5 +31,5 @@ public class Book_feedback {
     // One-to-One relationship with Customer
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", unique = true)  // Foreign key to Customer
-    private Customer customer;
+    private User customer;
 }
