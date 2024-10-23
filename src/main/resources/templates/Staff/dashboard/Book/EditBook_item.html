@@ -21,7 +21,7 @@
         <ol class="breadcrumb">
             <li><a th:href="@{'/books'}"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a th:href="@{'/books'}">Book</a></li>
-            <li><a th:href="@{'/bookitems/' + ${book.id}}">Manage Book item</a></li>
+            <li><a th:href="@{'/bookitems/' + ${bookItem.book.id}}">Manage Book item</a></li>
             <li class="active">Edit Book_item</li>
         </ol>
     </section>
@@ -64,8 +64,6 @@
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
-
-
 
                 </div>
                 <!-- /.box -->
