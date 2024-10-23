@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="html_head">
+
+
+</head>
+
+<body>
+
+<aside th:fragment="librarian_sidebar" class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+        <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+
+
+            <li>
+                <a th:href="@{'/librarian/requestBorrow'}">
+                    <i class="fa fa-th"></i> <span>Request Borrow Book Manage</span>
+                </a>
+            </li>
+
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+</body>
+</html>
