@@ -38,13 +38,13 @@ public class LibrarianBorrowIndexService {
 
             // Cập nhật trạng thái
             Status status = librarianStatusRepository.findById(String.valueOf(statusId)).get();
-            optionalBorrowIndex.setStatus_id(status);
+            optionalBorrowIndex.setStatus(status);
 
             // Nếu trạng thái là Accepted (statusId == 2), cập nhật borrow_date và return_date
             if (statusId == 2) {
                 LocalDateTime now = LocalDateTime.now();
-                optionalBorrowIndex.setBorrow_date(now);
-                optionalBorrowIndex.setReturn_date(now.plusDays(7));
+                optionalBorrowIndex.setBorrowDate(now);
+                optionalBorrowIndex.setReturnDate(now.plusDays(7));
                 Book_item bookItem = optionalBorrowIndex.getBook_item();
                 if (bookItem != null) {
                     bookItem.setCondition("Unavailable");

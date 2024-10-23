@@ -1,8 +1,6 @@
 package SWP391_G2.com.example.library_Management.Staff.Librarian.controller;
-
-import SWP391_G2.com.example.library_Management.Entity.Book_item;
 import SWP391_G2.com.example.library_Management.Entity.Borrow_index;
-import SWP391_G2.com.example.library_Management.Entity.Customer;
+import SWP391_G2.com.example.library_Management.Entity.User;
 import SWP391_G2.com.example.library_Management.Staff.Librarian.service.LibrarianCustomerDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +18,10 @@ public class LibrarianCustomerDetailController {
     LibrarianCustomerDetailService librarianCustomerDetailService;
     @GetMapping("/{id}")
     public String showCustomerDetail(@PathVariable("id") int id, Model model) {
-        Customer customer = librarianCustomerDetailService.findCustomerById(id);
+        User user = librarianCustomerDetailService.findCustomerById(id);
         List<Borrow_index> borrowIndexList = librarianCustomerDetailService.getListBorrowindexByCustomer(id);
-        if (customer != null) {
-            model.addAttribute("customer", customer);
+        if (user != null) {
+            model.addAttribute("customer", user);
             model.addAttribute("borrowIndexList",borrowIndexList);
             return "Staff/dashboard/Borrow_request/CustomerDetail";
         } else {

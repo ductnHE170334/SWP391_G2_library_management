@@ -59,15 +59,15 @@
 
 
                                 <!-- Định dạng ngày yêu cầu (created_requested_at) -->
-                                <td th:text="${#temporals.format(borrowIndex.created_requested_at, 'dd-MM-yyyy HH:mm:ss')}"></td>
+                                <td th:text="${#temporals.format(borrowIndex.createdRequestedAt, 'dd-MM-yyyy HH:mm:ss')}"></td>
 
                                 <!-- Định dạng ngày mượn (borrow_date) -->
-                                <td th:text="${#temporals.format(borrowIndex.borrow_date, 'dd-MM-yyyy')}"></td>
+                                <td th:text="${#temporals.format(borrowIndex.borrowDate, 'dd-MM-yyyy')}"></td>
 
                                 <!-- Định dạng ngày trả (return_date) -->
-                                <td th:text="${#temporals.format(borrowIndex.return_date, 'dd-MM-yyyy')}"></td>
+                                <td th:text="${#temporals.format(borrowIndex.returnDate, 'dd-MM-yyyy')}"></td>
 
-                                <td th:text="${borrowIndex.status_id.status}"></td>
+                                <td th:text="${borrowIndex.status.status}"></td>
 
                             </tr>
 

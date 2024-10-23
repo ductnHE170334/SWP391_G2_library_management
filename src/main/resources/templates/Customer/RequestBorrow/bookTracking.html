@@ -56,17 +56,17 @@
                                     <div class="woocommerce table-tabs" id="responsiveTabs">
                                         <ul class="nav nav-tabs">
                                             <li><b class="arrow-up"></b><a data-toggle="tab"
-                                                                           href="/cart?customerId=1">Cart</a>
+                                                                           href="/cart?userId=1">Cart</a>
                                             </li>
                                             <li class="active"><b class="arrow-up"></b> <a data-toggle="tab"
-                                                                                           th:href="@{/borrow/{customerId}(customerId=${customerId})}">Track
+                                                                                           th:href="@{/borrow/{userId}(userId=${userId})}">Track
                                                 book borrow request</a>
                                             </li>
 
                                         </ul>
                                         <div class="tab-content">
                                             <form method="post" action="/cart/cart-page">
-                                                <input type="hidden" name="customerId" th:value="${customerId}"/>
+                                                <input type="hidden" name="customerId" th:value="${userId}"/>
 
                                                 <table class="table table-bordered shop_table cart">
                                                     <thead>
@@ -118,7 +118,7 @@
                                                         <td th:text="${borrow.status_id.status}">Status</td>
                                                         <td data-title="action" class="product-action">
                                                             <div class="form-delete">
-                                                                <a th:href="@{/borrow/delete/{customerId}/{bookItemId}(customerId=${customerId}, bookItemId=${borrow.book_item.id})}"
+                                                                <a th:href="@{/borrow/delete/{userId}/{bookItemId}(userId=${userId}, bookItemId=${borrow.book_item.id})}"
                                                                    class="btn btn-dark-gray">
                                                                     <i class="fa fa-fw fa-trash"></i>
                                                                 </a>

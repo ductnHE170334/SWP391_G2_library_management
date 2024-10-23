@@ -2,7 +2,7 @@ package SWP391_G2.com.example.library_Management.Staff.Librarian.service;
 
 import SWP391_G2.com.example.library_Management.Entity.Book_item;
 import SWP391_G2.com.example.library_Management.Entity.Borrow_index;
-import SWP391_G2.com.example.library_Management.Entity.Customer;
+import SWP391_G2.com.example.library_Management.Entity.User;
 import SWP391_G2.com.example.library_Management.Staff.Librarian.repository.LibrarianBookItemRepository;
 import SWP391_G2.com.example.library_Management.Staff.Librarian.repository.LibrarianBorrowIndexRepository;
 import SWP391_G2.com.example.library_Management.Staff.Librarian.repository.LibrarianCustomerRepository;
@@ -21,15 +21,15 @@ public class LibrarianCustomerDetailService {
     LibrarianBookItemRepository librarianBookItemRepository;
     @Autowired
     LibrarianBorrowIndexRepository librarianBorrowIndexRepository;
-    public Customer findCustomerById(int id) {
-        Optional<Customer> result = librarianCustomerRepository.findById(Long.valueOf(id));
+    public User findCustomerById(int id) {
+        Optional<User> result = librarianCustomerRepository.findById(Long.valueOf(id));
         return result.orElse(null);
     }
 
 
 
     public List<Borrow_index> getListBorrowindexByCustomer(int id) {
-        Customer customer = findCustomerById(id);
-        return librarianBorrowIndexRepository.findByCustomer(customer);
+        User user = findCustomerById(id);
+        return librarianBorrowIndexRepository.findByCustomer(user);
     }
 }
