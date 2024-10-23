@@ -47,7 +47,6 @@ public class LibrianRequestBorrowBookController {
         return "redirect:/librarian/requestBorrow"; // Chuyển hướng về trang danh sách
     }
 
-    // Phương thức xử lý Deny (thay đổi status_id thành 4)
     @GetMapping("/deny/{id}")
     public String denyBorrowRequest(@PathVariable("id") int id) {
         librarianBorrowIndexService.updateBorrowStatus(id, 4); // status_id = 4
