@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" th:href="@{/Staff/bootstrap/css/manageAccountStaff.css}">
+<link rel="stylesheet" th:href="@{/Staff/bootstrap/css/manageAccountUser.css}">
 
 
 <head th:replace="Staff/fragments/header :: html_head">
-  <title>Staff List</title>
+  <title>User List</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,27 +15,27 @@
 <header th:replace="Staff/fragments/admin_header :: admin_header"></header>
 <aside th:replace="Staff/fragments/admin_sidebar :: admin_sidebar"></aside>
 <div class="content-wrapper">
-  <h1 class="text-center">Manage Staff</h1>
+  <h1 class="text-center">Manage User</h1>
 
   <!-- Search Form -->
-  <form class="form-inline mb-4" th:action="@{/staff/search}" method="get">
+  <form class="form-inline mb-4" th:action="@{/user/search}" method="get">
     <div class="form-group mx-sm-3 mb-2">
-      <input type="text" class="form-control" name="name" placeholder="Search by Staff Name" th:value="${searchName}">
+      <input type="text" class="form-control" name="name" placeholder="Search by User Name" th:value="${searchName}">
     </div>
     <button type="submit" class="btn btn-primary mb-2">Search</button>
-    <!-- Add New Staff Button -->
-    <!--    <a th:href="@{/staff/add}" class="btn btn-success mb-2 mx-sm-2">Add New Staff</a>-->
-    <button type="button" class="btn btn-success mb-2 mx-sm-2" onclick="openAddStaffModal()">Add New Staff</button>
+    <!-- Add New User Button -->
+    <!--    <a th:href="@{/user/add}" class="btn btn-success mb-2 mx-sm-2">Add New User</a>-->
+    <button type="button" class="btn btn-success mb-2 mx-sm-2" onclick="openAddUserModal()">Add New User</button>
   </form>
 
-  <!-- Add Staff Modal -->
-  <div id="addStaffModal" class="modal">
+  <!-- Add User Modal -->
+  <div id="addUserModal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeAddStaffModal()">&times;</span>
-      <h2>Add New Staff</h2>
+      <span class="close" onclick="closeAddUserModal()">&times;</span>
+      <h2>Add New User</h2>
 
-      <!-- Add Staff Form -->
-      <form th:action="@{/staff/list}" method="post">
+      <!-- Add User Form -->
+      <form th:action="@{/user/list}" method="post">
         <div class="form-group">
           <label for="firstName">First Name</label>
           <input type="text" id="firstName" name="firstName" class="form-control" required />
@@ -68,8 +68,8 @@
         </div>
 
         <!-- Submit and Cancel Buttons -->
-        <button type="submit" class="btn btn-primary">Add Staff</button>
-        <a th:href="@{/staff/list}" class="btn btn-secondary">Cancel</a> <!-- Cancel button -->
+        <button type="submit" class="btn btn-primary">Add User</button>
+        <a th:href="@{/user/list}" class="btn btn-secondary">Cancel</a> <!-- Cancel button -->
       </form>
     </div>
   </div>
@@ -80,59 +80,62 @@
   <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
 
-  <!-- Staff List Table -->
+  <!-- User List Table -->
   <table class="table table-bordered mt-4">
     <thead class="thead-light">
     <tr>
-      <th>Staff ID</th>
+      <th>User ID</th>
       <th>Last Name</th>
       <th>First Name</th>
       <th>Email</th>
-      <th>Password</th>
       <th>Phone</th>
       <th>Role</th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${staffs.size() == 0}">
-      <td colspan="8" class="text-center">No staff found</td>
+    <tr th:if="${#lists.isEmpty(users)}">
+      <td colspan="7" class="text-center">No User found</td>
     </tr>
-    <tr th:each="staff : ${staffs}">
-      <td th:text="${staff.id}"></td>
-      <td th:text="${staff.lastName}"></td>
-      <td th:text="${staff.firstName}"></td>
-      <td th:text="${staff.email}"></td>
-      <td th:text="${staff.password}"></td>
-      <td th:text="${staff.phone}"></td>
-      <td th:text="${staff.role.name}"></td>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.id}"></td>
+      <td th:text="${user.lastName}"></td>
+      <td th:text="${user.firstName}"></td>
+      <td th:text="${user.email}"></td>
+      <td th:text="${user.phone}"></td>
+      <td th:text="${user.role.name}"></td>
       <td>
 
-        <button type="button" class="btn btn-primary" onclick="openUpdateStaffModal()">
-          <i class="fa-solid fa-pen-to-square"></i>
-        </button>
+<!--        <button type="button" class="btn btn-primary"-->
+<!--                th:attr="onclick='openUpdateStaffModal()'">-->
+<!--          <i class="fa-solid fa-pen-to-square"></i>-->
+<!--        </button>-->
 
-        <a th:href="@{/staff/update/{id}(id=${staff.id})}" class="btn btn-primary">
+<!-- </button>-->
+
+        <a th:href="@{/user/update/{id}(id=${user.id})}" class="btn btn-primary">
           <i class="fa-solid fa-pen-to-square"></i>
         </a>
 
-        <button class="btn btn-danger" th:attr="onclick='openModal(' + ${staff.id} + ')'" type="button">
+        <!-- Button Delete -->
+        <button class="btn btn-danger" th:attr="onclick='openDeleteModal(' + ${user.id} + ')'" type="button">
           <i class="fa-solid fa-trash"></i>
         </button>
+
       </td>
     </tr>
     </tbody>
   </table>
 
-  <!-- Update Staff Modal -->
-  <div id="updateStaffModal" class="modal" style="display:none;">
+  <!-- Update User Modal -->
+  <div id="updateUserModal" class="modal" style="display:none;">
     <div class="modal-content">
-      <span class="close" onclick="closeUpdateStaffModal()">&times;</span>
-      <h2>Update Staff</h2>
+      <span class="close" onclick="closeUpdateUserModal()">&times;</span>
+      <h2>Update User</h2>
 
-      <!-- Update Staff Form -->
-      <form id="updateStaffForm" th:action="@{/staff/list}" method="post">
-        <input type="hidden" id="updateStaffId" name="id" />
+      <!-- Update User Form -->
+      <form id="updateUserForm" th:action="@{/user/list}" method="post">
+        <input type="hidden" id="updateUserId" name="id" />
         <div class="form-group">
           <label for="updateLastName">Last Name</label>
           <input type="text" id="updateLastName" name="lastName" class="form-control" required />
@@ -156,41 +159,36 @@
           </select>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" onclick="closeUpdateStaffModal()">Cancel</button>
+        <button type="button" class="btn btn-secondary" onclick="closeUpdateUserModal()">Cancel</button>
       </form>
     </div>
   </div>
 
 
 
-
-
-
-
-
-
   <!-- Delete Confirmation Modal -->
-  <div id="deleteModal" class="modal">
+  <div id="deleteModal" class="modal" style="display:none;">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h1>Are you sure you want to delete this staff member?</h1>
+      <h1>Are you sure you want to delete this User?</h1>
       <button id="confirmDelete" class="btn btn-danger">Delete</button>
-      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
     </div>
   </div>
+
 
   <!-- Pagination -->
   <div class="pagination-wrapper">
     <nav aria-label="Page navigation">
       <ul class="pagination">
-        <li class="page-item" th:class="${currentPage == 0} ? 'disabled'">
-          <a class="page-link" th:href="@{/staff/list(page=${currentPage - 1}, size=${size})}" tabindex="-1"><</a>
+        <li class="page-item" th:class="${currentPage == 0 || totalPages == 0} ? 'disabled'">
+          <a class="page-link" th:href="@{/user/list(page=${currentPage - 1}, size=${size})}" tabindex="-1"><</a>
         </li>
         <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${i == currentPage} ? 'active'">
-          <a class="page-link" th:href="@{/staff/list(page=${i}, size=${size})}" th:text="${i + 1}"></a>
+          <a class="page-link" th:href="@{/user/list(page=${i}, size=${size})}" th:text="${i + 1}"></a>
         </li>
-        <li class="page-item" th:class="${currentPage + 1 == totalPages} ? 'disabled'">
-          <a class="page-link" th:href="@{/staff/list(page=${currentPage + 1}, size=${size})}">></a>
+        <li class="page-item" th:class="${currentPage + 1 == totalPages || totalPages == 0} ? 'disabled'">
+          <a class="page-link" th:href="@{/user/list(page=${currentPage + 1}, size=${size})}">></a>
         </li>
       </ul>
     </nav>
@@ -199,6 +197,6 @@
 </div>
 
 <footer th:replace="Staff/fragments/admin_footer :: admin_footer"></footer>
-<script th:src="@{/Staff/bootstrap/js/manageAccountStaff.js}"></script>
+<script th:src="@{/Staff/bootstrap/js/manageAccountUser.js}"></script>
 </body>
 </html>
