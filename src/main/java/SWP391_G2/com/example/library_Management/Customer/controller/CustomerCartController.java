@@ -21,7 +21,7 @@ public class CustomerCartController {
 
     @PostMapping("/add")
     public String addToCart(@RequestParam Long bookId,
-                            @RequestParam("customerId") Long customerId,
+                            @RequestParam("userId") Long userId,
                             HttpServletRequest request,
                             HttpServletResponse response) {
         Book_item bookItem = customerCartService.addToCart(bookId);
@@ -42,7 +42,7 @@ public class CustomerCartController {
         }
 
         // Thêm Book_item mới vào cookie
-        String newCookieValue = customerId + "-" + bookItem.getId();
+        String newCookieValue = userId + "-" + bookItem.getId();
         if (!existingCookieValue.isEmpty()) {
             newCookieValue = existingCookieValue + "|" + newCookieValue;
         }
@@ -58,7 +58,7 @@ public class CustomerCartController {
 
     @GetMapping("/delete")
     public String deleteItemFromCart(@CookieValue(value = "cartItem", defaultValue = "") String cartItem,
-                                     @RequestParam Long customerId,
+                                     @RequestParam Long userId,
                                      @RequestParam Long bookItemId,
                                      HttpServletResponse response,
                                      Model model) {
@@ -73,7 +73,7 @@ public class CustomerCartController {
                 Long cookieBookItemId = Long.valueOf(parts[1]);
 
 
-                if (!(cookieCustomerId.equals(customerId) && cookieBookItemId.equals(bookItemId))) {
+                if (!(cookieCustomerId.equals(userId) && cookieBookItemId.equals(bookItemId))) {
 
                     if (updatedCart.length() > 0) {
                         updatedCart.append("|");
@@ -96,7 +96,7 @@ public class CustomerCartController {
 
     @GetMapping
     public String viewCart(@CookieValue(value = "cartItem", defaultValue = "") String cartItem,
-                           @RequestParam(defaultValue = "1") Long customerId,
+                           @RequestParam(defaultValue = "1") Long userId,
                            Model model) {
 //        List<Book> books = new ArrayList<>();
         List<Book_item> bookItemList = new ArrayList<>();
@@ -108,7 +108,7 @@ public class CustomerCartController {
                 Long cookieCustomerId = Long.valueOf(parts[0]);
                 Long bookItemId = Long.valueOf(parts[1]);
 
-                if (cookieCustomerId.equals(customerId)) {
+                if (cookieCustomerId.equals(userId)) {
                     Book_item bookItem = customerCartService.getBookItemById(bookItemId);
                     bookItemList.add(bookItem);
 //                    Book book = customerCartService.getBookFromBookItem(bookItemId);
@@ -134,7 +134,7 @@ public class CustomerCartController {
 
     @PostMapping("/cart-page")
     public String submitBorrowRequest(@CookieValue(value = "cartItem", defaultValue = "") String cartItem,
-                                      @RequestParam("customerId") Long customerId,
+                                      @RequestParam("userId") Long userId,
                                       HttpServletRequest request,
                                       HttpServletResponse response,
                                       Model model) {
@@ -149,7 +149,7 @@ public class CustomerCartController {
                 Long bookItemId = Long.valueOf(parts[1]);
 
                 // Add request if the customerId matches
-                if (cookieCustomerId.equals(customerId)) {
+                if (cookieCustomerId.equals(userId)) {
                     customerCartService.addBookRequest(cookieCustomerId, bookItemId);
                 } else {
                     // If the customerId doesn't match, retain this item in the cookie
@@ -179,7 +179,4 @@ public class CustomerCartController {
         model.addAttribute("message", "Your request has been successfully submitted.");
         return "redirect:/";
     }
-
-
-
 }
