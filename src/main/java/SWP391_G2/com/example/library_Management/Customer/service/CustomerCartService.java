@@ -5,7 +5,6 @@ import SWP391_G2.com.example.library_Management.Entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
@@ -14,7 +13,7 @@ public class CustomerCartService {
     @Autowired
     private CustomerBookItemRepository customerBookItemRepository;
     @Autowired
-    private CustomerRepository customerRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private CustomerBorrowIndexRepository customerBorrowIndexRepository;
@@ -53,14 +52,14 @@ public class CustomerCartService {
     public void addBookRequest(Long cookieCustomerId, Long bookItemId) {
         System.out.println("============Start to add Book request============");
         Borrow_index borrowIndex = new Borrow_index();
-        Customer customer = customerRepository.findById(String.valueOf(cookieCustomerId)).get();
-        System.out.println("Name of customer: " + customer.getLastName());
+        User user = userRepository.findById(String.valueOf(cookieCustomerId)).get();
+        System.out.println("Name of customer: " + user.getLastName());
         Book_item bookItem = customerBookItemRepository.findById(String.valueOf(bookItemId)).get();
         System.out.println("Book item "+ bookItem.getBook().getName());
-        borrowIndex.setCustomer(customer);
+        borrowIndex.setCustomer(user);
         borrowIndex.setBook_item(bookItem);
         Status status = customerBorrowStatusRepository.findById(String.valueOf(1)).get();
-        borrowIndex.setStatus_id(status);
+        borrowIndex.setStatus(status);
         customerBorrowIndexRepository.save(borrowIndex);
         System.out.println("============End to add Book request============");
 

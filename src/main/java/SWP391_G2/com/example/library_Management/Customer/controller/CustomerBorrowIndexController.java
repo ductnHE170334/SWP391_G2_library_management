@@ -17,9 +17,9 @@ public class CustomerBorrowIndexController {
     @Autowired
     private CustomerBorrowIndexService customerBorrowIndexService;
 
-    @GetMapping("/{customerId}")
-    public String getListTrackBorrowBook(@PathVariable Long customerId, Model model) {
-        List<Borrow_index> borrowIndexList = customerBorrowIndexService.getBorrowindexListByCustomerId(customerId);
+    @GetMapping("/{userId}")
+    public String getListTrackBorrowBook(@PathVariable Long userId, Model model) {
+        List<Borrow_index> borrowIndexList = customerBorrowIndexService.getBorrowindexListByCustomerId(userId);
 
         System.out.println("=========Print borrow Index============");
         for (Borrow_index borrow : borrowIndexList) {
@@ -27,18 +27,18 @@ public class CustomerBorrowIndexController {
         }
 
         model.addAttribute("borrowIndexList", borrowIndexList);
-        model.addAttribute("customerId",customerId);
+        model.addAttribute("userId",userId);
 
         return "Customer/bookTracking";
     }
     @GetMapping("/delete/{customerId}/{bookItemId}")
-    public String deleteBorrowIndex(@PathVariable Long customerId, @PathVariable Long bookItemId, Model model) {
-        System.out.println("Customer ID: " + customerId);
+    public String deleteBorrowIndex(@PathVariable Long userId, @PathVariable Long bookItemId, Model model) {
+        System.out.println("Customer ID: " + userId);
         System.out.println("Book Item ID: " + bookItemId);
 
-        customerBorrowIndexService.deleteBorrowIndex(customerId, bookItemId);
+        customerBorrowIndexService.deleteBorrowIndex(userId, bookItemId);
 
-        return "redirect:/borrow/" + customerId;
+        return "redirect:/borrow/" + userId;
     }
 
 }
