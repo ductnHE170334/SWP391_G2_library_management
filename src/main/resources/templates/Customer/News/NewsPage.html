@@ -30,7 +30,7 @@
                     <!-- Start: Search Section -->
                     <section class="search-filters">
                         <div class="filter-box">
-                            <h3>News Page&amp;</h3>
+                            <h3>News Page</h3>
                             <form action="http://libraria.demo.presstigers.com/news-events-detail.html" method="get">
                                 <div class="col-md-10">
 
@@ -71,7 +71,7 @@
                                                         </a>
                                                     </li>
                                                 </ul>
-                                                <h3><a href="news-events-detail.html" th:text="${news.title}"></a></h3>
+                                                <h3><a href="@{/newsPage/newDetail(newId=${news.id})}" th:text="${news.title}"></a></h3>
                                                 <p th:text="${news.description}"></p>
                                                 <a class="btn btn-primary" href="news-events-detail.html">Read More</a>
                                             </div>
@@ -110,6 +110,41 @@
                                                name="title" type="text" th:value="${searchtitle}">
                                         <button type="submit"><i class="fa fa-search"></i></button>
                                     </form>
+                                </div>
+                                <div class="widget widget_recent_entries">
+                                    <h4 class="widget-title" data-control>Recent News</h4>
+                                    <ul>
+                                        <li>
+                                            <figure>
+                                                <img src="images/order-item-04.jpg" alt="product" />
+                                            </figure>
+                                            <a href="#">It uses a dictionary</a>
+                                            <span><i class="fa fa-calendar"></i> &nbsp; July 25, 2016</span>
+                                            <span><i class="fa fa-clock-o"></i> &nbsp; 10:15 AM - 10:15 PM</span>
+                                            <span><i class="fa fa-map-marker"></i> &nbsp; New York, USA</span>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                        <li>
+                                            <figure>
+                                                <img src="images/order-item-05.jpg" alt="product" />
+                                            </figure>
+                                            <a href="#">It uses a dictionary</a>
+                                            <span><i class="fa fa-calendar"></i> &nbsp; July 25, 2016</span>
+                                            <span><i class="fa fa-clock-o"></i> &nbsp; 10:15 AM - 10:15 PM</span>
+                                            <span><i class="fa fa-map-marker"></i> &nbsp; New York, USA</span>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                        <li>
+                                            <figure>
+                                                <img src="images/order-item-06.jpg" alt="product" />
+                                            </figure>
+                                            <a href="#">It uses a dictionary</a>
+                                            <span><i class="fa fa-calendar"></i> &nbsp; July 25, 2016</span>
+                                            <span><i class="fa fa-clock-o"></i> &nbsp; 10:15 AM - 10:15 PM</span>
+                                            <span><i class="fa fa-map-marker"></i> &nbsp; New York, USA</span>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </aside>
                         </div>
