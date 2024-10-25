@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class NewsPageService {
     @Autowired
@@ -21,5 +23,21 @@ public class NewsPageService {
     public Page<News> findNewsByTitle(String title, int page, int size){
         Pageable pageable = PageRequest.of(page, size);
         return newsPageRepository.findNewsByTitle(title, pageable);
+    }
+
+    public News findById(int id){
+        Optional<News> result = newsPageRepository.findById(id);
+
+        News news = null;
+
+        if (result.isPresent()) {
+            news = result.get();
+        }
+        else {
+            // we didn't find the employee
+            throw new RuntimeException("Did not find new id - " + id);
+        }
+
+        return news;
     }
 }

@@ -35,4 +35,13 @@ public class NewsPageController {
 
         return "Customer/News/NewsPage";
     }
+
+    @GetMapping("/newDetail")
+    public String newDetail(@RequestParam("newId") int id, Model theModel) {
+        News news = newsPageService.findById(id);
+
+        theModel.addAttribute("news", news);
+
+        return "Customer/News/NewDetail";
+    }
 }
