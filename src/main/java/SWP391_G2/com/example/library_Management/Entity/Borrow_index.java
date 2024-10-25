@@ -12,49 +12,49 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class Borrow_index {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "book_condition_before")
-    private String book_condition_before;
+    private String bookConditionBefore;
 
     @Column(name = "book_condition_after")
-    private String book_condition_after;
+    private String bookConditionAfter;
 
     @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "borrow_date")
-    private LocalDateTime borrow_date;
+    private LocalDateTime borrowDate;
 
     @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "return_date")
-    private LocalDateTime return_date;
+    private LocalDateTime returnDate;
 
-    // Thêm trường created_requested_at
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     @Column(name = "created_requested_at", nullable = false, updatable = false)
-    private LocalDateTime created_requested_at = LocalDateTime.now();
+    private LocalDateTime createdRequestedAt = LocalDateTime.now();
+
+    // Many-to-One relationship with User (Staff)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "staff_id", referencedColumnName = "id") // Pointing to the `id` column of the User table
+    private User staff;
+
+    // Many-to-One relationship with User (Customer)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id") // Pointing to the `id` column of the User table
+    private User customer;
 
     // One-to-One relationship with Status
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_id", unique = true)
-    private Status status_id;
-
-    // One-to-One relationship with Customer
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", unique = true)
-    private Customer customer;
-
-    // One-to-One relationship with Staff
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "staff_id", unique = true)  // Foreign key to Book
-    private User staff_id;
+    @JoinColumn(name = "status_id")
+    private Status status;
 
     // One-to-One relationship with Book_item
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_item_id", unique = true)
     private Book_item book_item;
 }
+
+
+
