@@ -71,7 +71,7 @@
                                                         </a>
                                                     </li>
                                                 </ul>
-                                                <h3><a href="@{/newsPage/newDetail(newId=${news.id})}" th:text="${news.title}"></a></h3>
+                                                <h3><a th:href="@{/newsPage/newDetail(newId=${news.id})}" th:text="${news.title}"></a></h3>
                                                 <p th:text="${news.description}"></p>
                                                 <a class="btn btn-primary" href="news-events-detail.html">Read More</a>
                                             </div>
@@ -86,7 +86,7 @@
                                     <a class="prev page-numbers"
                                        th:href="@{/newsPage/list(page=${currentPage - 1}, size=${size}, title=${searchtitle})}"
                                        th:classappend="${currentPage == 0} ? 'disabled'">
-                                        <i class="fa fa-long-arrow-left"></i> Previous
+                                        <i class="fa fa-long-arrow-left"></i> Previoush
                                     </a>
                                     <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
                                         <a class="page-numbers"
