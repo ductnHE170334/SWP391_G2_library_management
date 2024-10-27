@@ -46,6 +46,10 @@ public class NewsPageController {
 
         theModel.addAttribute("news", news);
 
+        // Get top 3 news
+        Page<News> top3News = newsPageService.getTop3News();
+        theModel.addAttribute("top3News", top3News.getContent());
+
         return "Customer/News/NewDetail";
     }
 }
