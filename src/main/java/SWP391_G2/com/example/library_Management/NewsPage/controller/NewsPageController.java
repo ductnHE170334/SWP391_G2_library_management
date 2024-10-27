@@ -29,6 +29,10 @@ public class NewsPageController {
             newsPage = newsPageService.getAllNews(page, size);
         }
 
+        // Get top 3 news
+        Page<News> top3News = newsPageService.getTop3News();
+        theModel.addAttribute("top3News", top3News.getContent());
+
         theModel.addAttribute("newsPage", newsPage);
         theModel.addAttribute("currentPage", page);
         theModel.addAttribute("totalPages", newsPage.getTotalPages());
