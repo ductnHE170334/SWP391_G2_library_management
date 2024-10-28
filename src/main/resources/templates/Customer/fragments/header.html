@@ -1,27 +1,24 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:fragment="html_head">
     <!-- Meta -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
-
     <!-- Title -->
     <title>..:: LIBRARIA ::..</title>
-
     <!-- Favicon -->
-    <link th:href="@{/Customer/images/favicon.ico}" rel="icon" type="image/x-icon" >
-
+    <link th:href="@{/Customer/images/favicon.ico}" rel="icon" type="image/x-icon">
     <!-- Fonts -->
-    <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i%7CLato:100,100i,300,300i,400,400i,700,700i,900,900i}" rel="stylesheet" >
-    <link th:href="@{/Customer/css/font-awesome.min.css}" rel="stylesheet" type="text/css" >
-
+    <link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i%7CLato:100,100i,300,300i,400,400i,700,700i,900,900i}" rel="stylesheet">
+    <link th:href="@{/Customer/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
     <!-- Mobile Menu -->
-    <link th:href="@{/Customer/css/mmenu.css}" rel="stylesheet" type="text/css" >
-    <link th:href="@{/Customer/css/mmenu.positioning.css}" rel="stylesheet" type="text/css" >
-
+    <link th:href="@{/Customer/css/mmenu.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/Customer/css/mmenu.positioning.css}" rel="stylesheet" type="text/css">
     <!-- Stylesheet -->
-    <link th:href="@{/Customer/style.css}" rel="stylesheet" type="text/css" >
-
+    <link th:href="@{/Customer/style.css}" rel="stylesheet" type="text/css">
+    <!-- Thêm Toastify CSS và JavaScript từ CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -40,7 +37,7 @@
                         <div class="navbar-header">
                             <div class="navbar-brand">
                                 <h1>
-                                    <a href="index-2.html">
+                                    <a href="/user/homepage">
                                         <img th:src="@{/Customer/images/libraria-logo-v1.png}" alt="LIBRARIA" />
                                     </a>
                                 </h1>
@@ -60,7 +57,16 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="topbar-links">
-                                        <a href="signin.html"><i class="fa fa-lock"></i>Login / Register</a>
+                                        <div th:if="${session.loggedInUser == null}">
+                                            <a href="/user/login"><i class="fa fa-lock"></i>Login / Register</a>
+                                        </div>
+                                        <div th:if="${session.loggedInUser != null}">
+                                            <a href="/user/profile"><i class="fa fa-user"></i>
+                                                <span th:text="${session.loggedInUser.firstName} + ' ' + ${session.loggedInUser.lastName}"></span>
+                                            </a>
+                                            <span>|</span>
+                                            <a href="/user/logout"><i class="fa fa-sign-out"></i> Logout</a>
+                                        </div>
                                         <span>|</span>
                                         <div class="header-cart dropdown">
                                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -120,7 +126,7 @@
                         <div class="navbar-collapse hidden-sm hidden-xs">
                             <ul class="nav navbar-nav">
                                 <li class="dropdown active">
-                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="index-2.html">Home</a>
+                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="/user/homepage">Home</a>
                                     <ul class="dropdown-menu">
                                         <li><a href="index-2.html">Home V1</a></li>
                                         <li><a href="home-v2.html">Home V2</a></li>
@@ -145,22 +151,12 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a data-toggle="dropdown" class="dropdown-toggle disabled" href="#">Pages</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="cart.html">Cart</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="signin.html">Signin/Register</a></li>
-                                        <li><a href="404.html">404/Error</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
                                     <a data-toggle="dropdown" class="dropdown-toggle disabled" href="blog.html">Blog</a>
                                     <ul class="dropdown-menu">
                                         <li><a href="blog.html">Blog Grid View</a></li>
                                         <li><a href="blog-detail.html">Blog Detail</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="services.html">Services</a></li>
                                 <li><a href="contact.html">Contact</a></li>
                             </ul>
                         </div>
@@ -183,29 +179,10 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="books-media-list-view.html">Books &amp; Media</a>
-                                <ul>
-                                    <li><a href="books-media-list-view.html">Books &amp; Media List View</a></li>
-                                    <li><a href="books-media-gird-view-v1.html">Books &amp; Media Grid View V1</a></li>
-                                    <li><a href="books-media-gird-view-v2.html">Books &amp; Media Grid View V2</a></li>
-                                    <li><a href="books-media-detail-v1.html">Books &amp; Media Detail V1</a></li>
-                                    <li><a href="books-media-detail-v2.html">Books &amp; Media Detail V2</a></li>
-                                </ul>
-                            </li>
-                            <li>
                                 <a href="news-events-list-view.html">News &amp; Events</a>
                                 <ul>
                                     <li><a href="news-events-list-view.html">News &amp; Events List View</a></li>
                                     <li><a href="news-events-detail.html">News &amp; Events Detail</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">Pages</a>
-                                <ul>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="signin.html">Signin/Register</a></li>
-                                    <li><a href="404.html">404/Error</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -215,8 +192,9 @@
                                     <li><a href="blog-detail.html">Blog Detail</a></li>
                                 </ul>
                             </li>
-                            <li><a href="services.html">Services</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li>
+                                <a href="contact.html">Contact</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -227,3 +205,5 @@
 <!-- End: Header Section -->
 </body>
 </html>
+
+
