@@ -51,7 +51,6 @@
                                 <td th:text="${borrowIndex.book_item.book.id}"></td>
                                 <td th:text="${borrowIndex.book_item.book.name}"></td>
 
-                                <!-- Customer Name with link -->
                                 <td>
                                     <a th:href="@{/librarian/customerDetail/{id}(id=${borrowIndex.customer.id})}" th:text="${borrowIndex.customer.firstName + ' ' + borrowIndex.customer.lastName}"></a>
                                 </td>
@@ -70,9 +69,47 @@
                                 <!-- Actions -->
                                 <td>
                                     <!-- Mark as Returned button -->
-                                    <a th:href="@{'/librarian/trackBorrowBook/markAsReturned/' + ${borrowIndex.id}}" class="btn btn-success">Mark as Returned</a>
+                                    <!-- Button to trigger Change Status modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#changeStatusModal'+*{borrowIndex.id}">
+                                        Change Status
+                                    </button>
 
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#exampleModal'+*{borrowIndex.id}"  data-whatever="@mdo">Open modal for @mdo</button>
+                                    <!-- Change Status Modal -->
+                                    <div class="modal fade" th:id="*{'changeStatusModal' + borrowIndex.id}" tabindex="-1" role="dialog" aria-labelledby="changeStatusModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="changeStatusModalLabel">Change Status</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form th:action="@{/librarian/trackBorrowBook/changeStatus}" method="post">
+                                                        <!-- Borrow Index ID (Read-only) -->
+                                                        <div class="form-group">
+                                                            <label for="borrowIndexStatus" class="col-form-label">Borrow Index ID:</label>
+                                                            <input type="text" th:value="${borrowIndex.id}" class="form-control" id="borrowIndexStatus" name="borrowIndexId" readonly>
+                                                        </div>
+                                                        <!-- Status Selection Dropdown -->
+                                                        <div class="form-group">
+                                                            <label for="statusId" class="col-form-label">Select Status:</label>
+                                                            <select class="form-control" id="statusId" name="statusId" required>
+                                                                <option th:each="status : ${statuses}" th:value="${status.id}" th:text="${status.status}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- Submit and Close Buttons -->
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save Status</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#exampleModal'+*{borrowIndex.id}"  data-whatever="@mdo">Extend date</button>
                                     <div class="modal fade" th:id="*{'exampleModal' + borrowIndex.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
