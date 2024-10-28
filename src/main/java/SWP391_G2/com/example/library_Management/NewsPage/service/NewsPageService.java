@@ -25,6 +25,11 @@ public class NewsPageService {
         return newsPageRepository.findNewsByTitle(title, pageable);
     }
 
+    public Page<News> getTop3News() {
+        Pageable pageable = PageRequest.of(0, 3);
+        return newsPageRepository.findTop3News(pageable);
+    }
+
     public News findById(int id){
         Optional<News> result = newsPageRepository.findById(id);
 

@@ -10,4 +10,7 @@ public interface NewsPageRepository extends JpaRepository<News, Integer> {
 
     @Query("SELECT n FROM News n WHERE n.title like %?1%")
     Page<News> findNewsByTitle(String title, Pageable pageable);
+
+    @Query("SELECT n FROM News n ORDER BY n.date_created DESC")
+    Page<News> findTop3News(Pageable pageable);
 }
