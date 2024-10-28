@@ -5,6 +5,172 @@
 <body>
 <header th:replace="Customer/fragments/header :: header"></header>
 
+<!-- Start: Page Banner -->
+<section class="page-banner news-listing-banner services-banner">
+    <div class="container">
+        <div class="banner-header">
+            <h2>News Listing</h2>
+            <span class="underline center"></span>
+        </div>
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="index-2.html">Home</a></li>
+                <li>News</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- End: Page Banner -->
+
+<!-- Start: Products Section -->
+<div id="content" class="site-content">
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+            <div class="main-news-list">
+                <div class="container">
+                    <!-- Start: Search Section -->
+                    <section class="search-filters">
+                        <div class="filter-box">
+                            <h3>News Page</h3>
+                            <form action="http://libraria.demo.presstigers.com/news-events-detail.html" method="get">
+                                <div class="col-md-10">
+
+                                </div>
+                                <div class="col-md-2">
+
+                                </div>
+                            </form>
+                        </div>
+                        <div class="clear"></div>
+                    </section>
+                    <!-- End: Search Section -->
+                    <div class="row">
+                        <div class="col-md-9 col-md-push-3">
+                            <div class="news-list-detail">
+                                <div class="news-list-box">
+                                    <div class="single-news-list">
+                                        <figure>
+                                            <img th:src="@{/Customer/images/news-event/new-detail-img.jpg}" alt="News &amp; Event">
+                                        </figure>
+                                        <div class="content-block">
+                                            <div class="member-info">
+                                                <div class="content_meta_category">
+                                                    <span class="arrow-right"></span>
+                                                    <a href="#." rel="category tag">EVENT</a>
+                                                </div>
+                                                <ul class="news-event-info">
+                                                    <li>
+                                                        <a href="#" target="_blank">
+                                                            <i class="fa fa-calendar" th:text="${news.date_created}"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" target="_blank">
+                                                            <i class="fa fa-clock-o"></i>
+                                                            10:15 AM - 10:15 PM
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" target="_blank">
+                                                            <i class="fa fa-map-marker"></i>
+                                                            New York, USA
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <h2 th:text="${news.title}"></h2>
+                                                <p th:text="${news.description}"></p>
+                                               </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="related-event text-center">
+                                    <h2>Related Event</h2>
+                                    <span class="underline center"></span>
+                                    <div class="owl-carousel-event">
+                                        <div class="single-related-event">
+                                            <figure>
+                                                <a href="news-events-detail.html"><img th:src="@{/Customer/images/news-event/related-event-01.jpg}" alt="Related event"></a>
+                                                <figcaption>
+                                                    <header>
+                                                        <ul class="news-event-info">
+                                                            <li>
+                                                                <a href="#" target="_blank">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                    July 25, 2016
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" target="_blank">
+                                                                    <i class="fa fa-map-marker"></i>
+                                                                    New York, USA
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <h4><a href=".html#">It uses a dictionary of over 200 Latin word</a></h4>
+                                                    </header>
+                                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-md-pull-9">
+                            <aside id="secondary" class="sidebar widget-area">
+                                <div class="widget widget_search">
+                                    <h4 class="widget-title" data-control>Search News</h4>
+                                    <form class="form-horizontal search-form">
+                                        <input class="form-control" placeholder="Search Here"
+                                               name="title" type="text" th:value="${searchtitle}">
+                                        <button type="submit"><i class="fa fa-search"></i></button>
+                                    </form>
+                                </div>
+                                <div class="widget widget_recent_entries">
+                                    <h4 class="widget-title" data-control>Recent News</h4>
+                                    <ul>
+                                        <li>
+                                            <figure>
+                                                <img src="images/order-item-04.jpg" alt="product" />
+                                            </figure>
+                                            <a href="#">It uses a dictionary</a>
+                                            <span><i class="fa fa-calendar"></i> &nbsp; July 25, 2016</span>
+                                            <span><i class="fa fa-clock-o"></i> &nbsp; 10:15 AM - 10:15 PM</span>
+                                            <span><i class="fa fa-map-marker"></i> &nbsp; New York, USA</span>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                        <li>
+                                            <figure>
+                                                <img src="images/order-item-05.jpg" alt="product" />
+                                            </figure>
+                                            <a href="#">It uses a dictionary</a>
+                                            <span><i class="fa fa-calendar"></i> &nbsp; July 25, 2016</span>
+                                            <span><i class="fa fa-clock-o"></i> &nbsp; 10:15 AM - 10:15 PM</span>
+                                            <span><i class="fa fa-map-marker"></i> &nbsp; New York, USA</span>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                        <li>
+                                            <figure>
+                                                <img src="images/order-item-06.jpg" alt="product" />
+                                            </figure>
+                                            <a href="#">It uses a dictionary</a>
+                                            <span><i class="fa fa-calendar"></i> &nbsp; July 25, 2016</span>
+                                            <span><i class="fa fa-clock-o"></i> &nbsp; 10:15 AM - 10:15 PM</span>
+                                            <span><i class="fa fa-map-marker"></i> &nbsp; New York, USA</span>
+                                            <div class="clearfix"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<!-- End: Products Section -->
 
 <footer th:replace="Customer/fragments/footer :: html_foot">
 
