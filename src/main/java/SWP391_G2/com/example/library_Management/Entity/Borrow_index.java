@@ -39,18 +39,18 @@ public class Borrow_index {
 
     // One-to-One relationship with Status
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_id", unique = true)
-    private Status status_id;
+    @JoinColumn(name = "status_id")
+    private Status status;
 
     // One-to-One relationship with Customer
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", unique = true)
-    private Users customer;
+    private User customer;
 
     // One-to-One relationship with Staff
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "staff_id", unique = true)  // Foreign key to Book
-    private Users staff_id;
+    private User staff_id;
 
     // One-to-One relationship with Book_item
     @OneToOne(fetch = FetchType.LAZY)

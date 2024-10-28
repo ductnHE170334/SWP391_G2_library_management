@@ -32,5 +32,5 @@ public class News {
     // Many-to-One relationship with Staff
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "staff_id")  // Foreign key to Staff
-    private Users staff;
+    private User staff;
 }

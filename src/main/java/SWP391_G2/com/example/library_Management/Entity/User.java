@@ -8,13 +8,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = " User")
+@Table(name = " Users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
