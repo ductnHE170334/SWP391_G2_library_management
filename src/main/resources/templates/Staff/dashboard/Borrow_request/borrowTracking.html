@@ -14,7 +14,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>REQUEST MANAGEMENT</h1>
+        <h1>BOOK BORROW MANAGEMENT</h1>
         <ol class="breadcrumb">
             <li><a th:href="@{'/librarian/requestBorrow'}"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a th:href="@{'/librarian/requestBorrow'}">Track borrow book</a></li>
@@ -27,7 +27,7 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Request Table</h3>
+                        <h3 class="box-title">Track book borrow table</h3>
                     </div>
 
                     <div class="box-body">
@@ -70,8 +70,8 @@
                                 <td>
                                     <!-- Mark as Returned button -->
                                     <!-- Button to trigger Change Status modal -->
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#changeStatusModal'+*{borrowIndex.id}">
-                                        Change Status
+                                    <button type="button" class="btn btn-success" data-toggle="modal" th:attr="data-target='#changeStatusModal'+*{borrowIndex.id}">
+                                        <i class="fa fa-fw fa-repeat"></i>
                                     </button>
 
                                     <!-- Change Status Modal -->
@@ -109,7 +109,7 @@
                                         </div>
                                     </div>
 
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#exampleModal'+*{borrowIndex.id}"  data-whatever="@mdo">Extend date</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#exampleModal'+*{borrowIndex.id}"  data-whatever="@mdo"><i class="fa fa-fw fa-calendar-plus-o"></i></button>
                                     <div class="modal fade" th:id="*{'exampleModal' + borrowIndex.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
