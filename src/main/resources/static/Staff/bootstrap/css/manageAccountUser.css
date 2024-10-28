@@ -159,16 +159,19 @@ body {
 }
 
 .modal-content {
-    background-color: #ffffff; /* White background for contrast */
-    border-radius: 20px; /* More rounded corners */
-    margin: 5% auto; /* Center vertically and horizontally */
-    padding: 30px; /* Spacious padding */
-    border: none; /* No border */
-    width: 80%; /* Responsive width */
-    max-width: 600px; /* Maximum width for larger screens */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Softer, more prominent shadow */
-    position: relative; /* Allows positioning */
-    animation: fadeIn 0.4s ease-in-out; /* Fade-in animation */
+    background-color: #ffffff; /* Màu nền trắng */
+    border-radius: 20px; /* Bo góc */
+    margin: 5% auto; /* Căn giữa theo chiều dọc và chiều ngang */
+    padding: 20px; /* Khoảng cách bên trong hợp lý */
+    border: none; /* Không có đường viền */
+    width: 80%; /* Chiều rộng phản hồi */
+    max-width: 600px; /* Chiều rộng tối đa cho màn hình lớn */
+    height: auto; /* Chiều cao tự động dựa trên nội dung */
+    max-height: 80vh; /* Chiều cao tối đa là 80% chiều cao màn hình */
+    overflow-y: auto; /* Cho phép cuộn nếu nội dung quá lớn */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Đổ bóng */
+    position: relative; /* Cho phép định vị */
+    animation: fadeIn 0.4s ease-in-out; /* Hiệu ứng xuất hiện */
 }
 
 @keyframes fadeIn {
@@ -193,6 +196,7 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+
 /* Center the pagination */
 .pagination-wrapper {
     display: flex;

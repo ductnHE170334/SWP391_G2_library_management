@@ -1,20 +1,20 @@
-let staffIdToDelete;
+let userIdToDelete;
 
-function openModal(staffId) {
-staffIdToDelete = staffId; // Store the ID of the staff to be deleted
+function openDeleteModal(userId) {
+userIdToDelete = userId; // Store the ID of the user to be deleted
 document.getElementById("deleteModal").style.display = "block"; // Show the modal
 }
 
-function closeModal() {
+function closeDeleteModal() {
 document.getElementById("deleteModal").style.display = "none"; // Hide the modal
 }
 
 document.getElementById("confirmDelete").addEventListener("click", function() {
 const form = document.createElement("form");
 form.method = "post";
-form.action = "/staff/delete/" + staffIdToDelete; // Adjust URL if needed
+form.action = "/user/delete/" + userIdToDelete; // Adjust URL if needed
 document.body.appendChild(form);
-form.submit(); // Submit the form to delete the staff
+form.submit(); // Submit the form to delete the user
 });
 
 // Close the modal when the user clicks anywhere outside of it
@@ -25,9 +25,9 @@ if (event.target === modal) {
 }
 };
 
-function openUpdateStaffModal(staffId, lastName, firstName, email, password, phone, roleId) {
+function openUpdateuserModal(userId, lastName, firstName, email, password, phone, roleId) {
     // Gán giá trị vào các trường trong modal
-    document.getElementById('updateStaffId').value = staffId;
+    document.getElementById('updateUserId').value = userId;
     document.getElementById('updateLastName').value = lastName;
     document.getElementById('updateFirstName').value = firstName;
     document.getElementById('updateEmail').value = email;
@@ -35,19 +35,19 @@ function openUpdateStaffModal(staffId, lastName, firstName, email, password, pho
     document.getElementById('updateRoleId').value = roleId;
 
     // Hiện modal
-    document.getElementById('updateStaffModal').style.display = 'block';
+    document.getElementById('updateUserModal').style.display = 'block';
 }
 
 
-function closeUpdateStaffModal() {
-    document.getElementById('updateStaffModal').style.display = 'none';
+function closeUpdateUserModal() {
+    document.getElementById('updateUserModal').style.display = 'none';
 }
 
 
-function openAddStaffModal() {
-  document.getElementById("addStaffModal").style.display = "block"; // Hiển thị modal
+function openAddUserModal() {
+  document.getElementById("addUserModal").style.display = "block"; // Hiển thị modal
 }
 
-function closeAddStaffModal() {
-  document.getElementById("addStaffModal").style.display = "none"; // Đóng modal
+function closeAddUserModal() {
+  document.getElementById("addUserModal").style.display = "none"; // Đóng modal
 }

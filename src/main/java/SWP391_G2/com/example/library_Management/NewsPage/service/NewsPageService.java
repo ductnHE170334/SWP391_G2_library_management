@@ -1,25 +1,48 @@
-//package SWP391_G2.com.example.library_Management.NewsPage.service;
-//
-//import SWP391_G2.com.example.library_Management.Entity.News;
-//import SWP391_G2.com.example.library_Management.NewsPage.repository.NewsPageRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageRequest;
-//import org.springframework.data.domain.Pageable;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class NewsPageService {
-//    @Autowired
-//    private NewsPageRepository newsPageRepository;
-//
-//    public Page<News> getAllNews(int page, int size){
-//        Pageable pageable = PageRequest.of(page, size);
-//        return newsPageRepository.findAll(pageable);
-//    }
-//
-//    public Page<News> findNewsByTitle(String title, int page, int size){
-//        Pageable pageable = PageRequest.of(page, size);
-//        return newsPageRepository.findNewsByTitle(title, pageable);
-//    }
-//}
+package SWP391_G2.com.example.library_Management.NewsPage.service;
+
+import SWP391_G2.com.example.library_Management.Entity.News;
+import SWP391_G2.com.example.library_Management.NewsPage.repository.NewsPageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class NewsPageService {
+    @Autowired
+    private NewsPageRepository newsPageRepository;
+
+    public Page<News> getAllNews(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return newsPageRepository.findAll(pageable);
+    }
+
+    public Page<News> findNewsByTitle(String title, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return newsPageRepository.findNewsByTitle(title, pageable);
+    }
+
+    public Page<News> getTop3News() {
+        Pageable pageable = PageRequest.of(0, 3);
+        return newsPageRepository.findTop3News(pageable);
+    }
+
+    public News findById(int id){
+        Optional<News> result = newsPageRepository.findById(id);
+
+        News news = null;
+
+        if (result.isPresent()) {
+            news = result.get();
+        }
+        else {
+            // we didn't find the employee
+            throw new RuntimeException("Did not find new id - " + id);
+        }
+
+        return news;
+    }
+}

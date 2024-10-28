@@ -33,8 +33,8 @@ public class Borrow_history {
 
     // One-to-One relationship with Customer
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", unique = true)  // Foreign key to Customer
-    private User customer;
+    @JoinColumn(name = "user_id", unique = true)  // Foreign key to Customer
+    private User user;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
