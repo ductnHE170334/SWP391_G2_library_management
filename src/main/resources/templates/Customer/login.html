@@ -72,15 +72,17 @@
 <body>
 <div class="login-container">
     <h2>Login</h2>
-    <form th:action="@{/customer/login}" method="post">
+    <form th:action="@{/user/login}" method="post" th:object="${loginUser}"> <!-- Đổi đường dẫn thành /user/login -->
         <label for="email">Email</label>
-        <input type="text" name="username" id="email" required/>
-
+        <input type="text" th:field="*{email}" id="email" required/> <!-- Dùng th:field cho dữ liệu -->
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" required/>
-
+        <input type="password" th:field="*{password}" id="password" required/> <!-- Dùng th:field cho dữ liệu -->
         <button type="submit">Login</button>
     </form>
+    <p>
+        Don't have an account?
+        <a th:href="@{/user/register}">Register here</a>
+    </p>
 
     <div th:if="${param.error}" class="error">
         <p>Invalid username or password!</p>

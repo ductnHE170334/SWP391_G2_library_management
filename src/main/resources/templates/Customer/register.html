@@ -66,24 +66,23 @@
 <body>
 <div class="register-container">
   <h2>Register</h2>
-  <form th:action="@{/customer/register}" method="post" th:object="${customer}">
+  <form th:action="@{/user/register}" method="post" th:object="${user}"> <!-- Thay đổi thành /user/register -->
     <label for="firstName">First Name</label>
     <input type="text" th:field="*{firstName}" id="firstName"/>
-
     <label for="lastName">Last Name</label>
     <input type="text" th:field="*{lastName}" id="lastName"/>
-
     <label for="email">Email</label>
     <input type="email" th:field="*{email}" id="email"/>
-
     <label for="password">Password</label>
     <input type="password" th:field="*{password}" id="password"/>
-
     <label for="phone">Phone</label>
     <input type="text" th:field="*{phone}" id="phone"/>
-
     <button type="submit">Register</button>
   </form>
+  <p>
+    Already have an account?
+    <a th:href="@{/user/login}">Login here</a>
+  </p>
 </div>
 </body>
 </html>
