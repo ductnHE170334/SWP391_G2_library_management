@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("admin/dashboard/category")
 public class AdminCategoryManagementController {
 
     private final AdminCategoryService adminCategoryService;
