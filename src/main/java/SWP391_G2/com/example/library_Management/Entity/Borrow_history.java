@@ -1,6 +1,5 @@
 package SWP391_G2.com.example.library_Management.Entity;
 
-//import SWP391_G2.com.example.library_Management.Customer.Enum.BorrowRequestStatus;
 import SWP391_G2.com.example.library_Management.Customer.Enum.BorrowRequestStatus;
 import jakarta.persistence.*;
 import lombok.*;
