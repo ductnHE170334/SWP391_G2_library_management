@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/dashboard")
+@RequestMapping("admin/dashboard")
 public class AdminDashboardController {
     private final AdminDashboardService adminDashboardService;
 
@@ -17,53 +17,15 @@ public class AdminDashboardController {
         this.adminDashboardService = adminDashboardService;
     }
 
-    @GetMapping("Staff/fragments/dashboard")
+    @GetMapping("/list")
     public String showDashboardStats(Model model) {
-        model.addAttribute("dashboardStats", new DashboardStats(
-                adminDashboardService.getTotalPendingRequests(),
-                adminDashboardService.getTotalRejectedRequests(),
-                adminDashboardService.getTotalApprovedRequests(),
-                adminDashboardService.getTotalCustomers(),
-                adminDashboardService.getTotalBooks()
-        ));
-        return "Staff/dashboard";
-    }
+        // Thêm từng giá trị thống kê vào model
+        model.addAttribute("totalPendingRequests", adminDashboardService.getTotalPendingRequests());
+        model.addAttribute("totalRejectedRequests", adminDashboardService.getTotalRejectedRequests());
+        model.addAttribute("totalApprovedRequests", adminDashboardService.getTotalApprovedRequests());
+        model.addAttribute("totalCustomers", adminDashboardService.getTotalCustomers());
+        model.addAttribute("totalBooks", adminDashboardService.getTotalBooks());
 
-    // Inner class to hold the response data
-    public static class DashboardStats {
-        private long pendingRequests;
-        private long rejectedRequests;
-        private long approvedRequests;
-        private long totalCustomers;
-        private long totalBooks;
-
-        public DashboardStats(long pendingRequests, long rejectedRequests, long approvedRequests, long totalCustomers, long totalBooks) {
-            this.pendingRequests = pendingRequests;
-            this.rejectedRequests = rejectedRequests;
-            this.approvedRequests = approvedRequests;
-            this.totalCustomers = totalCustomers;
-            this.totalBooks = totalBooks;
-        }
-
-        // Getters
-        public long getPendingRequests() {
-            return pendingRequests;
-        }
-
-        public long getRejectedRequests() {
-            return rejectedRequests;
-        }
-
-        public long getApprovedRequests() {
-            return approvedRequests;
-        }
-
-        public long getTotalCustomers() {
-            return totalCustomers;
-        }
-
-        public long getTotalBooks() {
-            return totalBooks;
-        }
+        return "Staff/fragments/admin_dashboard";  // Trả về tên view template
     }
 }
