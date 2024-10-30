@@ -24,4 +24,7 @@ public class LibrarianBookService {
         return repository.save(bo);
     }
 
+    public Book getBookById(int bookId) {
+        return repository.findById(bookId).get();
+    }
 }
