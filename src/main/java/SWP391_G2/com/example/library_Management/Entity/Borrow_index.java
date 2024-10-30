@@ -56,7 +56,7 @@ public class Borrow_index {
     private Book_item book_item;
 
     @JsonFormat(pattern="yyyy-MM-dd")
-    @Column(name = "last_extend_date date")
+    @Column(name = "last_extend_date")
     private LocalDateTime lastExtendDate;
 }
 
