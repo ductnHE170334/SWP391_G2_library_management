@@ -28,6 +28,7 @@ public class AdminDashboardController {
         model.addAttribute("totalApprovedRequests", adminDashboardService.getTotalApprovedRequests());
         model.addAttribute("totalCustomers", adminDashboardService.getTotalCustomers());
         model.addAttribute("totalBooks", adminDashboardService.getTotalBooks());
+<<<<<<< HEAD
 
         return "Staff/dashboard/Views/admin_dashboard";
     }
@@ -39,4 +40,9 @@ public class AdminDashboardController {
         return "Staff/dashboard/Views/pending_detail"; // Đường dẫn đến view của bạn
     }
 
+=======
+
+        return "Staff/fragments/admin_dashboard";  // Trả về tên view template
+    }
+>>>>>>> 508f15ffe308a64dbb03ad25e72150da23dc9043
 }
