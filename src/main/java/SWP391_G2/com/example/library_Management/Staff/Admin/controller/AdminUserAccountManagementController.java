@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("admin/dashboard/user")
 public class AdminUserAccountManagementController {
 
     private final AdminUserAccountService adminUserAccountService;
