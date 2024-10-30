@@ -17,7 +17,7 @@
         <h1>BOOK BORROW MANAGEMENT</h1>
         <ol class="breadcrumb">
             <li><a th:href="@{'/librarian/requestBorrow'}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a th:href="@{'/librarian/requestBorrow'}">Track borrow book</a></li>
+
         </ol>
     </section>
 
@@ -49,9 +49,10 @@
                             <tr th:each="borrowIndex : ${borrowIndices}">
                                 <td th:text="${borrowIndex.id}"></td>
                                 <td th:text="${borrowIndex.book_item.book.id}"></td>
-                                <a th:href="@{/librarian/bookDetail/{bookId}(bookId=${borrowIndex.book_item.book.id})}"
-                                   th:text="${borrowIndex.book_item.book.name}">
-                                </a>
+                                <td><a th:href="@{/librarian/bookDetail/{bookId}(bookId=${borrowIndex.book_item.book.id})}"
+                                       th:text="${borrowIndex.book_item.book.name}">
+                                </a></td>
+
 
                                 <td>
                                     <a th:href="@{/librarian/customerDetail/{id}(id=${borrowIndex.customer.id})}" th:text="${borrowIndex.customer.firstName + ' ' + borrowIndex.customer.lastName}"></a>
