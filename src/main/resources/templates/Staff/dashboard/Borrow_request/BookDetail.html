@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="Staff/fragments/header :: html_head">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<header th:replace="Staff/fragments/admin_header :: admin_header"></header>
+<aside th:replace="Staff/fragments/librarian_sidebar :: librarian_sidebar">
+
+</aside>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Book DETAIL
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><a th:href="@{'/librarian/requestBorrow'}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a th:href="@{'/librarian/requestBorrow'}">Request borrow</a></li>
+            <li>Book Detail</a></li>
+
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+
+                    <div class="card mb-3">
+
+                        <div class="card-body">
+                            <p><strong>ID:</strong> <span th:text="${book.id}"></span></p>
+                            <p><strong>Description:</strong> <span th:text="${book.description}"></span></p>
+                            <p><strong>Quantity:</strong> <span th:text="${book.quantity}"></span></p>
+                            <p><strong>Publisher:</strong> <span th:text="${book.publisher.name}"></span></p>
+                            <p><strong>Authors:</strong>
+                                <span>
+            <span th:each="author : ${book.authors}" th:text="${author.name} + ', '"></span>
+        </span>
+                            </p>
+                            <p><strong>Categories:</strong>
+                                <span>
+            <span th:each="category : ${book.categories}" th:text="${category.name} + ', '"></span>
+        </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Book Item</th>
+                                <th>Condition</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="borrowIndex : ${borrowIndexList}">
+                                <td th:text="${borrowIndex.id}"></td>
+                                <td th:text="${borrowIndex.book_item.book.id}"></td>
+                                <td th:text="${borrowIndex.book_item.book.name}"></td>
+
+
+                                <!-- Định dạng ngày yêu cầu (created_requested_at) -->
+                                <td th:text="${#temporals.format(borrowIndex.createdRequestedAt, 'dd-MM-yyyy HH:mm:ss')}"></td>
+
+                                <!-- Định dạng ngày mượn (borrow_date) -->
+                                <td th:text="${#temporals.format(borrowIndex.borrowDate, 'dd-MM-yyyy')}"></td>
+
+                                <!-- Định dạng ngày trả (return_date) -->
+                                <td th:text="${#temporals.format(borrowIndex.returnDate, 'dd-MM-yyyy')}"></td>
+
+                                <td th:text="${borrowIndex.status.status}"></td>
+
+                            </tr>
+
+
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- /.content -->
+</div>
+</body>
+<footer th:replace="Staff/fragments/admin_footer :: admin_footer">
+
+</footer>
+</html>
