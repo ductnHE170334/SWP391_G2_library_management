@@ -177,6 +177,6 @@ public class CustomerCartController {
 
         // Notify the user
         model.addAttribute("message", "Your request has been successfully submitted.");
-        return "redirect:/";
+        return "redirect:/home/list";
     }
 }
