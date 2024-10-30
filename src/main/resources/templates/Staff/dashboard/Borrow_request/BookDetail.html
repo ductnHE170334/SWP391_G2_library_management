@@ -16,7 +16,6 @@
         </h1>
         <ol class="breadcrumb">
             <li><a th:href="@{'/librarian/requestBorrow'}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a th:href="@{'/librarian/requestBorrow'}">Request borrow</a></li>
             <li>Book Detail</a></li>
 
         </ol>
@@ -52,28 +51,13 @@
                             <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Book Item</th>
                                 <th>Condition</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="borrowIndex : ${borrowIndexList}">
-                                <td th:text="${borrowIndex.id}"></td>
-                                <td th:text="${borrowIndex.book_item.book.id}"></td>
-                                <td th:text="${borrowIndex.book_item.book.name}"></td>
-
-
-                                <!-- Định dạng ngày yêu cầu (created_requested_at) -->
-                                <td th:text="${#temporals.format(borrowIndex.createdRequestedAt, 'dd-MM-yyyy HH:mm:ss')}"></td>
-
-                                <!-- Định dạng ngày mượn (borrow_date) -->
-                                <td th:text="${#temporals.format(borrowIndex.borrowDate, 'dd-MM-yyyy')}"></td>
-
-                                <!-- Định dạng ngày trả (return_date) -->
-                                <td th:text="${#temporals.format(borrowIndex.returnDate, 'dd-MM-yyyy')}"></td>
-
-                                <td th:text="${borrowIndex.status.status}"></td>
-
+                            <tr th:each="bookItem : ${bookItems}">
+                                <td th:text="${bookItem.id}"></td>
+                                <td th:text="${bookItem.condition}"></td>
                             </tr>
 
 
