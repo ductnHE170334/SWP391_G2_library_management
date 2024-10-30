@@ -49,7 +49,9 @@
                             <tr th:each="borrowIndex : ${borrowIndices}">
                                 <td th:text="${borrowIndex.id}"></td>
                                 <td th:text="${borrowIndex.book_item.book.id}"></td>
-                                <td th:text="${borrowIndex.book_item.book.name}"></td>
+                                <a th:href="@{/librarian/bookDetail/{bookId}(bookId=${borrowIndex.book_item.book.id})}"
+                                   th:text="${borrowIndex.book_item.book.name}">
+                                </a>
 
                                 <td>
                                     <a th:href="@{/librarian/customerDetail/{id}(id=${borrowIndex.customer.id})}" th:text="${borrowIndex.customer.firstName + ' ' + borrowIndex.customer.lastName}"></a>
