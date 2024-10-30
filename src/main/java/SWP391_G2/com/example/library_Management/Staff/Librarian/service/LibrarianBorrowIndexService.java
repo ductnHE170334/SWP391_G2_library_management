@@ -23,10 +23,10 @@ public class LibrarianBorrowIndexService {
     @Autowired
     private LibrarianBookItemRepository librarianBookItemRepository;
 
-    public Page<Borrow_index> getAllBorrowIndexPaginated(int page, int size) {
+    public Page<Borrow_index> getBorrowIndexByStatusIdPaginated(int page, int size) {
+        int statusId = 1;
         Pageable pageable = PageRequest.of(page - 1, size); // `page - 1` vì Spring Data JPA bắt đầu từ 0
-        return librarianBorrowIndexRepository.findAll(pageable);
-    }
+        return librarianBorrowIndexRepository.findByStatusId(statusId, pageable);    }
 
 
     public void updateBorrowStatus(int id, int statusId) {
@@ -57,5 +57,20 @@ public class LibrarianBorrowIndexService {
         } else {
             throw new RuntimeException("Borrow Index không tồn tại với id: " + id);
         }
+    }
+
+    public Page<Borrow_index> getBorrowIndexByStatusIdNotPaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        int statusId = 1; // Loại trừ các Borrow_index có status.id = 1
+        return librarianBorrowIndexRepository.findByStatusIdNot(statusId, pageable);
+    }
+
+    public Borrow_index findById(Long borrowIndexId) {
+        // Tìm Borrow_index theo ID
+        return librarianBorrowIndexRepository.findById(borrowIndexId).orElse(null);
+    }
+    public void save(Borrow_index borrowIndex) {
+        // Lưu Borrow_index vào repository
+        librarianBorrowIndexRepository.save(borrowIndex);
     }
 }

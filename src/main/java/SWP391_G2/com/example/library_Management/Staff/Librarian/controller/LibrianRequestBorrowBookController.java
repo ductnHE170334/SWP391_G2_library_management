@@ -20,17 +20,8 @@ public class LibrianRequestBorrowBookController {
     public String listBorrowIndex(@RequestParam(value = "page", defaultValue = "1") int page,
                                   @RequestParam(value = "size", defaultValue = "4") int size,
                                   Model theModel) {
-        // Lấy trang dữ liệu từ service
-        Page<Borrow_index> borrowIndicesPage = librarianBorrowIndexService.getAllBorrowIndexPaginated(page, size);
-
-        // Duyệt qua danh sách borrowIndices và in ra tên customer
-        for (Borrow_index borrowIndex : borrowIndicesPage.getContent()) {
-            if (borrowIndex.getCustomer() != null) {
-                System.out.println("Customer Name: " + borrowIndex.getCustomer().getFirstName());
-            } else {
-                System.out.println("Customer Name: Not available");
-            }
-        }
+        // Chỉ lấy các Borrow_index có status_id = 1
+        Page<Borrow_index> borrowIndicesPage = librarianBorrowIndexService.getBorrowIndexByStatusIdPaginated(page, size);
 
         // Thêm dữ liệu vào model để truyền tới view
         theModel.addAttribute("borrowIndices", borrowIndicesPage.getContent());
@@ -39,7 +30,6 @@ public class LibrianRequestBorrowBookController {
         theModel.addAttribute("totalItems", borrowIndicesPage.getTotalElements());
 
         return "Staff/dashboard/Borrow_request/borrowIndexList"; // Trả về view tương ứng
-
     }
     @GetMapping("/accept/{id}")
     public String acceptBorrowRequest(@PathVariable("id") int id) {
