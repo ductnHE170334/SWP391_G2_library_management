@@ -9,13 +9,13 @@
 <div class="content-wrapper">
   <h1 class="text-center">Edit Category</h1>
 
-  <form th:action="@{/category/update/{id}(id=${category.id})}" method="post">
+  <form th:action="@{/admin/dashboard/category/update/{id}(id=${category.id})}" method="post">
     <div class="mb-3">
       <label for="categoryName" class="form-label">Category Name</label>
       <input type="text" id="categoryName" name="name" class="form-control" th:value="${category.name}" required />
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
-    <a href="/category/list" class="btn btn-secondary">Cancel</a>
+    <a href="/admin/dashboard/category/list" class="btn btn-secondary">Cancel</a>
   </form>
 </div>
 

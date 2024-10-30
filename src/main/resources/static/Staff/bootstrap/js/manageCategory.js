@@ -1,8 +1,8 @@
-let userIdToDelete;
+let categoryIdToDelete;
 
-function openDeleteModal(userId) {
-userIdToDelete = userId; // Store the ID of the user to be deleted
-document.getElementById("deleteModal").style.display = "block"; // Show the modal
+function openDeleteModal(categoryId) {
+categoryIdToDelete = categoryId;
+document.getElementById("deleteModal").style.display = "block";
 }
 
 function closeDeleteModal() {
@@ -12,9 +12,9 @@ document.getElementById("deleteModal").style.display = "none"; // Hide the modal
 document.getElementById("confirmDelete").addEventListener("click", function() {
 const form = document.createElement("form");
 form.method = "post";
-form.action = "/admin/dashboard/user/delete/" + userIdToDelete; // Adjust URL if needed
+form.action = "/admin/dashboard/category/delete/" + categoryIdToDelete; // Use the categoryIdToDelete
 document.body.appendChild(form);
-form.submit(); // Submit the form to delete the user
+form.submit(); // Submit the form to delete the category
 });
 
 // Close the modal when the user clicks anywhere outside of it
@@ -24,6 +24,7 @@ if (event.target === modal) {
   closeModal();
 }
 };
+
 
 function openUpdateuserModal(userId, lastName, firstName, email, password, phone, roleId) {
     // Gán giá trị vào các trường trong modal
