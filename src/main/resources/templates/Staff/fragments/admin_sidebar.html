@@ -16,9 +16,34 @@
 
 
             <li>
+                <a th:href="@{'/admin/dashboard/list'}">
+                    <i class="fa fa-th"></i> <span>Dashboard</span>
+                </a>
                 <a th:href="@{'/books'}">
                     <i class="fa fa-th"></i> <span>Book</span>
                 </a>
+                <a th:href="@{'/librarian/requestBorrow'}">
+                    <i class="fa fa-th"></i> <span>Request Borrow Book Manage</span>
+                </a>
+                <a th:href="@{'/librarian/trackBorrowBook'}">
+                    <i class="fa fa-th"></i> <span>Track Borrow Book Manage</span>
+                </a>
+                <a th:href="@{'/admin/dashboard/user/list'}">
+                    <i class="fa fa-th"></i> <span>User Manage</span>
+                </a>
+                <a th:href="@{'/admin/dashboard/category/list'}">
+                    <i class="fa fa-th"></i> <span>Category Manage</span>
+                </a>
+                <a th:href="@{'/authors'}">
+                    <i class="fa fa-th"></i> <span>Author Manage</span>
+                </a>
+                <a th:href="@{'/publishers'}">
+                    <i class="fa fa-th"></i> <span>Publisher Manage</span>
+                </a>
+                <a th:href="@{'/news/list'}">
+                    <i class="fa fa-th"></i> <span>News Manage</span>
+                </a>
+
             </li>
 
         </ul>
