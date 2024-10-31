@@ -1,0 +1,27 @@
+.bg-primary {
+    background-color: #007bff !important; /* Màu xanh đậm */
+    color: #fff; /* Màu chữ */
+}
+
+.bg-danger {
+    background-color: #dc3545 !important; /* Màu đỏ đậm */
+    color: #fff;
+}
+
+.bg-success {
+    background-color: #28a745 !important; /* Màu xanh lá đậm */
+    color: #fff;
+}
+
+.bg-warning {
+    background-color: #ffc107 !important; /* Màu vàng đậm */
+    color: #fff;
+}
+
+.bg-secondary {
+    background-color: #6c757d !important; /* Màu xám đậm */
+    color: #fff;
+}
+.small-box {
+    opacity: 1 !important; /* Đảm bảo không có độ trong suốt */
+}
