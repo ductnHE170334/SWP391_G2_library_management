@@ -1,12 +1,16 @@
 package SWP391_G2.com.example.library_Management.Staff.Admin.service;
 
 import SWP391_G2.com.example.library_Management.Entity.Category;
+import SWP391_G2.com.example.library_Management.Entity.Role;
 import SWP391_G2.com.example.library_Management.Staff.Admin.repository.AdminCategoryRepository;
+import SWP391_G2.com.example.library_Management.Staff.Admin.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AdminCategoryService {
@@ -15,7 +19,7 @@ public class AdminCategoryService {
 
     // Constructor injection
     @Autowired
-    public AdminCategoryService(AdminCategoryRepository adminCategoryRepository) {
+    public AdminCategoryService(AdminCategoryRepository adminCategoryRepository, RoleRepository roleRepository) {
         this.adminCategoryRepository = adminCategoryRepository;
     }
 

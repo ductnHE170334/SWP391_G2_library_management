@@ -11,13 +11,13 @@
 <div class="content-wrapper">
   <h1 class="text-center">Add New Category</h1>
 
-  <form th:action="@{/category/add}" method="post">
+  <form th:action="@{/admin/dashboard/category/add}" method="post">
     <div class="mb-3">
       <label for="categoryName" class="form-label">Category Name</label>
       <input type="text" id="categoryName" name="name" class="form-control" required />
     </div>
     <button type="submit" class="btn btn-primary">Add</button>
-    <a href="/category/list" class="btn btn-secondary">Cancel</a>
+    <a href="/admin/dashboard/category/list" class="btn btn-secondary">Cancel</a>
   </form>
 
   <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>

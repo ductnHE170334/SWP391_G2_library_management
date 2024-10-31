@@ -2,13 +2,14 @@ package SWP391_G2.com.example.library_Management.Staff.Admin.controller;
 
 import SWP391_G2.com.example.library_Management.Entity.Category;
 import SWP391_G2.com.example.library_Management.Staff.Admin.service.AdminCategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("admin/dashboard/category")
@@ -54,11 +55,11 @@ public class AdminCategoryManagementController {
     public String updateCategory(@PathVariable String id, @RequestParam String name, RedirectAttributes redirectAttributes) {
         adminCategoryService.updateCategory(id, name);
         redirectAttributes.addFlashAttribute("message", "Category with ID " + id + " has been updated successfully!");
-        return "redirect:/category/list";
+        return "redirect:/admin/dashboard/category/list";
     }
 
     // Delete category
-    @PostMapping("/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteCategory(@PathVariable String id, RedirectAttributes redirectAttributes) {
         try {
             adminCategoryService.deleteCategory(id);
@@ -66,7 +67,7 @@ public class AdminCategoryManagementController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", "Failed to delete category!");
         }
-        return "redirect:/category/list";
+        return "redirect:/admin/dashboard/category/list";
     }
 
     // Hiển thị form thêm danh mục
@@ -81,7 +82,7 @@ public class AdminCategoryManagementController {
     public String addCategory(@ModelAttribute Category category, RedirectAttributes redirectAttributes) {
         adminCategoryService.addCategory(category);
         redirectAttributes.addFlashAttribute("message", "Category added successfully!");
-        return "redirect:/category/list";
+        return "redirect:/admin/dashboard/category/list";
     }
 
     // Tìm kiếm danh mục theo tên với phân trang

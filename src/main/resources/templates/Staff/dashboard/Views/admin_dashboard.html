@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="Staff/fragments/header :: html_head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css">
+
+    <title>Admin Dashboard</title>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<header th:replace="Staff/fragments/admin_header :: admin_header"></header>
+<aside th:replace="Staff/fragments/admin_sidebar :: admin_sidebar"></aside>
+
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Pending Requests box -->
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-primary"> <!-- Changed color to blue -->
+                        <div class="inner">
+                            <h3 th:text="${totalPendingRequests}">0</h3>
+                            <p>Pending Requests</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <!-- Sử dụng đúng cú pháp Thymeleaf để tạo đường dẫn -->
+                        <a th:href="@{/admin/dashboard/pending}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Rejected Requests box -->
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3 th:text="${totalRejectedRequests}">0</h3>
+                            <p>Rejected Requests</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Approved Requests box -->
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-success"> <!-- Changed color to green -->
+                        <div class="inner">
+                            <h3 th:text="${totalApprovedRequests}">0</h3>
+                            <p>Approved Requests</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Total Customers box -->
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-warning"> <!-- Changed color to yellow -->
+                        <div class="inner">
+                            <h3 th:text="${totalCustomers}">0</h3>
+                            <p>Total Customers</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Total Books box -->
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-secondary"> <!-- Changed color to gray -->
+                        <div class="inner">
+                            <h3 th:text="${totalBooks}">0</h3>
+                            <p>Total Books</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<footer th:replace="Staff/fragments/admin_footer :: admin_footer"></footer>
+</body>
+<link rel="stylesheet" th:href="@{/Staff/bootstrap/css/adminDashboard.css}">
+</html>
