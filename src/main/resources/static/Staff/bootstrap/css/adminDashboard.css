@@ -1,27 +1,46 @@
 .bg-primary {
-    background-color: #007bff !important; /* Màu xanh đậm */
-    color: #fff; /* Màu chữ */
+    background-color: #007bff !important;
+    color: #fff;
 }
 
 .bg-danger {
-    background-color: #dc3545 !important; /* Màu đỏ đậm */
+    background-color: #dc3545 !important;
     color: #fff;
 }
 
 .bg-success {
-    background-color: #28a745 !important; /* Màu xanh lá đậm */
+    background-color: #28a745 !important;
     color: #fff;
 }
 
 .bg-warning {
-    background-color: #ffc107 !important; /* Màu vàng đậm */
+    background-color: #ffc107 !important;
     color: #fff;
 }
 
 .bg-secondary {
-    background-color: #6c757d !important; /* Màu xám đậm */
+    background-color: #6c757d !important;
     color: #fff;
 }
 .small-box {
-    opacity: 1 !important; /* Đảm bảo không có độ trong suốt */
+    opacity: 1 !important;
+}
+
+#canvas {
+width: 100$;
+}
+.container {
+    width: 60%;
+    margin:0px auto;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between; /* Căn chỉnh các box đều nhau */
+    flex-wrap: wrap; /* Cho phép box xuống dòng nếu không đủ chỗ */
+    transition: transform 0.3s;
+}
+
+.small-box {
+    margin: 10px; /* Tạo khoảng cách giữa các box */
 }
