@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -28,39 +29,50 @@ public class LibrarianTrackBorrowBookController {
     public String listBorrowIndexExcludingStatusOne(@RequestParam(value = "page", defaultValue = "1") int page,
                                                     @RequestParam(value = "size", defaultValue = "4") int size,
                                                     Model theModel) {
-        // Lấy các Borrow_index có status.id khác 1
+        // Kiểm tra errorMessage nếu tồn tại
+        System.out.println("=======Errorr Message======");
+        if (theModel.containsAttribute("errorMessage")) {
+            System.out.println("Error Message: " + theModel.getAttribute("errorMessage"));
+        }
+
         Page<Borrow_index> borrowIndicesPage = librarianBorrowIndexService.getBorrowIndexByStatusIdNotPaginated(page, size);
         List<Status> statuses = librarianStatusService.getStatus();
 
-
-        // Thêm dữ liệu vào model để truyền tới view
         theModel.addAttribute("borrowIndices", borrowIndicesPage.getContent());
         theModel.addAttribute("currentPage", page);
         theModel.addAttribute("totalPages", borrowIndicesPage.getTotalPages());
         theModel.addAttribute("totalItems", borrowIndicesPage.getTotalElements());
-        theModel.addAttribute("statuses",statuses);
+        theModel.addAttribute("statuses", statuses);
 
-        return "Staff/dashboard/Borrow_request/borrowTracking"; // Trả về view tương ứng
+        return "Staff/dashboard/Borrow_request/borrowTracking";
     }
+
     @PostMapping("/extendDueDate")
     public String extendDueDate(@RequestParam("borrowIndexId") Long borrowIndexId,
                                 @RequestParam("extensionWeeks") int extensionWeeks,
-                                Model theModel) {
-        // Lấy Borrow_index theo ID
+                                RedirectAttributes redirectAttributes) {
         Borrow_index borrowIndex = librarianBorrowIndexService.findById(borrowIndexId);
         if (borrowIndex != null) {
-            // Tính toán ngày trả mới
             LocalDateTime currentReturnDate = borrowIndex.getReturnDate();
             LocalDateTime newReturnDate = currentReturnDate.plus(extensionWeeks, ChronoUnit.WEEKS);
-            borrowIndex.setReturnDate(newReturnDate); // Cập nhật lại ngày trả
 
-            // Lưu Borrow_index đã cập nhật
+            LocalDateTime lastExtendDate = borrowIndex.getLastExtendDate();
+            if (newReturnDate.isAfter(lastExtendDate)) {
+                redirectAttributes.addFlashAttribute("errorMessage", "Cannot extend due date beyond allowed date.");
+                redirectAttributes.addFlashAttribute("openModalId", borrowIndexId); // truyền ID để mở modal này
+                return "redirect:/librarian/trackBorrowBook";
+            }
+
+            borrowIndex.setReturnDate(newReturnDate);
             librarianBorrowIndexService.save(borrowIndex);
         }
 
-        // Sau khi cập nhật, chuyển hướng về trang danh sách mượn
-        return "redirect:/librarian/trackBorrowBook"; // Redirect lại về trang danh sách
+        return "redirect:/librarian/trackBorrowBook";
     }
+
+
+
+
     @PostMapping("/changeStatus")
     public String changeStatus(@RequestParam("borrowIndexId") Long borrowIndexId,
                                @RequestParam("statusId") Long statusId,
