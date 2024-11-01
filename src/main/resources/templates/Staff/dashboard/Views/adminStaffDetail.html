@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="Staff/fragments/header :: html_head">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<header th:replace="Staff/fragments/admin_header :: admin_header"></header>
+<aside th:replace="Staff/fragments/admin_sidebar :: admin_sidebar"></aside>
+
+</aside>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Staff Detail
+
+    </h1>
+    <ol class="breadcrumb">
+      <li><a th:href="@{'/admin/dashboard/list'}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li><a th:href="@{'/admin/dashboard/borrow-detail'}">Borrow Detail</a></li>
+      <li>Customer Detail</a></li>
+
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+
+          <div class="card mb-3">
+
+            <div class="card-body">
+              <p><strong>ID:</strong> <span th:text="${customer.id}"></span></p>
+              <p><strong>First Name:</strong> <span th:text="${customer.firstName}"></span></p>
+              <p><strong>Last Name:</strong> <span th:text="${customer.lastName}"></span></p>
+              <p><strong>Email:</strong> <span th:text="${customer.email}"></span></p>
+              <p><strong>Phone:</strong> <span th:text="${customer.phone}"></span></p>
+              <p><strong>Role:</strong> <span th:text="${customer.role.name}"></span></p>
+            </div>
+          </div>
+          <!-- Nút dẫn đến danh sách người dùng -->
+          <div class="card-footer">
+            <a th:href="@{'/admin/dashboard/user/list'}" class="btn btn-primary">
+              Edit
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- /.content -->
+</div>
+</body>
+<footer th:replace="Staff/fragments/admin_footer :: admin_footer">
+
+</footer>
+</html>

@@ -1,0 +1,12 @@
+.table th {
+  background-color: #007bff; /* Màu nền cho tiêu đề bảng */
+  color: white; /* Màu chữ tiêu đề bảng */
+}
+
+.table td {
+  vertical-align: middle; /* Căn giữa nội dung trong ô */
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f2f2f2; /* Màu nền khi hover lên hàng bảng */
+}
