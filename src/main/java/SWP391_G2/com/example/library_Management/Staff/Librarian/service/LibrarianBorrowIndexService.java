@@ -31,13 +31,11 @@ public class LibrarianBorrowIndexService {
 
     public void updateBorrowStatus(int id, int statusId) {
         // Lấy Borrow_index dựa trên id
-        Borrow_index optionalBorrowIndex = librarianBorrowIndexRepository.findById(Long.valueOf(id)).get();
+        Borrow_index optionalBorrowIndex = librarianBorrowIndexRepository.findById(Long.valueOf(id)).orElse(null);
 
         if (optionalBorrowIndex != null) {
-
-
             // Cập nhật trạng thái
-            Status status = librarianStatusRepository.findById(String.valueOf(statusId)).get();
+            Status status = librarianStatusRepository.findById(String.valueOf(statusId)).orElse(null);
             optionalBorrowIndex.setStatus(status);
 
             // Nếu trạng thái là Accepted (statusId == 2), cập nhật borrow_date và return_date
@@ -45,6 +43,11 @@ public class LibrarianBorrowIndexService {
                 LocalDateTime now = LocalDateTime.now();
                 optionalBorrowIndex.setBorrowDate(now);
                 optionalBorrowIndex.setReturnDate(now.plusDays(7));
+
+                // Cập nhật lastExtendDate bằng borrowDate + 28 ngày
+                optionalBorrowIndex.setLastExtendDate(now.plusDays(28));
+
+                // Cập nhật trạng thái của Book_item
                 Book_item bookItem = optionalBorrowIndex.getBook_item();
                 if (bookItem != null) {
                     bookItem.setCondition("Unavailable");
@@ -58,6 +61,7 @@ public class LibrarianBorrowIndexService {
             throw new RuntimeException("Borrow Index không tồn tại với id: " + id);
         }
     }
+
 
     public Page<Borrow_index> getBorrowIndexByStatusIdNotPaginated(int page, int size) {
         Pageable pageable = PageRequest.of(page - 1, size);

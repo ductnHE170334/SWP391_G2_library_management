@@ -17,7 +17,7 @@
         <h1>BOOK BORROW MANAGEMENT</h1>
         <ol class="breadcrumb">
             <li><a th:href="@{'/librarian/requestBorrow'}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a th:href="@{'/librarian/requestBorrow'}">Track borrow book</a></li>
+
         </ol>
     </section>
 
@@ -29,6 +29,9 @@
                     <div class="box-header">
                         <h3 class="box-title">Track book borrow table</h3>
                     </div>
+                    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                        <p th:text="${errorMessage}"></p>
+                    </div>
 
                     <div class="box-body">
                         <table id="example2" class="table table-bordered table-hover">
@@ -38,9 +41,9 @@
                                 <th>Book Id</th>
                                 <th>Book Name</th>
                                 <th>Customer Name</th>
-                                <th>Borrow_requested at</th>
-                                <th>Borrow_date</th>
-                                <th>Return_date</th>
+                                <th>Borrow Requested At</th>
+                                <th>Borrow Date</th>
+                                <th>Return Date</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -49,27 +52,22 @@
                             <tr th:each="borrowIndex : ${borrowIndices}">
                                 <td th:text="${borrowIndex.id}"></td>
                                 <td th:text="${borrowIndex.book_item.book.id}"></td>
-                                <td th:text="${borrowIndex.book_item.book.name}"></td>
-
                                 <td>
-                                    <a th:href="@{/librarian/customerDetail/{id}(id=${borrowIndex.customer.id})}" th:text="${borrowIndex.customer.firstName + ' ' + borrowIndex.customer.lastName}"></a>
+                                    <a th:href="@{/librarian/bookDetail/{bookId}(bookId=${borrowIndex.book_item.book.id})}"
+                                       th:text="${borrowIndex.book_item.book.name}">
+                                    </a>
                                 </td>
-
-                                <!-- Borrow requested date -->
+                                <td>
+                                    <a th:href="@{/librarian/customerDetail/{id}(id=${borrowIndex.customer.id})}"
+                                       th:text="${borrowIndex.customer.firstName + ' ' + borrowIndex.customer.lastName}">
+                                    </a>
+                                </td>
                                 <td th:text="${#temporals.format(borrowIndex.createdRequestedAt, 'dd-MM-yyyy HH:mm:ss')}"></td>
-
-                                <!-- Borrow date -->
                                 <td th:text="${#temporals.format(borrowIndex.borrowDate, 'dd-MM-yyyy')}"></td>
-
-                                <!-- Return date -->
                                 <td th:text="${#temporals.format(borrowIndex.returnDate, 'dd-MM-yyyy')}"></td>
-
                                 <td th:text="${borrowIndex.status.status}"></td>
-
-                                <!-- Actions -->
                                 <td>
                                     <!-- Mark as Returned button -->
-                                    <!-- Button to trigger Change Status modal -->
                                     <button type="button" class="btn btn-success" data-toggle="modal" th:attr="data-target='#changeStatusModal'+*{borrowIndex.id}">
                                         <i class="fa fa-fw fa-repeat"></i>
                                     </button>
@@ -86,19 +84,16 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <form th:action="@{/librarian/trackBorrowBook/changeStatus}" method="post">
-                                                        <!-- Borrow Index ID (Read-only) -->
                                                         <div class="form-group">
                                                             <label for="borrowIndexStatus" class="col-form-label">Borrow Index ID:</label>
                                                             <input type="text" th:value="${borrowIndex.id}" class="form-control" id="borrowIndexStatus" name="borrowIndexId" readonly>
                                                         </div>
-                                                        <!-- Status Selection Dropdown -->
                                                         <div class="form-group">
                                                             <label for="statusId" class="col-form-label">Select Status:</label>
                                                             <select class="form-control" id="statusId" name="statusId" required>
                                                                 <option th:each="status : ${statuses}" th:value="${status.id}" th:text="${status.status}"></option>
                                                             </select>
                                                         </div>
-                                                        <!-- Submit and Close Buttons -->
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-primary">Save Status</button>
@@ -109,7 +104,12 @@
                                         </div>
                                     </div>
 
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#exampleModal'+*{borrowIndex.id}"  data-whatever="@mdo"><i class="fa fa-fw fa-calendar-plus-o"></i></button>
+                                    <!-- Extend Due Date button -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" th:attr="data-target='#exampleModal'+*{borrowIndex.id}" data-whatever="@mdo">
+                                        <i class="fa fa-fw fa-calendar-plus-o"></i>
+                                    </button>
+
+                                    <!-- Extend Due Date Modal -->
                                     <div class="modal fade" th:id="*{'exampleModal' + borrowIndex.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -121,9 +121,12 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <form th:action="@{/librarian/trackBorrowBook/extendDueDate}" method="post">
+                                                        <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                                                            <p th:text="${errorMessage}"></p>
+                                                        </div>
                                                         <div class="form-group">
                                                             <label for="borrowIndex" class="col-form-label">Borrow Index ID:</label>
-                                                            <input type="text" th:value="${borrowIndex.id}" class="form-control" id="borrowIndex" name="borrowIndexId" disabled>
+                                                            <input type="text" th:value="${borrowIndex.id}" class="form-control" id="borrowIndex" name="borrowIndexId" readonly>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="extension-weeks" class="col-form-label">Select Extension (weeks):</label>
@@ -134,9 +137,6 @@
                                                                 <option value="4">4 tuần</option>
                                                             </select>
                                                         </div>
-                                                        <input type="hidden" th:name="'borrowIndexId'" th:value="${borrowIndex.id}"/>
-
-                                                        <!-- Move the submit button inside the form -->
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-primary">Extend Due Date</button>
@@ -146,9 +146,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                 </td>
                             </tr>
                             </tbody>

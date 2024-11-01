@@ -185,8 +185,13 @@
                                                     <p th:text="${book.description}"></p>
                                                 </div>
                                                 <footer class="entry-footer">
-                                                    <a class="btn btn-dark-gray" href="books-media-detail-v1.html">Read
-                                                        More</a>
+                                                    <form action="/cart/add" method="post">
+                                                        <input type="hidden" name="bookId" th:value="${book.id}" />
+                                                        <input type="hidden" name="userId" value="1" />
+                                                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                                    </form>
+
+
                                                 </footer>
                                             </div>
                                             <div class="clear"></div>

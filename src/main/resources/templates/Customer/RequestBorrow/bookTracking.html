@@ -113,9 +113,9 @@
         </span>
                                                         </td>
                                                         <!-- Use the #dates.format to ensure proper date formatting -->
-                                                        <td th:text="${#temporals.format(borrow.borrow_date, 'yyyy-MM-dd')}"></td>
-                                                        <td th:text="${#temporals.format(borrow.return_date, 'yyyy-MM-dd')}"></td>
-                                                        <td th:text="${borrow.status_id.status}">Status</td>
+                                                        <td th:text="${#temporals.format(borrow.borrowDate, 'yyyy-MM-dd')}"></td>
+                                                        <td th:text="${#temporals.format(borrow.returnDate, 'yyyy-MM-dd')}"></td>
+                                                        <td th:text="${borrow.status.status}">Status</td>
                                                         <td data-title="action" class="product-action">
                                                             <div class="form-delete">
                                                                 <a th:href="@{/borrow/delete/{userId}/{bookItemId}(userId=${userId}, bookItemId=${borrow.book_item.id})}"
