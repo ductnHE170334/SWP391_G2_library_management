@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="Staff/fragments/header :: html_head">
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <header th:replace="Staff/fragments/admin_header :: admin_header"></header>
 <aside th:replace="Staff/fragments/admin_sidebar :: admin_sidebar"></aside>
@@ -11,7 +12,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Borrow Requests
+      Borrow Detail
     </h1>
     <ol class="breadcrumb">
       <li><a th:href="@{'/admin/dashboard/list'}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -20,7 +21,7 @@
   </section>
   <!-- Main content -->
   <section class="content">
-    <!-- Form Fillter -->
+    <!-- Form Filter -->
     <div class="row">
       <div class="col-xs-12">
         <form th:action="@{/admin/dashboard/borrow-detail}" method="get" class="form-inline">
@@ -54,6 +55,29 @@
       </div>
     </div>
 
+
+    <!-- Search -->
+<!--    <div class="search-buttons">-->
+<!--      <form th:action="@{/admin/dashboard/borrow-detail}" method="get" class="form-inline">-->
+<!--        <div class="form-group">-->
+<!--          <label for="staffName">Staff:</label>-->
+<!--          <input type="text" name="staffName" id="staffName" class="form-control" placeholder="Enter staff name">-->
+<!--          <button type="submit" class="btn btn-primary button-space">Search</button>-->
+<!--        </div>-->
+<!--      </form>-->
+
+<!--      <form th:action="@{/admin/dashboard/borrow-detail}" method="get" class="form-inline">-->
+<!--        <div class="form-group">-->
+<!--          <label for="customerName">Customer:</label>-->
+<!--          <input type="text" name="customerName" id="customerName" class="form-control" placeholder="Enter customer name">-->
+<!--          <button type="submit" class="btn btn-primary button-space">Search</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </div>-->
+
+
+
+
     <!-- Bảng hiển thị yêu cầu borrow detail -->
     <div class="row">
       <div class="col-xs-12">
@@ -69,8 +93,8 @@
                 <th>Id</th>
                 <th>Book Id</th>
                 <th>Book Name</th>
-                <th>Customer Name</th>
-                <th>Staff Name</th>
+                <th>Customer</th>
+                <th>Staff</th>
                 <th>Book Condition Before</th>
                 <th>Book Condition After</th>
                 <th>Borrow Requested At</th>
@@ -162,8 +186,8 @@
   <!-- /.content -->
 </div>
 </body>
-<footer th:replace="Staff/fragments/admin_footer :: admin_footer">
 
-</footer>
+<footer th:replace="Staff/fragments/admin_footer :: admin_footer"></footer>
+<link rel="stylesheet" th:href="@{/Staff/bootstrap/css/borrowDetail.css}">
 
 </html>
