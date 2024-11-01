@@ -39,6 +39,12 @@
               <p><strong>Role:</strong> <span th:text="${customer.role.name}"></span></p>
             </div>
           </div>
+          <!-- Nút dẫn đến danh sách người dùng -->
+          <div class="card-footer">
+            <a th:href="@{'/admin/dashboard/user/list'}" class="btn btn-primary">
+              Edit
+            </a>
+          </div>
 
         </div>
       </div>
