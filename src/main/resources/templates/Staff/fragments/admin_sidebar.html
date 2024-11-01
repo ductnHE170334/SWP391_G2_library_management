@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="html_head">
 
-
 </head>
 
 <body>
@@ -16,9 +15,28 @@
 
 
             <li>
-                <a th:href="@{'/books'}">
-                    <i class="fa fa-th"></i> <span>Book</span>
+                <a th:href="@{'/admin/dashboard/list'}">
+                    <i class="fa fa-fw fa-dashboard"></i> <span>Dashboard</span>
                 </a>
+                <a th:href="@{'/books'}">
+                    <i class="fa fa-fw fa-bookmark"></i><span>Book Manage</span>
+                </a>
+                <a th:href="@{'/admin/dashboard/user/list'}">
+                    <i class="fa fa-fw fa-user"></i> <span>User Manage</span>
+                </a>
+                <a th:href="@{'/admin/dashboard/category/list'}">
+                    <i class="fa fa-fw fa-navicon"></i> <span>Category Manage</span>
+                </a>
+                <a th:href="@{'/authors'}">
+                    <i class="fa fa-fw fa-pencil"></i> <span>Author Manage</span>
+                </a>
+                <a th:href="@{'/publishers'}">
+                    <i class="fa fa-fw fa-mortar-board"></i> <span>Publisher Manage</span>
+                </a>
+                <a th:href="@{'/news/list'}">
+                    <i class="fa fa-fw fa-newspaper-o"></i> <span>News Manage</span>
+                </a>
+
             </li>
 
         </ul>
