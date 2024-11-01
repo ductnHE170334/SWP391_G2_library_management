@@ -1,0 +1,46 @@
+.bg-primary {
+    background-color: #007bff !important;
+    color: #fff;
+}
+
+.bg-danger {
+    background-color: #dc3545 !important;
+    color: #fff;
+}
+
+.bg-success {
+    background-color: #28a745 !important;
+    color: #fff;
+}
+
+.bg-warning {
+    background-color: #ffc107 !important;
+    color: #fff;
+}
+
+.bg-secondary {
+    background-color: #6c757d !important;
+    color: #fff;
+}
+.small-box {
+    opacity: 1 !important;
+}
+
+#canvas {
+width: 100$;
+}
+.container {
+    width: 60%;
+    margin:0px auto;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between; /* Căn chỉnh các box đều nhau */
+    flex-wrap: wrap; /* Cho phép box xuống dòng nếu không đủ chỗ */
+    transition: transform 0.3s;
+}
+
+.small-box {
+    margin: 10px; /* Tạo khoảng cách giữa các box */
+}

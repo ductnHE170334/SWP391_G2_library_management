@@ -1,7 +1,7 @@
 package SWP391_G2.com.example.library_Management.Staff.Admin.controller;
 
 import SWP391_G2.com.example.library_Management.Entity.User;
-import SWP391_G2.com.example.library_Management.Entity.Role; // Assuming you have a Role entity
+import SWP391_G2.com.example.library_Management.Entity.Role;
 import SWP391_G2.com.example.library_Management.Staff.Admin.service.AdminUserAccountService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("admin/dashboard/user")
 public class AdminUserAccountManagementController {
 
     private final AdminUserAccountService adminUserAccountService;
@@ -66,14 +66,14 @@ public class AdminUserAccountManagementController {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         if (!user.getEmail().matches(emailRegex)) {
             redirectAttributes.addFlashAttribute("error", "Invalid email format!");
-            return "redirect:/user/update/" + id; // Redirect back to the update form
+            return "redirect:/admin/dashboard/user/update/" + id; // Redirect back to the update form
         }
 
         // Validate phone format (assuming phone should be numeric and 10-15 digits)
         String phoneRegex = "^\\d{10,15}$";
         if (!user.getPhone().matches(phoneRegex)) {
             redirectAttributes.addFlashAttribute("error", "Invalid phone number format!");
-            return "redirect:/user/update/" + id; // Redirect back to the update form
+            return "redirect:/admin/dashboard/user/update/" + id; // Redirect back to the update form
         }
 
         // Get all roles
@@ -93,7 +93,7 @@ public class AdminUserAccountManagementController {
 
         // Add success message
         redirectAttributes.addFlashAttribute("message", "User with ID " + id + " has been updated successfully!");
-        return "redirect:/user/list";
+        return "redirect:/admin/dashboard/user/list";
     }
 
 
@@ -107,7 +107,7 @@ public class AdminUserAccountManagementController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Failed to delete user!");
         }
-        return "redirect:/user/list";
+        return "redirect:/admin/dashboard/user/list";
     }
 
     // Show the add user form
@@ -129,20 +129,20 @@ public class AdminUserAccountManagementController {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         if (!user.getEmail().matches(emailRegex)) {
             redirectAttributes.addFlashAttribute("error", "Invalid email format!");
-            return "redirect:/user/list";
+            return "redirect:/admin/dashboard/user/list";
         }
 
         // Validate phone format
         String phoneRegex = "^\\d{10,15}$";
         if (!user.getPhone().matches(phoneRegex)) {
             redirectAttributes.addFlashAttribute("error", "Invalid phone number format!");
-            return "redirect:/user/list";
+            return "redirect:/admin/dashboard/user/list";
         }
 
         // Check if passwords match
         if (user.getPassword() == null || !user.getPassword().equals(confirmPassword)) {
             redirectAttributes.addFlashAttribute("error", "Passwords do not match!");
-            return "redirect:/user/list";
+            return "redirect:/admin/dashboard/user/list";
         }
 
         List<Role> roles = adminUserAccountService.getAllRoles();
@@ -155,7 +155,7 @@ public class AdminUserAccountManagementController {
         adminUserAccountService.addUser(user);
 
         redirectAttributes.addFlashAttribute("message", "User added successfully!");
-        return "redirect:/user/list";
+        return "redirect:/admin/dashboard/user/list";
     }
 
 

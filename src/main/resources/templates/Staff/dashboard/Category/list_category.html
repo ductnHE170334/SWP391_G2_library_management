@@ -1,91 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>
-  /* Body styling */
-  body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f6f9;
-      margin: 0; /* Remove default margin */
-      padding: 0; /* Remove default padding */
-  }
+<link rel="stylesheet" th:href="@{/Staff/bootstrap/css/manageCategory.css}">
 
-  /* Main content wrapper */
-  .content-wrapper {
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      margin-top: 20px; /* Add margin to separate from header */
-  }
 
-  /* Table styling */
-  .table {
-      width: 100%;
-      margin-bottom: 20px;
-      border-collapse: collapse;
-      border-radius: 8px;
-      overflow: hidden;
-  }
-
-  .table th, .table td {
-      padding: 8px; /* Reduced padding */
-      text-align: left;
-      border-bottom: 1px solid #dee2e6;
-  }
-
-  .table th {
-      background-color: #f8f9fa;
-  }
-
-  .table tr:nth-child(even) {
-      background-color: #f2f2f2;
-  }
-
-  /* Button styling */
-  .btn {
-      padding: 8px 12px;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-  }
-
-  .btn-primary {
-      background-color: #007bff;
-      color: white;
-  }
-
-  .btn-danger {
-      background-color: #dc3545;
-      color: white;
-  }
-
-  /* Alert messages */
-  .alert {
-      margin-bottom: 20px;
-      border-radius: 4px;
-  }
-
-  /* Pagination styles */
-  .pagination {
-      justify-content: center;
-  }
-
-  .pagination .page-item {
-      margin: 0 5px;
-  }
-
-  .pagination .page-link {
-      padding: 8px 12px;
-      border-radius: 4px;
-      text-decoration: none;
-      color: black;
-  }
-
-  .pagination .active .page-link {
-      font-weight: bold;
-  }
-</style>
 <head th:replace="Staff/fragments/header :: html_head">
   <title>Category List</title>
   <meta charset="UTF-8">
@@ -99,16 +17,42 @@
   <h1 class="text-center">Category Manage</h1>
 
   <!-- Form tìm kiếm Category -->
-  <form class="form-inline mb-4" th:action="@{/category/search}" method="get">
+  <form class="form-inline mb-4" th:action="@{/admin/dashboard/category/search}" method="get">
     <div class="form-group mx-sm-3 mb-2">
       <input type="text" class="form-control" name="name" placeholder="Search by Category Name" th:value="${searchName}">
     </div>
     <button type="submit" class="btn btn-primary mb-2">Search</button>
-    <a th:href="@{/category/add}" class="btn btn-success mb-2 mx-sm-2">Add New Category</a>
+    <button type="button" class="btn btn-success mb-2 mx-sm-2" onclick="openAddUserModal()">Add New Category</button>
   </form>
 
-  <!-- Thông báo hiển thị tin nhắn nếu có -->
+  <!-- Add Category Modal -->
+  <div id="addUserModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeAddUserModal()">&times;</span>
+      <h2>Add New User</h2>
+
+      <!-- Add Category Form -->
+      <form th:action="@{/admin/dashboard/category/add}" method="post">
+        <div class="form-group">
+          <label for="categoryName" class="form-label">Category Name</label>
+          <input type="text" id="categoryName" name="name" class="form-control" required />
+        </div>
+        <!-- Submit and Cancel Buttons -->
+        <button type="submit" class="btn btn-primary">Add Category</button>
+        <a th:href="@{/admin/dashboard/category/list}" class="btn btn-secondary">Cancel</a> <!-- Cancel button -->
+      </form>
+    </div>
+  </div>
+
+
+
+  <!-- Notification Message -->
   <div th:if="${message}" class="alert alert-info" th:text="${message}" id="flash-message"></div>
+  <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+
+
+
 
   <!-- Bảng hiển thị danh sách Category -->
   <table class="table table-bordered mt-4">
@@ -120,44 +64,64 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${categories.size() == 0}">
+    <tr th:if="${#lists.isEmpty(categories)}">
       <td colspan="3" class="text-center">No categories found</td>
     </tr>
     <tr th:each="category : ${categories}">
       <td th:text="${category.id}"></td>
       <td th:text="${category.name}"></td>
       <td>
-        <a th:href="@{/category/update/{id}(id=${category.id})}" class="btn btn-primary">
+        <!-- Button Update -->
+        <a th:href="@{/admin/dashboard/category/update/{id}(id=${category.id})}" class="btn btn-primary">
           <i class="fa-solid fa-pen-to-square"></i>
         </a>
-        <form th:action="@{/category/{id}(id=${category.id})}" method="post" style="display:inline-block;"
-              onsubmit="return confirm('Are you sure you want to delete this category?');">
-          <input type="hidden" name="_method" value="delete">
-          <button type="submit" class="btn btn-danger">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        </form>
+
+        <!-- Button Delete -->
+        <button class="btn btn-danger"
+                th:attr="onclick='openDeleteModal(' + ${category.id} + ')'" type="button">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+
       </td>
     </tr>
     </tbody>
   </table>
 
+
+
+  <!-- Delete Confirmation Modal -->
+  <div id="deleteModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h1>Are you sure you want to delete this Category?</h1>
+      <button id="confirmDelete" class="btn btn-danger">Delete</button>
+      <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+    </div>
+  </div>
+
+
+
+
+
   <!-- Phân trang -->
-  <nav aria-label="Page navigation">
-    <ul class="pagination">
-      <li class="page-item" th:class="${currentPage == 0} ? 'disabled'">
-        <a class="page-link" th:href="@{/category/list(page=${currentPage - 1}, size=${size})}" tabindex="-1">Previous</a>
-      </li>
-      <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${i == currentPage} ? 'active'">
-        <a class="page-link" th:href="@{/category/list(page=${i}, size=${size})}" th:text="${i + 1}"></a>
-      </li>
-      <li class="page-item" th:class="${currentPage + 1 == totalPages} ? 'disabled'">
-        <a class="page-link" th:href="@{/category/list(page=${currentPage + 1}, size=${size})}">Next</a>
-      </li>
-    </ul>
-  </nav>
+  <div class="pagination-wrapper">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item" th:class="${currentPage == 0} ? 'disabled'">
+          <a class="page-link" th:href="@{/admin/dashboard/category/list(page=${currentPage - 1}, size=${size})}" tabindex="-1"><</a>
+        </li>
+        <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:class="${i == currentPage} ? 'active'">
+          <a class="page-link" th:href="@{/admin/dashboard/category/list(page=${i}, size=${size})}" th:text="${i + 1}"></a>
+        </li>
+        <li class="page-item" th:class="${currentPage + 1 == totalPages} ? 'disabled'">
+          <a class="page-link" th:href="@{/admin/dashboard/category/list(page=${currentPage + 1}, size=${size})}">></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </div>
 
 <footer th:replace="Staff/fragments/admin_footer :: admin_footer"></footer>
+<script th:src="@{/Staff/bootstrap/js/manageCategory.js}"></script>
 </body>
 </html>
