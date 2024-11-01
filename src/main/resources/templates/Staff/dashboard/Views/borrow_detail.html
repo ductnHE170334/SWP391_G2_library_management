@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="Staff/fragments/header :: html_head">
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <header th:replace="Staff/fragments/admin_header :: admin_header"></header>
 <aside th:replace="Staff/fragments/admin_sidebar :: admin_sidebar"></aside>
@@ -11,8 +12,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Pending Borrow Requests
-
+      Borrow Detail
     </h1>
     <ol class="breadcrumb">
       <li><a th:href="@{'/admin/dashboard/list'}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -21,17 +21,17 @@
   </section>
   <!-- Main content -->
   <section class="content">
-    <!-- Form Lọc -->
+    <!-- Form Filter -->
     <div class="row">
       <div class="col-xs-12">
-        <form th:action="@{/admin/dashboard/pending}" method="get" class="form-inline">
+        <form th:action="@{/admin/dashboard/borrow-detail}" method="get" class="form-inline">
           <div class="form-group">
             <label for="status">Status:</label>
             <select name="status" id="status" class="form-control">
-              <option value="">All</option>
-              <option value="pending">Pending</option>
-              <option value="accepted">Accepted</option>
-              <option value="denied">Denied</option>
+              <option value="All">All</option>
+              <option value="Pending">Pending</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Approved">Approved</option>
             </select>
           </div>
 
@@ -41,12 +41,12 @@
           </div>
 
           <div class="form-group">
-            <label for="startDate">Start Date:</label>
+            <label for="startDate">Borrow Date:</label>
             <input type="date" name="startDate" id="startDate" class="form-control">
           </div>
 
           <div class="form-group">
-            <label for="endDate">End Date:</label>
+            <label for="endDate">Return Date:</label>
             <input type="date" name="endDate" id="endDate" class="form-control">
           </div>
 
@@ -55,7 +55,30 @@
       </div>
     </div>
 
-    <!-- Bảng hiển thị yêu cầu mượn sách -->
+
+    <!-- Search -->
+<!--    <div class="search-buttons">-->
+<!--      <form th:action="@{/admin/dashboard/borrow-detail}" method="get" class="form-inline">-->
+<!--        <div class="form-group">-->
+<!--          <label for="staffName">Staff:</label>-->
+<!--          <input type="text" name="staffName" id="staffName" class="form-control" placeholder="Enter staff name">-->
+<!--          <button type="submit" class="btn btn-primary button-space">Search</button>-->
+<!--        </div>-->
+<!--      </form>-->
+
+<!--      <form th:action="@{/admin/dashboard/borrow-detail}" method="get" class="form-inline">-->
+<!--        <div class="form-group">-->
+<!--          <label for="customerName">Customer:</label>-->
+<!--          <input type="text" name="customerName" id="customerName" class="form-control" placeholder="Enter customer name">-->
+<!--          <button type="submit" class="btn btn-primary button-space">Search</button>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </div>-->
+
+
+
+
+    <!-- Bảng hiển thị yêu cầu borrow detail -->
     <div class="row">
       <div class="col-xs-12">
         <div class="box">
@@ -70,8 +93,8 @@
                 <th>Id</th>
                 <th>Book Id</th>
                 <th>Book Name</th>
-                <th>Customer Name</th>
-                <th>Staff Name</th>
+                <th>Customer</th>
+                <th>Staff</th>
                 <th>Book Condition Before</th>
                 <th>Book Condition After</th>
                 <th>Borrow Requested At</th>
@@ -82,7 +105,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr th:each="borrowIndex : ${pendingBorrowIndexes}">
+              <tr th:each="borrowIndex : ${BorrowIndexes}">
                 <td th:text="${borrowIndex.id}"></td>
                 <td th:text="${borrowIndex.book_item.book.id}"></td>
                 <td th:text="${borrowIndex.book_item.book.name}"></td>
@@ -126,31 +149,32 @@
               </tbody>
             </table>
             <!-- Pagination controls -->
-
             <div class="text-center">
               <nav aria-label="Page navigation">
                 <ul class="pagination">
-                  <!-- Nút Previous -->
+                  <!-- Previous Button -->
                   <li th:classappend="${currentPage == 1} ? 'disabled'">
-                    <a th:href="@{/admin/dashboard/pending(page=${currentPage - 1}, size=${5})}" aria-label="Previous">
+                    <a th:href="@{/admin/dashboard/borrow-detail(page=${currentPage - 1}, size=${5}, status=${status}, bookName=${bookName}, startDate=${startDate}, endDate=${endDate})}" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
 
-                  <!-- Hiển thị các trang -->
+                  <!-- Display Page Numbers -->
                   <li th:each="pageNum : ${#numbers.sequence(1, totalPages)}" th:classappend="${pageNum == currentPage} ? 'active'">
-                    <a th:href="@{/admin/dashboard/pending(page=${pageNum}, size=${5})}" th:text="${pageNum}"></a>
+                    <a th:href="@{/admin/dashboard/borrow-detail(page=${pageNum}, size=${5}, status=${status}, bookName=${bookName}, startDate=${startDate}, endDate=${endDate})}" th:text="${pageNum}"></a>
                   </li>
 
-                  <!-- Nút Next -->
+                  <!-- Next Button -->
                   <li th:classappend="${currentPage == totalPages} ? 'disabled'">
-                    <a th:href="@{/admin/dashboard/pending(page=${currentPage + 1}, size=${5})}" aria-label="Next">
+                    <a th:href="@{/admin/dashboard/borrow-detail(page=${currentPage + 1}, size=${5}, status=${status}, bookName=${bookName}, startDate=${startDate}, endDate=${endDate})}" aria-label="Next">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>
                 </ul>
               </nav>
             </div>
+
+
 
 
           </div>
@@ -162,7 +186,8 @@
   <!-- /.content -->
 </div>
 </body>
-<footer th:replace="Staff/fragments/admin_footer :: admin_footer">
 
-</footer>
+<footer th:replace="Staff/fragments/admin_footer :: admin_footer"></footer>
+<link rel="stylesheet" th:href="@{/Staff/bootstrap/css/borrowDetail.css}">
+
 </html>
