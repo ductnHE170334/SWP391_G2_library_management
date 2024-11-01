@@ -53,7 +53,7 @@ public class CustomerCartController {
 
         response.addCookie(cartCookie);
 
-        return "redirect:/";
+        return "redirect:/home/list";
     }
 
     @GetMapping("/delete")
