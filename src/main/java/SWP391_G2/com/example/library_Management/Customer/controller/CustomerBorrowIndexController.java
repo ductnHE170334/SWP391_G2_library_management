@@ -29,7 +29,7 @@ public class CustomerBorrowIndexController {
         model.addAttribute("borrowIndexList", borrowIndexList);
         model.addAttribute("userId",userId);
 
-        return "Customer/bookTracking";
+        return "Customer/RequestBorrow/bookTracking";
     }
     @GetMapping("/delete/{customerId}/{bookItemId}")
     public String deleteBorrowIndex(@PathVariable Long userId, @PathVariable Long bookItemId, Model model) {
