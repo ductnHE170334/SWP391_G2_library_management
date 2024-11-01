@@ -53,7 +53,7 @@ public class CustomerCartController {
 
         response.addCookie(cartCookie);
 
-        return "redirect:/";
+        return "redirect:/home/list";
     }
 
     @GetMapping("/delete")
@@ -177,6 +177,6 @@ public class CustomerCartController {
 
         // Notify the user
         model.addAttribute("message", "Your request has been successfully submitted.");
-        return "redirect:/";
+        return "redirect:/home/list";
     }
 }
