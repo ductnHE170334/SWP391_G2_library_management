@@ -1,0 +1,17 @@
+.page-banner {
+    margin-bottom: 30px; /* Tạo khoảng cách giữa phần banner và profile */
+}
+
+.profile-container {
+    margin-top: 50px; /* Tạo khoảng cách giữa phần profile và các phần trên */
+}
+
+.container {
+    padding: 20px; /* Thêm padding cho container */
+    border-radius: 10px; /* Thêm bo góc cho container */
+}
+.text-black-50 {
+    display: block; /* Đảm bảo ID nằm trên một dòng mới */
+    margin-top: 5px; /* Khoảng cách giữa tên và ID */
+    color: #6c757d; /* Màu sắc cho ID (màu đen nhạt) */
+}
