@@ -58,15 +58,14 @@
                                             <li><b class="arrow-up"></b><a data-toggle="tab"
                                                                            href="/cart?userId=1">Cart</a>
                                             </li>
-                                            <li class="active"><b class="arrow-up"></b> <a data-toggle="tab"
-                                                                                           th:href="@{/borrow/{userId}(userId=${userId})}">Track
-                                                book borrow request</a>
-                                            </li>
+                                            <a data-toggle="tab" th:href="@{/borrow}" >
+                                                Track book borrow request
+                                            </a>
 
                                         </ul>
                                         <div class="tab-content">
                                             <form method="post" action="/cart/cart-page">
-                                                <input type="hidden" name="customerId" th:value="${userId}"/>
+
 
                                                 <table class="table table-bordered shop_table cart">
                                                     <thead>
