@@ -31,15 +31,22 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="topbar-links">
-                                        <a href="signin.html"><i class="fa fa-lock"></i>Login / Register</a>
+                                    <div class="topbar-links" style="display: flex; align-items: center;">
+    <span th:if="${session.userLastName != null}" style="margin-right: 15px;">
+        Welcome, <span th:text="${session.userLastName}">User</span>!
+        <a href="/logout" class="btn btn-logout" style="margin-left: 10px;">Logout</a>
+    </span>
+                                        <a th:if="${session.userLastName == null}" href="/login" style="margin-right: 15px;">
+                                            <i class="fa fa-lock"></i>Login / Register
+                                        </a>
                                         <span>|</span>
-                                        <div class="header-cart dropdown">
-                                            <a href="/cart?customerId=1" data-toggle="dropdown" class="dropdown-toggle">
+                                        <div class="header-cart dropdown" style="margin-left: 15px;">
+                                            <a href="/cart">
                                                 <i class="fa fa-shopping-cart"></i>
                                             </a>
                                         </div>
                                     </div>
+                                </div>
                                 </div>
                             </div>
                         </div>

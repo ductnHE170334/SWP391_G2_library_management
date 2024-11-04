@@ -1,4 +1,4 @@
-package SWP391_G2.com.example.library_Management.Customer.service;
+package SWP391_G2.com.example.library_Management.User.service;
 
 import SWP391_G2.com.example.library_Management.Customer.repository.UserRepository;
 import SWP391_G2.com.example.library_Management.Entity.User;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CustomerProfileService {
+public class UserProfileService {
     @Autowired
     private UserRepository userRepository;
 
