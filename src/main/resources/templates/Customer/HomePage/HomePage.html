@@ -186,10 +186,10 @@
                                                 </div>
                                                 <footer class="entry-footer">
                                                     <form action="/cart/add" method="post">
-                                                        <input type="hidden" name="bookId" th:value="${book.id}" />
-                                                        <input type="hidden" name="userId" value="1" />
+                                                        <input type="hidden" name="bookId" th:value="${book.id.toString()}" />
                                                         <button type="submit" class="btn btn-primary">Add to Cart</button>
                                                     </form>
+
 
 
                                                 </footer>

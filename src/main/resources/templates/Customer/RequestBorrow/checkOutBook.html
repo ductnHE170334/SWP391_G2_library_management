@@ -58,13 +58,18 @@
                                             <li class="active"><b class="arrow-up"></b><a data-toggle="tab"
                                                                                           href="#sectionA">Cart</a>
                                             </li>
-                                            <li><b class="arrow-up"></b> <a data-toggle="tab" th:href="@{/borrow/{customerId}(customerId=${customerId})}" >Track book borrow request</a>
+                                            <li>
+                                                <b class="arrow-up"></b>
+                                                <a data-toggle="tab" th:href="@{/borrow}" >
+                                                    Track book borrow request
+                                                </a>
+                                            </li>
                                             </li>
 
                                         </ul>
                                         <div class="tab-content">
                                             <form method="post" action="/cart/cart-page">
-                                                <input type="hidden" name="customerId" th:value="${customerId}" />
+
                                                 <!-- Hidden field to pass customerId -->
                                                 <table class="table table-bordered shop_table cart">
                                                     <thead>
