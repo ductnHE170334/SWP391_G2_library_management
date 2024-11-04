@@ -54,37 +54,47 @@
                             <article class="page type-page status-publish hentry">
                                 <div class="entry-content">
                                     <div class="woocommerce">
-                                        <form action="http://libraria.demo.presstigers.com/checkout.html" class="checkout woocommerce-checkout" method="post" name="checkout">
+                                        <form action="#" method="post" class="checkout woocommerce-checkout">
                                             <div class="row">
                                                 <div class="col-sm-8">
-                                                    <h2>Contact Information</h2>
+                                                    <h2>Application Information</h2>
                                                     <span class="underline left"></span>
+
                                                     <div class="woocommerce-info">
                                                         <div class="col-sm-7">
+                                                            <label>
+                                                                <span class="first-letter">Application Type</span>
+                                                                <span class="second-letter">*</span>
+                                                            </label>
+                                                            <!-- Dropdown for Application Type -->
                                                             <p class="input-required">
-                                                                <label>
-                                                                    <span class="first-letter">Email Address</span>
-                                                                    <span class="second-letter">*</span>
-                                                                </label>
-                                                                <input type="text" value="" class="input-text">
-                                                            </p>
-                                                            <p class="input-required">
-                                                                <label>
-                                                                    <span class="first-letter">Password</span>
-                                                                    <span class="second-letter">*</span>
-                                                                </label>
-                                                                <input type="password" value="" class="input-text">
-                                                            </p>
-                                                            <input type="submit" class="btn btn-default" value="Send application">
-                                                        </div>
 
+                                                                <select name="applicationTypeId" class="input-text" required>
+                                                                    <option value="">-- Select Application Type --</option>
+                                                                    <tr th:each="type : ${applicationTypes}">
+                                                                        <option th:value="${type.id}" th:text="${type.application_type}"></option>
+                                                                    </tr>
+                                                                </select>
+                                                            </p>
+
+                                                            <!-- Textarea for Reason -->
+                                                            <label>
+                                                                <span class="first-letter">Reason</span>
+                                                                <span class="second-letter">*</span>
+                                                            </label>
+                                                            <p class="input-required">
+
+                                                                <textarea name="reason" class="input-text" rows="4" required style="width: 100%;"></textarea>
+                                                            </p>
+
+                                                            <!-- Submit Button -->
+                                                            <input type="submit" class="btn btn-default" value="Send Application">
+                                                        </div>
                                                         <div class="clearfix"></div>
                                                     </div>
                                                 </div>
-
                                             </div>
-
-                                    </form>
+                                        </form>
                                 </div>
                         </div><!-- .entry-content -->
                         </article>
