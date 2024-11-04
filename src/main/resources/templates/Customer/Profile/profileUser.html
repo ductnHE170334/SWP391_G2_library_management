@@ -53,47 +53,52 @@
     </div>
 
     <!-- Profile Settings Section -->
-    <div class="col-md-6 border-right">
-      <div class="p-5 py-6">
+    <form th:action="@{/profile/update}" method="post">
+      <div class="col-md-6 border-right">
+        <div class="p-5 py-6">
 
-        <!-- Name Fields -->
-        <div class="row mt-2">
-          <div class="col-md-6">
-            <label class="labels">First Name</label>
-            <input type="text" class="form-control" placeholder="First Name" value="" th:value="${user.firstName}">
+          <!-- Name Fields -->
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label class="labels">First Name</label>
+              <input type="text" class="form-control" placeholder="First Name" th:value="${user.firstName}" name="firstName" required>
+            </div>
+            <div class="col-md-6">
+              <label class="labels">Last Name</label>
+              <input type="text" class="form-control" placeholder="Last Name" th:value="${user.lastName}" name="lastName" required>
+            </div>
           </div>
-          <div class="col-md-6">
-            <label class="labels">Last Name</label>
-            <input type="text" class="form-control" placeholder="Last Name" value="" th:value="${user.lastName}">
-          </div>
-        </div>
 
-        <!-- Contact Information -->
-        <div class="row mt-3">
-          <div class="col-md-12">
-            <label class="labels">Email</label>
-            <input type="text" class="form-control" placeholder="Email" value="" th:value="${user.email}">
+          <!-- Contact Information -->
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <label class="labels">Email</label>
+              <input type="email" class="form-control" placeholder="Email" th:value="${user.email}" name="email" required>
+            </div>
+            <div class="col-md-12">
+              <label class="labels">Phone</label>
+              <input type="text" class="form-control" placeholder="Phone" th:value="${user.phone}" name="phone" required>
+            </div>
+            <div class="col-md-12">
+              <label class="labels">Role</label>
+              <input type="text" class="form-control" placeholder="Role" th:value="${user.role.name}" readonly>
+            </div>
+            <div class="col-md-12">
+              <label class="labels">Password</label>
+              <input type="text" class="form-control" placeholder="Password" th:value="${user.password}" name="password" required>
+            </div>
           </div>
-          <div class="col-md-12">
-            <label class="labels">Phone</label>
-            <input type="text" class="form-control" placeholder="Phone" value="" th:value="${user.phone}">
-          </div>
-          <div class="col-md-12">
-            <label class="labels">Role</label>
-            <input type="text" class="form-control" placeholder="Role" value="" th:value="${user.role.name}">
-          </div>
-          <div class="col-md-12">
-            <label class="labels">Password</label>
-            <input type="text" class="form-control" placeholder="Password" value="" th:value="${user.password}">
-          </div>
-        </div>
 
-        <!-- Save Button -->
-        <div class="mt-5 text-center">
-          <button class="btn btn-primary profile-button" type="submit">Save</button>
+          <!-- Save Button -->
+          <div class="mt-5 text-center">
+            <button class="btn btn-primary profile-button" type="submit">Save</button>
+          </div>
+
         </div>
       </div>
-    </div>
+    </form>
+
+
   </div>
 </div>
 <!-- End: Profile Container -->
