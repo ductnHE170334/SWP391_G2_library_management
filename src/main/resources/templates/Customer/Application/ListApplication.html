@@ -73,39 +73,24 @@
                                             <table class="table table-bordered shop_table cart">
                                                 <thead>
                                                 <tr>
-
                                                     <th class="product-name">Id</th>
                                                     <th class="product-name">Application Type</th>
                                                     <th class="product-name">Reason</th>
                                                     <th class="product-quantity">Response</th>
                                                     <th class="product-name">Status</th>
-
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <!--
-                                                                                                    <tr th:each="borrow : ${borrowIndexList}">
-                                                                                                        <td th:text="${#temporals.format(borrow.borrowDate, 'yyyy-MM-dd')}"></td>
-
-                                                                                                        <td th:text="${#temporals.format(borrow.borrowDate, 'yyyy-MM-dd')}"></td>
-                                                                                                        <td th:text="${#temporals.format(borrow.returnDate, 'yyyy-MM-dd')}"></td>
-                                                                                                        <td th:text="${borrow.status.status}">Status</td>
-                                                                                                        <td data-title="action" class="product-action">
-                                                                                                            <div class="form-delete">
-                                                                                                                <a th:href="@{/borrow/delete/{userId}/{bookItemId}(userId=${userId}, bookItemId=${borrow.book_item.id})}"
-                                                                                                                   class="btn btn-dark-gray">
-                                                                                                                    <i class="fa fa-fw fa-trash"></i>
-                                                                                                                </a>
-                                                                                                            </div>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                -->
-
-
+                                                <tr th:each="app : ${applications}">
+                                                    <td th:text="${app.id}"></td>
+                                                    <td th:text="${app.application_type.application_type}">Application Type</td>
+                                                    <td th:text="${app.reason}"></td>
+                                                    <td th:text="${app.response}"></td>
+                                                    <td th:text="${app.status}">Status</td>
+                                                </tr>
                                                 </tbody>
-
-
                                             </table>
+
 
 
 
