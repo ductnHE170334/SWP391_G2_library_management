@@ -23,4 +23,12 @@ public class CustomerApplicationService {
     public List<Application_Type> getAllApplicationTypes() {
         return customerApplicationTypeRepository.findAll();
     }
+
+    public Application saveApplication(Application application) {
+        if (application.getStatus() == null) {
+            application.setStatus("Waiting");
+        }
+
+        return customerApplicationRepository.save(application);
+    }
 }
