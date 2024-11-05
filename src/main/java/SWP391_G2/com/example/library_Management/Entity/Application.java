@@ -41,4 +41,8 @@ public class Application {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")  // Foreign key to User
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "borrow_index_id")  // Foreign key to Borrow_index
+    private Borrow_index borrowIndex;
 }
