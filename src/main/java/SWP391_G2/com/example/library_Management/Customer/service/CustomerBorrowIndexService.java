@@ -36,6 +36,10 @@ public class CustomerBorrowIndexService {
             customerBorrowIndexRepository.delete(borrowIndex);
         }
     }
+    public Borrow_index getBorrowIndexById(Long borrowId) {
+        return customerBorrowIndexRepository.findById(Math.toIntExact(borrowId))
+                .orElseThrow(() -> new RuntimeException("Borrow index not found"));
+    }
 
 }
 
