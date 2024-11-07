@@ -7,6 +7,7 @@ import SWP391_G2.com.example.library_Management.Entity.News;
 import SWP391_G2.com.example.library_Management.HomePage.service.HomePageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,17 +25,21 @@ public class HomePageController {
 
     //Get all information for the home page
     @GetMapping("/list")
-    public String homePage(Model theModel, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+    public String homePage(Model theModel, @Param("title") String title, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
         Page<Book> booksPage;
+
+        if(title != null) {
+            booksPage = homePageService.findBookByName(title, page, size);
+            theModel.addAttribute("searchtitle", title);
+        } else {
+            booksPage = homePageService.getAllBooks(page, size);
+        }
 
         //get the author from the service
         List<Author> theAuthors = homePageService.getAllAuthors();
 
         //get all categories from the service
         List<Category> theCategories = homePageService.getAllCategories();
-
-        //get all book from the service
-        booksPage = homePageService.getAllBooks(page, size);
 
         // add to the spring model
         theModel.addAttribute("authors", theAuthors);
