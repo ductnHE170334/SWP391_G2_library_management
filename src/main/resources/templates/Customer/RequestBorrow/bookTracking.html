@@ -8,14 +8,14 @@
 <section class="page-banner services-banner">
     <div class="container">
         <div class="banner-header">
-            <h2>Books & Media Listing</h2>
+            <h2>Track book borrow request</h2>
             <span class="underline center"></span>
             <p class="lead">Proin ac eros pellentesque dolor pharetra tempo.</p>
         </div>
         <div class="breadcrumb">
             <ul>
                 <li><a href="index-2.html">Home</a></li>
-                <li>Books & Media</li>
+                <li>Track book borrow request</li>
             </ul>
         </div>
     </div>
@@ -27,29 +27,6 @@
             <div class="cart-main">
                 <div class="container">
                     <div class="row">
-                        <div class="cart-head">
-                            <div class="col-xs-12 col-sm-6 account-option">
-                                <strong>Scott Fitzgerald</strong>
-                                <ul>
-                                    <li><a href="#">Edit Account</a></li>
-                                    <li class="divider">|</li>
-                                    <li><a href="#">Edit Pin </a></li>
-                                </ul>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 library-info">
-                                <ul>
-                                    <li>
-                                        <strong>Home Library:</strong>
-                                        Stephen A. Schwarzman Building
-                                    </li>
-                                    <li>
-                                        <strong>Email:</strong>
-                                        <a href="mailto:scottfitzgerald@gmail.com">scottfitzgerald@gmail.com</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
                         <div class="col-md-12">
                             <div class="page type-page status-publish hentry">
                                 <div class="entry-content">
@@ -58,9 +35,12 @@
                                             <li><b class="arrow-up"></b><a data-toggle="tab"
                                                                            href="/cart?userId=1">Cart</a>
                                             </li>
-                                            <a data-toggle="tab" th:href="@{/borrow}" >
-                                                Track book borrow request
-                                            </a>
+                                            <li class="active">
+                                                <b class="arrow-up" ></b><a data-toggle="tab" th:href="@{/borrow}" >
+                                                    Track book borrow request
+                                                </a>
+                                            </li>
+
 
                                         </ul>
                                         <div class="tab-content">
@@ -116,23 +96,41 @@
                                                         <td th:text="${#temporals.format(borrow.returnDate, 'yyyy-MM-dd')}"></td>
                                                         <td th:text="${borrow.status.status}">Status</td>
                                                         <td data-title="action" class="product-action">
-                                                            <div class="form-delete">
+                                                            <div class="form-delete" style="display: flex; gap: 8px;">
+                                                                <!-- Delete button, disabled if status.id == 2 or other "disable" statuses -->
                                                                 <a th:href="@{/borrow/delete/{userId}/{bookItemId}(userId=${userId}, bookItemId=${borrow.book_item.id})}"
-                                                                   class="btn btn-dark-gray">
+                                                                   class="btn btn-dark-gray"
+                                                                   th:classappend="${borrow.status.id == 2 || borrow.status.id > 2} ? 'disabled' : ''"
+                                                                   th:if="${borrow.status.id != 2 && borrow.status.id <= 2}"
+                                                                   title="Delete">
                                                                     <i class="fa fa-fw fa-trash"></i>
                                                                 </a>
+                                                                <!-- Disabled Delete Button with tooltip for invalid status -->
+                                                                <a class="btn btn-dark-gray disabled" th:if="${borrow.status.id == 2 || borrow.status.id > 2}" title="Cannot delete at this status">
+                                                                    <i class="fa fa-fw fa-trash"></i>
+                                                                </a>
+
+                                                                <!-- Add Application button, disabled if status.id == 1 or other "disable" statuses -->
+                                                                <a th:href="@{/application/add(borrowId=${borrow.id})}"
+                                                                   class="btn btn-dark-gray"
+                                                                   th:classappend="${borrow.status.id == 1 || borrow.status.id > 2} ? 'disabled' : ''"
+                                                                   th:if="${borrow.status.id != 1 && borrow.status.id <= 2}"
+                                                                   title="Add Application">
+                                                                    <i class="fa fa-plus"></i> Add Application
+                                                                </a>
+                                                                <!-- Disabled Add Application Button with tooltip for invalid status -->
+                                                                <a class="btn btn-dark-gray disabled" th:if="${borrow.status.id == 1 || borrow.status.id > 2}" title="Cannot add application at this status">
+                                                                    <i class="fa fa-plus"></i> Add Application
+                                                                </a>
                                                             </div>
-                                                        </td>
-                                                    </tr>
+                                                        </td>                                                 </tr>
 
 
                                                     </tbody>
 
 
                                                 </table>
-                                                <!-- Submit button for borrowing books -->
-                                                <input type="submit" class="btn btn-default" name="continue"
-                                                       value="Request to borrow book">
+
                                             </form>
 
 

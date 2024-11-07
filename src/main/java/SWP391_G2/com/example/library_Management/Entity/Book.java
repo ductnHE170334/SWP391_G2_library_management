@@ -25,6 +25,9 @@ public class Book {
     @Column(name = "quantity")
     private int quantity;
 
+    @Column(name = "image_url")
+    private String image_url;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;

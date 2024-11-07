@@ -38,7 +38,7 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="#" th:action="@{/books/save}" th:object="${book}" method="POST" id="bookForm" onsubmit="return validateForm()">
+                    <form role="form" action="#" th:action="@{/books/save}" th:object="${book}" method="POST" id="bookForm" onsubmit="return validateForm()" enctype="multipart/form-data">
                         <div class="box-body">
                             <div th:if="${errorMessage}" class="alert alert-danger">
                                 <span th:text="${errorMessage}"></span>
@@ -81,9 +81,8 @@
                                 <textarea class="form-control" rows="3" placeholder="Enter description" th:field="*{description}"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputFile">File input</label>
-                                <input type="file" id="exampleInputFile">
-                                <p class="help-block">Example block-level help text here.</p>
+                                <label for="exampleInputFile">Image</label>
+                                <input type="file" name="image" id="exampleInputFile">
                             </div>
                         </div>
                         <!-- /.box-body -->

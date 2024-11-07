@@ -21,6 +21,7 @@
         </ol>
     </section>
 
+
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -36,6 +37,7 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Book Name</th>
+                                <th>Book Image</th>
                                 <th>Description</th>
                                 <th>Quantity</th>
                                 <th>Publisher</th>
@@ -48,6 +50,11 @@
                             <tr th:each="book : ${books}">
                                 <td th:text="${book.id}"></td>
                                 <td th:text="${book.name}"></td>
+                                <td>
+                                    <img th:src="@{'/uploads/' + ${book.image_url}}" alt="Book Image" style="width: 300px; height: 300px;" />
+                                </td>
+
+
                                 <td th:text="${book.description}"></td>
                                 <td th:text="${book.quantity}"></td>
                                 <td th:text="${book.publisher.name}"></td>
