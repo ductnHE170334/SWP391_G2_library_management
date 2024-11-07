@@ -30,7 +30,7 @@
                     <!-- Start: Search Section -->
                     <section class="search-filters">
                         <div class="filter-box">
-                            <h3>News Page&amp;</h3>
+                            <h3>News Page</h3>
                             <form action="http://libraria.demo.presstigers.com/news-events-detail.html" method="get">
                                 <div class="col-md-10">
 
@@ -49,10 +49,6 @@
                                 <div class="news-list-box">
                                     <div class="single-news-list">
                                         <figure>
-                                            <!--                                            <div th:if="${imageUrl != null}">-->
-                                            <!--                                                <a href="news-events-detail.html"><img-->
-                                            <!--                                                        th:src="@{/Customer/images/news-event/related-event-01.jpg}" alt="News &amp; Event"></a>-->
-                                            <!--                                            </div>-->
                                             <a href="news-events-detail.html"><img
                                                     th:src="@{/Customer/images/news-event/related-event-01.jpg}"
                                                     alt="Related event"></a>
@@ -71,7 +67,7 @@
                                                         </a>
                                                     </li>
                                                 </ul>
-                                                <h3><a href="news-events-detail.html" th:text="${news.title}"></a></h3>
+                                                <h3><a th:href="@{/newsPage/newDetail(newId=${news.id})}" th:text="${news.title}"></a></h3>
                                                 <p th:text="${news.description}"></p>
                                                 <a class="btn btn-primary" href="news-events-detail.html">Read More</a>
                                             </div>
@@ -101,17 +97,8 @@
                                 </div>
                             </nav>
                         </div>
-                        <div class="col-md-3 col-md-pull-9">
-                            <aside id="secondary" class="sidebar widget-area">
-                                <div class="widget widget_search">
-                                    <h4 class="widget-title" data-control>Search News</h4>
-                                    <form class="form-horizontal search-form">
-                                        <input class="form-control" placeholder="Search Here"
-                                               name="title" type="text" th:value="${searchtitle}">
-                                        <button type="submit"><i class="fa fa-search"></i></button>
-                                    </form>
-                                </div>
-                            </aside>
+                        <div th:replace="Customer/fragments/NewPage_sidebar :: newPage_sidebar">
+
                         </div>
                     </div>
                 </div>

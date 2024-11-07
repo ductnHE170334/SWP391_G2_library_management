@@ -1,5 +1,8 @@
 package SWP391_G2.com.example.library_Management.NewsPage.controller;
 
+import SWP391_G2.com.example.library_Management.Entity.Author;
+import SWP391_G2.com.example.library_Management.Entity.Book;
+import SWP391_G2.com.example.library_Management.Entity.Category;
 import SWP391_G2.com.example.library_Management.Entity.News;
 import SWP391_G2.com.example.library_Management.NewsPage.service.NewsPageService;
 import SWP391_G2.com.example.library_Management.Staff.ContentWriter.service.ContentWriterNewsService;
@@ -11,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/newsPage")
@@ -34,5 +39,12 @@ public class NewsPageController {
         theModel.addAttribute("totalPages", newsPage.getTotalPages());
 
         return "Customer/News/NewsPage";
+    }
+
+    @GetMapping("/newDetail")
+    public String showNewDetail(@RequestParam("newId") int theId, Model theModel) {
+        News newsItem = newsPageService.getNewsById(theId);
+        theModel.addAttribute("newsItem", newsItem);
+        return "Customer/News/NewDetail";
     }
 }

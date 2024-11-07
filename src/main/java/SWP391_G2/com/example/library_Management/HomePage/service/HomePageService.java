@@ -3,6 +3,7 @@ package SWP391_G2.com.example.library_Management.HomePage.service;
 import SWP391_G2.com.example.library_Management.Entity.Author;
 import SWP391_G2.com.example.library_Management.Entity.Book;
 import SWP391_G2.com.example.library_Management.Entity.Category;
+import SWP391_G2.com.example.library_Management.Entity.News;
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageAuthorRepository;
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageBookRepository;
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageCategoryRepository;
@@ -35,6 +36,16 @@ public class HomePageService {
     {
         Pageable pageable = PageRequest.of(page, size);
         return  homePageBookRepository.findAll(pageable);
+    }
+
+    public Page<Book> findBookByName(String title, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return homePageBookRepository.findBookByName(title, pageable);
+    }
+
+    public List<Book> getTop3Books() {
+        Pageable topThree = PageRequest.of(0, 3);
+        return homePageBookRepository.findAll(topThree).getContent();
     }
 
     //Get book by id
