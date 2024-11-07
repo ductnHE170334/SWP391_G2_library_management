@@ -70,8 +70,8 @@
                                 <td th:text="${borrowIndex.status.status}"></td>
 
                                 <td>
-                                    <a th:href="@{'/librarian/requestBorrow/accept/' + ${borrowIndex.id}}" class="btn btn-success">Accept</a>
-                                    <a th:href="@{'/librarian/requestBorrow/deny/' + ${borrowIndex.id}}" class="btn btn-danger">Deny</a>
+                                    <a th:href="@{'/librarian/requestBorrow/accept/' + ${borrowIndex.id}}" class="btn btn-success"><i class="fa fa-fw fa-check"></i></i></a>
+                                    <a th:href="@{'/librarian/requestBorrow/deny/' + ${borrowIndex.id}}" class="btn btn-danger"><i class="fa fa-fw fa-close"></i></a>
                                 </td>
                             </tr>
 
