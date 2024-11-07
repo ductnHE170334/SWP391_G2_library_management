@@ -35,46 +35,7 @@
                             <div class="container">
                                 <div class="filter-box">
                                     <h3>What are you looking for at the library?</h3>
-                                    <form action="http://libraria.demo.presstigers.com/index.html" method="get">
-                                        <div class="col-md-4 col-sm-6">
-                                            <div class="form-group">
-                                                <label class="sr-only" for="keywords">Search by Keyword</label>
-                                                <input class="form-control" placeholder="Search by Keyword"
-                                                       id="keywords" name="keywords" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="form-group">
-                                                <select name="catalog" id="catalog" class="form-control">
-                                                    <option>Search the Catalog</option>
-                                                    <option>Catalog 01</option>
-                                                    <option>Catalog 02</option>
-                                                    <option>Catalog 03</option>
-                                                    <option>Catalog 04</option>
-                                                    <option>Catalog 05</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="form-group">
-                                                <select name="category" id="category" class="form-control">
-                                                    <option>All Categories</option>
-                                                    <option>Category 01</option>
-                                                    <option>Category 02</option>
-                                                    <option>Category 03</option>
-                                                    <option>Category 04</option>
-                                                    <option>Category 05</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 col-sm-6">
-                                            <div class="form-group">
-                                                <input class="form-control" type="submit" value="Search">
-                                            </div>
-                                        </div>
-                                    </form>
                                 </div>
-                            </div>
                         </section>
                         <!-- End: Search Section -->
                     </div>
@@ -84,62 +45,19 @@
                                 <div class="single-book-box">
                                     <div class="post-thumbnail">
                                         <div class="book-list-icon yellow-icon"></div>
-                                        <img alt="Book" th:src="@{/Customer/images/books-media/list-view/book-media-01.jpg}"/>
+                                        <img alt="Book"
+                                             th:src="@{/Customer/images/books-media/list-view/book-media-01.jpg}"/>
                                     </div>
                                     <div class="post-detail">
-                                        <div class="books-social-sharing">
-                                            <ul>
-                                                <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                                                <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                                                <li><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a>
-                                                </li>
-                                                <li><a href="#" target="_blank"><i class="fa fa-rss"></i></a></li>
-                                                <li><a href="#" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="optional-links">
-                                            <ul>
-                                                <li>
-                                                    <a href="#" target="_blank" data-toggle="blog-tags"
-                                                       data-placement="top" title="Add To Cart">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" target="_blank" data-toggle="blog-tags"
-                                                       data-placement="top" title="Like">
-                                                        <i class="fa fa-heart"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" target="_blank" data-toggle="blog-tags"
-                                                       data-placement="top" title="Mail"><i class="fa fa-envelope"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" target="_blank" data-toggle="blog-tags"
-                                                       data-placement="top" title="Search">
-                                                        <i class="fa fa-search"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" target="_blank" data-toggle="blog-tags"
-                                                       data-placement="top" title="Print">
-                                                        <i class="fa fa-print"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                         <header class="entry-header">
                                             <h2 class="entry-title" th:text="${book.name}"></h2>
                                             <ul>
-                                                <ul>
-                                                    <strong>Author:</strong>
-                                                    <li th:each="author : ${book.authors}">
-                                                        <a th:text="${author.name}"></a>
-                                                    </li>
-                                                </ul>
-                                                <li><strong>Publisher:</strong><span th:text="${book.publisher.name}"></span>
+                                                <strong>Author:</strong>
+                                                <li th:each="author : ${book.authors}">
+                                                    <a th:text="${author.name}"></a>
+                                                </li>
+                                                <li><strong>Publisher: </strong><span
+                                                        th:text="${book.publisher.name}"></span>
                                                 </li>
                                             </ul>
                                         </header>
