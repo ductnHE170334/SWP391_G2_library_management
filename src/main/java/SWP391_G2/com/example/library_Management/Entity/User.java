@@ -36,6 +36,6 @@ public class User {
 
     // Many-to-One relationship with Role
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")  // Foreign key to the Role table
+    @JoinColumn(name = "role_id")
     private Role role;
 }

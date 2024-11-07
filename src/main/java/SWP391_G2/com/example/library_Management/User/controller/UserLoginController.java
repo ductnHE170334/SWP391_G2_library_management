@@ -34,13 +34,31 @@ public class UserLoginController {
         User user = userLoginService.loginUser(email, password);
 
         if (user != null) {
+            // Store user information in the session
             session.setAttribute("userId", user.getId());
             session.setAttribute("userLastName", user.getLastName());
-            return "redirect:/home/list";
+
+            // Check the user's role and redirect accordingly
+            int roleId = user.getRole().getId();
+            switch (roleId) {
+                case 1:
+                    return "redirect:/home/list";
+                case 2:
+                    return "redirect:/news/list";
+                case 3:
+                    return "redirect:/librarian/trackBorrowBook";
+                case 4:
+                    return "redirect:/books";
+                default:
+                    model.addAttribute("error", "Unknown role.");
+                    return "Customer/LoginRegister/signIn";
+            }
         } else {
+            // If login fails, display an error message
             model.addAttribute("error", "Invalid email or password.");
             return "Customer/LoginRegister/signIn";
         }
     }
+
 }
 

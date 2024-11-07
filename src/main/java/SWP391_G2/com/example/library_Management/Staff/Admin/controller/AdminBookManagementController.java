@@ -11,8 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/books")
@@ -93,29 +99,68 @@ public String listBook(@RequestParam(value = "page", defaultValue = "1") int pag
 
 
     @PostMapping("/save")
-    public String addBook(@ModelAttribute("book") Book book, Model model) {
-        System.out.println(book.getId());
-        // Kiểm tra xem có phải là thêm sách mới không
-        if (book.getId() == 0) { // Nếu ID là 0, tức là thêm mới
+    public String addOrUpdateBook(@ModelAttribute("book") Book book,
+                                  @RequestParam("image") MultipartFile image,
+                                  Model model) {
+        // Check if it's an addition or update
+        if (book.getId() == 0) { // Adding a new book
             if (adminBookService.existsByName(book.getName())) {
-                Book book1 = new Book();
+                // If book name exists, return form with error message
                 List<Category> categories = adminBookService.getAllCategories();
                 List<Author> authors = adminBookService.getAllAuthors();
                 List<Publisher> publishers = adminBookService.getAllPublisher();
-                model.addAttribute("categories",categories);
-                model.addAttribute("authors",authors);
-                model.addAttribute("publishers",publishers);
-                model.addAttribute("book",book1);
+                model.addAttribute("categories", categories);
+                model.addAttribute("authors", authors);
+                model.addAttribute("publishers", publishers);
+                model.addAttribute("book", new Book());
                 model.addAttribute("errorMessage", "A book with the same name already exists.");
-                return "Staff/dashboard/Book/EditBook"; //
+                return "Staff/dashboard/Book/EditBook";
             }
         }
 
-        if (book.getId() != 0) {
-            adminBookService.update(book); // Cập nhật sách
-        } else {
-            adminBookService.save(book); // Thêm sách mới
+        // Handle image upload if not empty
+        if (!image.isEmpty()) {
+            try {
+                // Get the original file name and create a unique file name
+                String originalFilename = image.getOriginalFilename();
+                String newFilename = System.currentTimeMillis() + "_" + originalFilename;
+
+                // Define the directory to store images (absolute path)
+                String uploadDir = "src/main/resources/static/uploads/";
+                Path uploadPath = Paths.get(uploadDir).toAbsolutePath().normalize();
+
+                // Create directory if it doesn't exist
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                // Save image file
+                Path filePath = uploadPath.resolve(newFilename);
+                image.transferTo(filePath.toFile());
+
+                // Update the `image_url` attribute of the book
+                book.setImage_url(newFilename);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                model.addAttribute("errorMessage", "Error saving image file.");
+                return "Staff/dashboard/Book/EditBook";
+            }
+        } else if (book.getId() != 0) {
+            // On update, retain existing image if no new image is chosen
+            Optional<Book> existingBook = adminBookService.findById(book.getId());
+            existingBook.ifPresent(value -> book.setImage_url(value.getImage_url()));
         }
+
+        // Save or update the book in the database
+        if (book.getId() != 0) {
+            adminBookService.update(book); // Update existing book
+        } else {
+            adminBookService.save(book); // Save new book
+        }
+
         return "redirect:/books";
     }
+
+
 }

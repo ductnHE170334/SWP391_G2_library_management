@@ -8,14 +8,14 @@
 <section class="page-banner services-banner">
     <div class="container">
         <div class="banner-header">
-            <h2>Books & Media Listing</h2>
+            <h2>Application</h2>
             <span class="underline center"></span>
             <p class="lead">Proin ac eros pellentesque dolor pharetra tempo.</p>
         </div>
         <div class="breadcrumb">
             <ul>
                 <li><a href="index-2.html">Home</a></li>
-                <li>Books & Media</li>
+                <li>Application</li>
             </ul>
         </div>
     </div>
@@ -54,7 +54,7 @@
                             <article class="page type-page status-publish hentry">
                                 <div class="entry-content">
                                     <div class="woocommerce">
-                                        <form action="#" method="post" class="checkout woocommerce-checkout">
+                                        <form action="/application/submitApplication" method="post" class="checkout woocommerce-checkout">
                                             <div class="row">
                                                 <div class="col-sm-8">
                                                     <h2>Application Information</h2>
@@ -62,13 +62,26 @@
 
                                                     <div class="woocommerce-info">
                                                         <div class="col-sm-7">
+                                                            <!-- Hidden field for Borrow Index ID -->
+                                                            <label>
+                                                                <span class="first-letter">Borrow Index Id</span>
+                                                            </label>
+                                                            <input type="text" name="borrowId" th:value="${borrowIndex.id}" readonly />
+
+                                                            <!-- Disabled field for Book Name -->
+                                                            <label>
+                                                                <span class="first-letter">Book Name</span>
+                                                            </label>
+                                                            <p class="input-required">
+                                                                <input type="text" name="bookName" th:value="${borrowIndex.book_item.book.name}" class="input-text" readonly style="width: 100%;" />
+                                                            </p>
+
+                                                            <!-- Dropdown for Application Type -->
                                                             <label>
                                                                 <span class="first-letter">Application Type</span>
                                                                 <span class="second-letter">*</span>
                                                             </label>
-                                                            <!-- Dropdown for Application Type -->
                                                             <p class="input-required">
-
                                                                 <select name="applicationTypeId" class="input-text" required>
                                                                     <option value="">-- Select Application Type --</option>
                                                                     <tr th:each="type : ${applicationTypes}">
@@ -83,7 +96,6 @@
                                                                 <span class="second-letter">*</span>
                                                             </label>
                                                             <p class="input-required">
-
                                                                 <textarea name="reason" class="input-text" rows="4" required style="width: 100%;"></textarea>
                                                             </p>
 
