@@ -33,70 +33,66 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="#" th:action="@{/librarian/application/save}" th:object="${application}" method="POST" id="bookForm" onsubmit="return validateForm()">
+                    <form role="form" th:action="@{/librarian/application/save}" th:object="${application}" method="POST" id="bookForm" onsubmit="return validateForm()">
                         <div class="box-body">
                             <div th:if="${errorMessage}" class="alert alert-danger">
                                 <span th:text="${errorMessage}"></span>
                             </div>
-
+                            <input type="hidden" th:field="*{id}" />
+                            <input type="hidden" th:field="*{user}" />
+                            <input type="hidden" th:field="*{borrowIndex}" />
                             <div class="form-group">
                                 <label for="bookName">Book Borrow <span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="bookName" placeholder="Enter book name" th:field="*{borrowIndex.book_item.book.name}" disabled>
+                                <input type="text" class="form-control" id="bookName" th:field="*{borrowIndex.book_item.book.name}" disabled>
                             </div>
+
                             <div class="form-group">
                                 <label>Application Type</label>
                                 <select class="form-control" th:field="*{application_type}">
-                                    <option th:each="application_type : ${application_type}" th:value="${application_type.id}" th:text="${application_type.name}"></option>
+                                    <option th:each="type : ${applicationTypes}"
+                                            th:value="${type.id}"
+                                            th:text="${type.application_type}"
+                                            th:selected="${application.application_type != null && type.id == application.application_type.id}">
+                                    </option>
                                 </select>
                             </div>
+
+
                             <div class="form-group">
-                                <label for="create_at">Reason <span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="create_at"  th:field="*{create_at}" disabled>
+                                <label >Status</label>
+                                <select class="form-control" th:field="*{status}">
+                                    <option value="Accept" th:selected="${application.status == 'Accept'}">Accept</option>
+                                    <option value="Denied" th:selected="${application.status == 'Denied'}">Denied</option>
+                                </select>
                             </div>
+
+
                             <div class="form-group">
                                 <label for="reason">Reason <span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="reason"  th:field="*{reason}" disabled>
+                                <input type="text" class="form-control" id="reason" th:field="*{reason}" disabled>
                             </div>
+
                             <div class="form-group">
                                 <label>Response</label>
                                 <textarea class="form-control" rows="3" placeholder="Enter response" th:field="*{response}"></textarea>
                             </div>
-
                         </div>
-                        <!-- /.box-body -->
 
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
-
                     <script>
                         function validateForm() {
-                            const bookName = document.getElementById("bookName").value.trim();
-                            const categoryCheckboxes = document.querySelectorAll('.category-checkbox');
-                            const authorCheckboxes = document.querySelectorAll('.author-checkbox');
+                            const response = document.getElementById("response").value.trim();
 
-                            // testBook name empty or not
-                            if (bookName === "") {
-                                alert("Please enter a book name.");
-                                return false;
-                            }
+        // Check if the response textarea is empty
+        if (response === "") {
+            alert("Please enter a response.");
+            return false;
+        }
 
-                            // Check at least 1 category is chosen
-                            let categoryChecked = Array.from(categoryCheckboxes).some(checkbox => checkbox.checked);
-                            if (!categoryChecked) {
-                                alert("Please select at least one category.");
-                                return false;
-                            }
-
-                            // Check at least 1 author is chosen
-                            let authorChecked = Array.from(authorCheckboxes).some(checkbox => checkbox.checked);
-                            if (!authorChecked) {
-                                alert("Please select at least one author.");
-                                return false;
-                            }
-
-                            return true;
+        return true;
                         }
                     </script>
 
