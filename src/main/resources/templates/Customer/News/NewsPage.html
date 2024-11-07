@@ -97,17 +97,8 @@
                                 </div>
                             </nav>
                         </div>
-                        <div class="col-md-3 col-md-pull-9">
-                            <aside id="secondary" class="sidebar widget-area">
-                                <div class="widget widget_search">
-                                    <h4 class="widget-title" data-control>Search News</h4>
-                                    <form class="form-horizontal search-form">
-                                        <input class="form-control" placeholder="Search Here"
-                                               name="title" type="text" th:value="${searchtitle}">
-                                        <button type="submit"><i class="fa fa-search"></i></button>
-                                    </form>
-                                </div>
-                            </aside>
+                        <div th:replace="Customer/fragments/NewPage_sidebar :: newPage_sidebar">
+
                         </div>
                     </div>
                 </div>
