@@ -37,6 +37,7 @@
                                 <th>Id</th>
                                 <th>Create at</th>
                                 <th>Borrow index ID</th>
+                                <th>User</th>
                                 <th>Book Borrow</th>
                                 <th>Application Type</th>
                                 <th>Reason</th>
@@ -50,6 +51,11 @@
                                 <td th:text="${app.id}"></td>
                                 <td th:text="${#temporals.format(app.create_at, 'yyyy-MM-dd')}"></td>
                                 <td th:text="${app.borrowIndex.id}"></td>
+                                <td>
+                                    <a th:href="@{/librarian/customerDetail/{id}(id=${app.user.id})}"
+                                       th:text="${app.user.firstName + ' ' + app.user.lastName}">
+                                    </a>
+                                </td>
                                 <td th:text="${app.borrowIndex.book_item.book.name}"></td>
 
                                 <td th:text="${app.application_type.application_type}">Application Type</td>
