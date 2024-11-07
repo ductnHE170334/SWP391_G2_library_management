@@ -1,5 +1,6 @@
 package SWP391_G2.com.example.library_Management.NewsPage.service;
 
+import SWP391_G2.com.example.library_Management.Entity.Book;
 import SWP391_G2.com.example.library_Management.Entity.News;
 import SWP391_G2.com.example.library_Management.NewsPage.repository.NewsPageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,4 +23,8 @@ public class NewsPageService {
         Pageable pageable = PageRequest.of(page, size);
         return newsPageRepository.findNewsByTitle(title, pageable);
     }
-}
+
+    //Get book by id
+    public News getNewsById(int id) {
+        return newsPageRepository.findById(id).orElse(null);
+    }}
