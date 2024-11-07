@@ -41,12 +41,16 @@ public class HomePageController {
         //get all categories from the service
         List<Category> theCategories = homePageService.getAllCategories();
 
+        //get top 3 books from the service
+        List<Book> top3Books = homePageService.getTop3Books();
+
         // add to the spring model
         theModel.addAttribute("authors", theAuthors);
         theModel.addAttribute("categories", theCategories);
         theModel.addAttribute("booksPage", booksPage);
         theModel.addAttribute("currentPage", page);
         theModel.addAttribute("totalPages", booksPage.getTotalPages());
+        theModel.addAttribute("top3Books", top3Books);
 
         return "Customer/HomePage/HomePage";
     }

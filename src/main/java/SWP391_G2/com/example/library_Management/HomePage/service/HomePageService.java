@@ -43,6 +43,11 @@ public class HomePageService {
         return homePageBookRepository.findBookByName(title, pageable);
     }
 
+    public List<Book> getTop3Books() {
+        Pageable topThree = PageRequest.of(0, 3);
+        return homePageBookRepository.findAll(topThree).getContent();
+    }
+
     //Get book by id
     public Book getBook(int id) {
         return homePageBookRepository.findById(id).get();
