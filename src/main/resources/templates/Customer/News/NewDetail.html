@@ -45,7 +45,7 @@
                                 <div class="news-list-box">
                                     <div class="single-news-list">
                                         <figure>
-                                            <img src="images/news-event/new-detail-img.jpg" alt="News &amp; Event">
+                                            <img src="@{/Customer/images/news-event/new-detail-img.jpg}" alt="News &amp; Event">
                                         </figure>
                                         <div class="content-block">
                                             <div class="member-info">
@@ -56,13 +56,11 @@
                                                 <ul class="news-event-info">
                                                     <li>
                                                         <a href="#" target="_blank">
-                                                            <i class="fa fa-calendar"></i>
-                                                            July 25, 2016
-                                                        </a>
+                                                            <i class="fa fa-calendar"><span th:text="${newsItem.date_created}"></span></i>                                                        </a>
                                                     </li>
                                                 </ul>
-                                                <h2>Curabitur leo elit, interdum nec pretium eu, convallis ut erat. Curabitur sagittis feugiat tortor eget vehicula.</h2>
-                                                <p>Proin tincidunt molestie urna, non fringilla est pretium et. Proin dignissim porttitor quam, eget gravida ante accumsan et. Cras quis commodo massa. Nullam id mauris vel arcu ultricies hendrerit. Praesent hendrerit posuere risus, quis iaculis erat auctor non. Fusce bibendum in lorem ac pharetra. Mauris bibendum placerat massa non pellentesque. Maecenas interdum, nisl quis molestie gravida, sapien dui dictum urna, at pretium odio massa ut nibh. Nam sit amet eros ultricies leo ultrices sodales nec vel dui. Mauris imperdiet turpis sit amet lobortis efficitur. Mauris commodo nunc non risus auctor finibus. Ut egestas urna quis elit egestas, ac bibendum orci maximus. Maecenas risus magna, mollis et purus sit amet, pellentesque tempor lacus. Quisque dictum tortor ac est auctor, ut dapibus risus rutrum. Quisque porttitor turpis in sagittis porttitor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean egestas consequat porttitor. </p>
+                                                <h2 th:text="${newsItem.title}"></h2>
+                                                <p th:text="${newsItem.description}"></p>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>

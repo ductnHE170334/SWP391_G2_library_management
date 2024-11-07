@@ -67,7 +67,7 @@
                                                         </a>
                                                     </li>
                                                 </ul>
-                                                <h3><a href="news-events-detail.html" th:text="${news.title}"></a></h3>
+                                                <h3><a th:href="@{/newsPage/newDetail(newId=${news.id})}" th:text="${news.title}"></a></h3>
                                                 <p th:text="${news.description}"></p>
                                                 <a class="btn btn-primary" href="news-events-detail.html">Read More</a>
                                             </div>
