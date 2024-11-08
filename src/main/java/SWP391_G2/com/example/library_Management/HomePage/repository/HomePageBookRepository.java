@@ -13,4 +13,7 @@ public interface HomePageBookRepository extends JpaRepository<Book, Integer>{
 
     @Query("SELECT b FROM Book b JOIN b.categories c WHERE c.id = ?1")
     Page<Book> findBooksByCategory(int categoryId, Pageable pageable);
+
+    @Query("SELECT b FROM Book b JOIN b.authors a WHERE a.id = ?1")
+    Page<Book> findBooksByAuthor(int authorId, Pageable pageable);
 }

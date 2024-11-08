@@ -28,7 +28,7 @@ public class HomePageController {
     public String homePage(Model theModel, @Param("title") String title, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
         Page<Book> booksPage;
 
-        if(title != null) {
+        if (title != null) {
             booksPage = homePageService.findBookByName(title, page, size);
             theModel.addAttribute("searchtitle", title);
         } else {
@@ -98,5 +98,21 @@ public class HomePageController {
         theModel.addAttribute("top3Books", top3Books);
 
         return "Customer/HomePage/HomePage";
+    }
+
+    //Get book by author
+    @GetMapping("/authorDetail")
+    public String authorDetail(@RequestParam("authorId") int authorId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size, Model theModel) {
+        // Get the author from the service
+        Author theAuthor = homePageService.getAuthor(authorId);
+
+        // Get books by the author from the service
+        Page<Book> booksByAuthor = homePageService.getBooksByAuthor(authorId, page, size);
+
+        // Add to the spring model
+        theModel.addAttribute("author", theAuthor);
+        theModel.addAttribute("booksByAuthor", booksByAuthor);
+
+        return "Customer/HomePage/AuthorInformation";
     }
 }
