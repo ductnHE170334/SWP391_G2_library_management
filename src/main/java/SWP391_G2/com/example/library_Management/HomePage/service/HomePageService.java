@@ -52,4 +52,21 @@ public class HomePageService {
     public Book getBook(int id) {
         return homePageBookRepository.findById(id).get();
     }
+
+    //Get book by category
+    public Page<Book> findBooksByCategory(int categoryId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return homePageBookRepository.findBooksByCategory(categoryId, pageable);
+    }
+
+    //Get book by author
+    public Page<Book> getBooksByAuthor(int authorId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return homePageBookRepository.findBooksByAuthor(authorId, pageable);
+    }
+
+    //Get author by id
+    public Author getAuthor(int authorId) {
+        return homePageAuthorRepository.findById(authorId).orElse(null);
+    }
 }
