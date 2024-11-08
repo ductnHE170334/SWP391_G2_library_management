@@ -48,7 +48,12 @@ public class NewsPageController {
     @GetMapping("/newDetail")
     public String showNewDetail(@RequestParam("newId") int theId, Model theModel) {
         News newsItem = newsPageService.getNewsById(theId);
+
+        // Get top 3 news
+        List<News> top3News = newsPageService.getTop3News();
+
         theModel.addAttribute("newsItem", newsItem);
+        theModel.addAttribute("top3News", top3News);
         return "Customer/News/NewDetail";
     }
 }
