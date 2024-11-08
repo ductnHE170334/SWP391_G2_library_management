@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="newPage_sidebar">
+    <div class="col-md-3 col-md-pull-9">
+        <aside id="secondary" class="sidebar widget-area">
+            <div class="widget widget_search">
+                <h4 class="widget-title" data-control>Search News</h4>
+                <form class="form-horizontal search-form">
+                    <input class="form-control" placeholder="Search Here"
+                           name="title" type="text" th:value="${searchtitle}">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <div class="widget widget_recent_entries">
+                <h4 class="widget-title" data-control>Recent News</h4>
+                <ul>
+                    <li th:each="newItem : ${top3News}">
+                        <figure>
+                            <img th:src="@{/Customer/images/order-item-04.jpg}" alt="news image"/>
+                        </figure>
+                        <a th:href="@{/newsPage/newDetail(newId=${newItem.id})}" th:text="${newItem.title}"></a>
+                        <span><i class="fa fa-calendar" th:text="${newItem.date_created}"></i></span>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>
+</body>
+</html>

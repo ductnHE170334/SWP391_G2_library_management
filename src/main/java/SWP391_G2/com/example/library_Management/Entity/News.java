@@ -7,11 +7,10 @@ import java.util.Date;
 
 @Entity
 @Table(name = "News")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
+@Setter
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
