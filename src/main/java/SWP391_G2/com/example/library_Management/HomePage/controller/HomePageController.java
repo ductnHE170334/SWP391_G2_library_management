@@ -87,11 +87,15 @@ public class HomePageController {
         // Get all categories from the service
         List<Category> theCategories = homePageService.getAllCategories();
 
+        //get the author from the service
+        List<Author> theAuthors = homePageService.getAllAuthors();
+
         //get top 3 books from the service
         List<Book> top3Books = homePageService.getTop3Books();
 
         // Add to the spring model
         theModel.addAttribute("categories", theCategories);
+        theModel.addAttribute("authors", theAuthors);
         theModel.addAttribute("booksPage", booksPage);
         theModel.addAttribute("currentPage", page);
         theModel.addAttribute("totalPages", booksPage.getTotalPages());
@@ -109,9 +113,23 @@ public class HomePageController {
         // Get books by the author from the service
         Page<Book> booksByAuthor = homePageService.getBooksByAuthor(authorId, page, size);
 
+        // Get all categories from the service
+        List<Category> theCategories = homePageService.getAllCategories();
+
+        //get the author from the service
+        List<Author> theAuthors = homePageService.getAllAuthors();
+
+        //get top 3 books from the service
+        List<Book> top3Books = homePageService.getTop3Books();
+
         // Add to the spring model
+        theModel.addAttribute("categories", theCategories);
+        theModel.addAttribute("authors", theAuthors);
+        theModel.addAttribute("currentPage", page);
+        theModel.addAttribute("totalPages", booksByAuthor.getTotalPages());
         theModel.addAttribute("author", theAuthor);
         theModel.addAttribute("booksByAuthor", booksByAuthor);
+        theModel.addAttribute("top3Books", top3Books);
 
         return "Customer/HomePage/AuthorInformation";
     }
