@@ -16,7 +16,7 @@
                         <div class="widget_categories" data-content>
                             <ul>
                                 <li th:each="category : ${categories}">
-                                    <a href="#" th:text="${category.name}"></a>
+                                    <a th:href="@{/home/category(categoryId=${category.id})}" th:text="${category.name}"></a>
                                 </li>
                             </ul>
                         </div>
