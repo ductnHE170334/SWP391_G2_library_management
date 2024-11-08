@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NewsPageService {
     @Autowired
@@ -27,4 +29,11 @@ public class NewsPageService {
     //Get book by id
     public News getNewsById(int id) {
         return newsPageRepository.findById(id).orElse(null);
-    }}
+    }
+
+    //Get top 3 news
+    public List<News> getTop3News() {
+        Pageable topThree = PageRequest.of(0, 3);
+        return newsPageRepository.findAll(topThree).getContent();
+    }
+}
