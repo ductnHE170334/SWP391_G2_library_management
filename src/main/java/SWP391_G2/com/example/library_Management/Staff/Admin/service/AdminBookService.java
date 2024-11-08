@@ -61,13 +61,17 @@ public Page<Book> getAllBooksPaginated(int pageNumber, int pageSize) {
     }
 
     public void update(Book book) {
-
         Optional<Book> existingBookOptional = adminBookRepository.findById(book.getId());
         if (existingBookOptional.isPresent()) {
             Book existingBook = existingBookOptional.get();
 
-
             existingBook.setName(book.getName());
+
+            // Kiểm tra nếu `book.getImage_url()` không trống, chỉ khi đó mới ghi đè
+            if (book.getImage_url() != null && !book.getImage_url().isEmpty()) {
+                existingBook.setImage_url(book.getImage_url());
+            }
+
             existingBook.setPublisher(book.getPublisher());
             existingBook.setDescription(book.getDescription());
             existingBook.setCategories(book.getCategories());
@@ -78,6 +82,7 @@ public Page<Book> getAllBooksPaginated(int pageNumber, int pageSize) {
             throw new EntityNotFoundException("Book not found with ID: " + book.getId());
         }
     }
+
 
     @Transactional
     public void deleteBook(int id) {
@@ -115,5 +120,9 @@ public Page<Book> getAllBooksPaginated(int pageNumber, int pageSize) {
 
     public boolean existsByName(String name) {
         return adminBookRepository.findByName(name) != null;
+    }
+
+    public Optional<Book> findById(int id) {
+    return adminBookRepository.findById(id);
     }
 }

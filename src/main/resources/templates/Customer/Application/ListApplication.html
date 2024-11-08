@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="Customer/fragments/header :: html_head">
+</head>
+
+<body>
+<header th:replace="Customer/fragments/customer_header :: customer_header"></header>
+<section class="page-banner services-banner">
+    <div class="container">
+        <div class="banner-header">
+            <h2>Application</h2>
+            <span class="underline center"></span>
+            <p class="lead">Proin ac eros pellentesque dolor pharetra tempo.</p>
+        </div>
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="index-2.html">Home</a></li>
+                <li>Application</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div id="content" class="site-content">
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+            <div class="cart-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="cart-head">
+                            <div class="col-xs-12 col-sm-6 account-option">
+                                <strong>Scott Fitzgerald</strong>
+                                <ul>
+                                    <li><a href="#">Edit Account</a></li>
+                                    <li class="divider">|</li>
+                                    <li><a href="#">Edit Pin </a></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 library-info">
+                                <ul>
+                                    <li>
+                                        <strong>Home Library:</strong>
+                                        Stephen A. Schwarzman Building
+                                    </li>
+                                    <li>
+                                        <strong>Email:</strong>
+                                        <a href="mailto:scottfitzgerald@gmail.com">scottfitzgerald@gmail.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="page type-page status-publish hentry">
+                                <div class="entry-content">
+                                    <div class="woocommerce table-tabs" id="responsiveTabs">
+                                        <ul class="nav nav-tabs">
+                                            <li><b class="arrow-up"></b><a data-toggle="tab"
+                                                                           href="/application">List application</a>
+                                            </li>
+
+
+                                        </ul>
+                                        <div class="tab-content">
+
+
+
+                                            <table class="table table-bordered shop_table cart">
+                                                <thead>
+                                                <tr>
+                                                    <th class="product-name">Id</th>
+                                                    <th class="product-name">Create at</th>
+                                                    <th class="product-name">Borrow index ID</th>
+                                                    <th class="product-name">Book Borrow</th>
+                                                    <th class="product-name">Application Type</th>
+                                                    <th class="product-name">Reason</th>
+                                                    <th class="product-quantity">Response</th>
+                                                    <th class="product-name">Status</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="app : ${applications}">
+                                                    <td th:text="${app.id}"></td>
+                                                    <td th:text="${#temporals.format(app.create_at, 'yyyy-MM-dd')}"></td>
+                                                    <td th:text="${app.borrowIndex.id}"></td>
+                                                    <td th:text="${app.borrowIndex.book_item.book.name}"></td>
+
+                                                    <td th:text="${app.application_type.application_type}">Application Type</td>
+                                                    <td th:text="${app.reason}"></td>
+                                                    <td th:text="${app.response}"></td>
+                                                    <td th:text="${app.status}">Status</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div><!-- .entry-content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>

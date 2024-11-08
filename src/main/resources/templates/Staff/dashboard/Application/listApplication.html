@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="Staff/fragments/header :: html_head">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<header th:replace="Staff/fragments/admin_header :: admin_header"></header>
+<aside th:replace="Staff/fragments/librarian_sidebar :: librarian_sidebar">
+
+</aside>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+           REQUEST MANAGEMENT
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><a th:href="@{'/librarian/requestBorrow'}"><i class="fa fa-dashboard"></i> Home</a></li>
+
+
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Request Table</h3>
+                    </div>
+
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Create at</th>
+                                <th>Borrow index ID</th>
+                                <th>User</th>
+                                <th>Book Borrow</th>
+                                <th>Application Type</th>
+                                <th>Reason</th>
+                                <th>Response</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="app : ${applications}">
+                                <td th:text="${app.id}"></td>
+                                <td th:text="${#temporals.format(app.create_at, 'yyyy-MM-dd')}"></td>
+                                <td th:text="${app.borrowIndex.id}"></td>
+                                <td>
+                                    <a th:href="@{/librarian/customerDetail/{id}(id=${app.user.id})}"
+                                       th:text="${app.user.firstName + ' ' + app.user.lastName}">
+                                    </a>
+                                </td>
+                                <td th:text="${app.borrowIndex.book_item.book.name}"></td>
+
+                                <td th:text="${app.application_type.application_type}">Application Type</td>
+                                <td th:text="${app.reason}"></td>
+                                <td th:text="${app.response}"></td>
+                                <td th:text="${app.status}">Status</td>
+                                <td>
+                                    <a th:href="@{'/librarian/application/viewApplicationDetail/' + ${app.id}}" class="btn btn-success"><i class="fa fa-fw fa-eye"></i></a>
+                                </td>
+                            </tr>
+
+
+
+                            </tbody>
+                        </table>
+                        <!-- Pagination controls -->
+
+                        <div class="text-center">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <!-- Previous button -->
+                                    <li th:classappend="${currentPage == 0} ? 'disabled'">
+                                        <a th:href="@{/librarian/application/list(page=${currentPage - 1}, size=${4})}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Page numbers -->
+                                    <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+                                        th:classappend="${pageNum == currentPage} ? 'active'">
+                                        <a th:href="@{/librarian/application/list(page=${pageNum}, size=${4})}" th:text="${pageNum + 1}">1</a>
+                                    </li>
+
+                                    <!-- Next button -->
+                                    <li th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                                        <a th:href="@{/librarian/application/list(page=${currentPage + 1}, size=${4})}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- /.content -->
+</div>
+</body>
+<footer th:replace="Staff/fragments/admin_footer :: admin_footer">
+
+</footer>
+</html>

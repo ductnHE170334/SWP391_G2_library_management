@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="Customer/fragments/header :: html_head">
+</head>
+
+<body>
+<header th:replace="Customer/fragments/customer_header :: customer_header"></header>
+<section class="page-banner services-banner">
+    <div class="container">
+        <div class="banner-header">
+            <h2>Application</h2>
+            <span class="underline center"></span>
+            <p class="lead">Proin ac eros pellentesque dolor pharetra tempo.</p>
+        </div>
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="index-2.html">Home</a></li>
+                <li>Application</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div id="content" class="site-content">
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+            <div class="checkout-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="cart-head">
+                            <div class="col-xs-12 col-sm-6 account-option">
+                                <strong>Scott Fitzgerald</strong>
+                                <ul>
+                                    <li><a href="#">Edit Account</a></li>
+                                    <li class="divider">|</li>
+                                    <li><a href="#">Edit Pin </a></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 library-info">
+                                <ul>
+                                    <li>
+                                        <strong>Home Library:</strong>
+                                        Stephen A. Schwarzman Building
+                                    </li>
+                                    <li>
+                                        <strong>Email:</strong>
+                                        <a href="mailto:scottfitzgerald@gmail.com">scottfitzgerald@gmail.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <article class="page type-page status-publish hentry">
+                                <div class="entry-content">
+                                    <div class="woocommerce">
+                                        <form action="/application/submitApplication" method="post" class="checkout woocommerce-checkout">
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <h2>Application Information</h2>
+                                                    <span class="underline left"></span>
+
+                                                    <div class="woocommerce-info">
+                                                        <div class="col-sm-7">
+                                                            <!-- Hidden field for Borrow Index ID -->
+                                                            <label>
+                                                                <span class="first-letter">Borrow Index Id</span>
+                                                            </label>
+                                                            <input type="text" name="borrowId" th:value="${borrowIndex.id}" readonly />
+
+                                                            <!-- Disabled field for Book Name -->
+                                                            <label>
+                                                                <span class="first-letter">Book Name</span>
+                                                            </label>
+                                                            <p class="input-required">
+                                                                <input type="text" name="bookName" th:value="${borrowIndex.book_item.book.name}" class="input-text" readonly style="width: 100%;" />
+                                                            </p>
+
+                                                            <!-- Dropdown for Application Type -->
+                                                            <label>
+                                                                <span class="first-letter">Application Type</span>
+                                                                <span class="second-letter">*</span>
+                                                            </label>
+                                                            <p class="input-required">
+                                                                <select name="applicationTypeId" class="input-text" required>
+                                                                    <option value="">-- Select Application Type --</option>
+                                                                    <tr th:each="type : ${applicationTypes}">
+                                                                        <option th:value="${type.id}" th:text="${type.application_type}"></option>
+                                                                    </tr>
+                                                                </select>
+                                                            </p>
+
+                                                            <!-- Textarea for Reason -->
+                                                            <label>
+                                                                <span class="first-letter">Reason</span>
+                                                                <span class="second-letter">*</span>
+                                                            </label>
+                                                            <p class="input-required">
+                                                                <textarea name="reason" class="input-text" rows="4" required style="width: 100%;"></textarea>
+                                                            </p>
+
+                                                            <!-- Submit Button -->
+                                                            <input type="submit" class="btn btn-default" value="Send Application">
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                </div>
+                        </div><!-- .entry-content -->
+                        </article>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </main>
+</div>
+</div>
+</body>
+</html>
