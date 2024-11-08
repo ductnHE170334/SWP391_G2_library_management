@@ -10,9 +10,9 @@
 <section class="page-banner services-banner">
   <div class="container">
     <div class="banner-header">
-      <h2>Authors Information</h2>
+      <h2 th:text="${author.name}">Authors Information</h2>
       <span class="underline center"></span>
-      <p class="lead"></p>
+      <p th:text="${author.description}" class="lead"></p>
     </div>
     <div class="breadcrumb">
       <ul>
@@ -69,7 +69,7 @@
                 </div>
               </div>
               <div class="books-list">
-                <div th:each="book : ${booksPage.content}">
+                <div th:each="book : ${booksByAuthor.content}">
                   <article>
                     <div class="single-book-box">
                       <div class="post-thumbnail">
