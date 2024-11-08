@@ -11,4 +11,6 @@ public interface HomePageBookRepository extends JpaRepository<Book, Integer>{
     @Query("SELECT n FROM Book n WHERE n.name like %?1%")
     Page<Book> findBookByName(String name, Pageable pageable);
 
+    @Query("SELECT b FROM Book b JOIN b.categories c WHERE c.id = ?1")
+    Page<Book> findBooksByCategory(int categoryId, Pageable pageable);
 }

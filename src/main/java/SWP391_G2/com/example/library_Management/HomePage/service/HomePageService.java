@@ -52,4 +52,9 @@ public class HomePageService {
     public Book getBook(int id) {
         return homePageBookRepository.findById(id).get();
     }
+
+    public Page<Book> findBooksByCategory(int categoryId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return homePageBookRepository.findBooksByCategory(categoryId, pageable);
+    }
 }
