@@ -61,8 +61,8 @@
                                                         <td data-title="Product" class="product-name">
                     <span class="product-thumbnail">
                         <a th:href="@{/book/details/{id}(id=${bookItem.book.id})}">
-                            <img th:src="@{Customer/images/books-media/gird-view/book-media-grid-01.jpg}" alt="cart-product-1">
-                        </a>
+<img alt="Book"
+     th:src="@{'/uploads/' + ${bookItem.book.image_url}}" style="width: 300px; height: 465px;"/>                        </a>
                     </span>
                                                             <span class="product-detail">
                         <a th:href="@{/book/details/{id}(id=${bookItem.book.id})}">
