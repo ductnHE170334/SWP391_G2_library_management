@@ -1,9 +1,11 @@
 package SWP391_G2.com.example.library_Management.Staff.ContentWriter.controller;
 
 import SWP391_G2.com.example.library_Management.Entity.News;
+import SWP391_G2.com.example.library_Management.Entity.User;
 import SWP391_G2.com.example.library_Management.Staff.ContentWriter.service.ContentWriterNewsService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -56,7 +58,24 @@ public class ContentWriterNewsManagementController {
     }
 
     @PostMapping("/save")
-    public String saveNew(@ModelAttribute("news") News news, @RequestParam("image") MultipartFile image) {
+    public String saveNew(@ModelAttribute("news") News news, HttpSession session, Model model, @RequestParam("image") MultipartFile image) {
+        Object userIdObj = session.getAttribute("userId");
+        Long userId = null;
+
+        // Kiểm tra kiểu dữ liệu của userId trong session
+        if (userIdObj instanceof Long) {
+            userId = (Long) userIdObj;
+        } else if (userIdObj instanceof Integer) {
+            userId = Long.valueOf((Integer) userIdObj);
+        }
+
+        if (userId == null) {
+            // Xử lý trường hợp userId không được thiết lập trong session
+            model.addAttribute("message", "User not logged in.");
+            return "redirect:/login"; // Chuyển hướng đến trang đăng nhập hoặc trang phù hợp
+        }
+        User user = contentWriterNewsService.getUser(String.valueOf(userId));
+
         // Check if the image is not empty
         if (!image.isEmpty()) {
             try {
@@ -80,6 +99,7 @@ public class ContentWriterNewsManagementController {
 
                 // Set the file name in the news object (this will be stored in the database)
                 news.setImage_url(newFilename);
+                news.setStaff(user);
             } catch (IOException e) {
                 e.printStackTrace();
                 return "error";  // Handle the error

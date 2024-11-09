@@ -1,6 +1,8 @@
 package SWP391_G2.com.example.library_Management.Staff.ContentWriter.service;
 
+import SWP391_G2.com.example.library_Management.Customer.repository.UserRepository;
 import SWP391_G2.com.example.library_Management.Entity.News;
+import SWP391_G2.com.example.library_Management.Entity.User;
 import SWP391_G2.com.example.library_Management.Staff.ContentWriter.repository.ContentWriterNewsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class ContentWriterNewsService {
     @Autowired
     private ContentWriterNewsRepository contentWriterNewsRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public Page<News> getAllNews(int page, int size){
         Pageable pageable = PageRequest.of(page, size);
@@ -51,5 +55,10 @@ public class ContentWriterNewsService {
 
     public void save(News news) {
         contentWriterNewsRepository.save(news);
+    }
+
+    // Lấy người dùng theo ID
+    public User getUser(String id) {
+        return userRepository.findById(String.valueOf(Integer.valueOf(id))).orElse(null); // Trả về người dùng hoặc null nếu không tìm thấy
     }
 }
