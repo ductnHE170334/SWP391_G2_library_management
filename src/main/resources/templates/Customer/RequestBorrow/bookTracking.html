@@ -68,8 +68,8 @@
                                                             <!--        </span>-->
                                                             <span class="product-thumbnail">
                         <a th:href="@{/book/details/{id}(id=${borrow.book_item.book.id})}">
-                            <img th:src="@{Customer/images/books-media/gird-view/book-media-grid-02.jpg}"
-                                 alt="cart-product-1">
+                            <img alt="Book"
+                                 th:src="@{'/uploads/' + ${borrow.book_item.book.image_url}}" style="width: 300px; height: 465px;"/>
                         </a>
                     </span>
                                                             <span class="product-detail">
