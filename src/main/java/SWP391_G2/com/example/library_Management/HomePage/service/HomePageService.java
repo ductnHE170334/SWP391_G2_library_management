@@ -3,6 +3,7 @@ package SWP391_G2.com.example.library_Management.HomePage.service;
 import SWP391_G2.com.example.library_Management.Entity.Author;
 import SWP391_G2.com.example.library_Management.Entity.Book;
 import SWP391_G2.com.example.library_Management.Entity.Category;
+import SWP391_G2.com.example.library_Management.Entity.News;
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageAuthorRepository;
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageBookRepository;
 import SWP391_G2.com.example.library_Management.HomePage.repository.HomePageCategoryRepository;
@@ -37,8 +38,35 @@ public class HomePageService {
         return  homePageBookRepository.findAll(pageable);
     }
 
+    public Page<Book> findBookByName(String title, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return homePageBookRepository.findBookByName(title, pageable);
+    }
+
+    public List<Book> getTop3Books() {
+        Pageable topThree = PageRequest.of(0, 3);
+        return homePageBookRepository.findAll(topThree).getContent();
+    }
+
     //Get book by id
     public Book getBook(int id) {
         return homePageBookRepository.findById(id).get();
+    }
+
+    //Get book by category
+    public Page<Book> findBooksByCategory(int categoryId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return homePageBookRepository.findBooksByCategory(categoryId, pageable);
+    }
+
+    //Get book by author
+    public Page<Book> getBooksByAuthor(int authorId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return homePageBookRepository.findBooksByAuthor(authorId, pageable);
+    }
+
+    //Get author by id
+    public Author getAuthor(int authorId) {
+        return homePageAuthorRepository.findById(authorId).orElse(null);
     }
 }
