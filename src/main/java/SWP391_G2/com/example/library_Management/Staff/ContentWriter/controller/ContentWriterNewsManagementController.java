@@ -86,9 +86,6 @@ public class ContentWriterNewsManagementController {
             }
         }
 
-        // Set the current date and time
-        news.setDate_created(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
-
         // Save the news
         contentWriterNewsService.save(news);
 

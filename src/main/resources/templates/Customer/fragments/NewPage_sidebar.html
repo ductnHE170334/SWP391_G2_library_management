@@ -21,10 +21,10 @@
                 <ul>
                     <li th:each="newItem : ${top3News}">
                         <figure>
-                            <img th:src="@{/Customer/images/order-item-04.jpg}" alt="news image"/>
+                            <img th:src="@{'/uploads/' + ${newItem.image_url}}" style="width: 100px; height: 111px;" alt="news image"/>
                         </figure>
                         <a th:href="@{/newsPage/newDetail(newId=${newItem.id})}" th:text="${newItem.title}"></a>
-                        <span><i class="fa fa-calendar" th:text="${newItem.date_created}"></i></span>
+                        <span><i class="fa fa-calendar" th:text="${#temporals.format(newItem.date_created, 'yyyy-MM-dd')}"></i></span>
                         <div class="clearfix"></div>
                     </li>
                 </ul>

@@ -40,7 +40,7 @@
                                         <div class="col-md-4 col-sm-6">
                                             <div class="form-group">
                                                 <label class="sr-only" for="keywords">Search by Keyword</label>
-                                                <input class="form-control" placeholder="Search by Keyword" id="keywords" name="keywords" type="text" th:value="${searchtitle}">
+                                                <input class="form-control" placeholder="Search by Keyword" id="keywords" name="title" type="text" th:value="${title}">
                                             </div>
                                         </div>
                                         <div class="col-md-2 col-sm-6">
@@ -50,6 +50,7 @@
                                         </div>
                                     </form>
                                 </div>
+                            </div>
                         </section>
                         <!-- End: Search Section -->
                     </div>
@@ -58,13 +59,6 @@
                             <div class="filter-options margin-list">
                                 <div class="row">
                                     <div class="col-md-4 col-sm-4">
-                                        <select name="orderby">
-                                            <option selected="selected">Default sorting</option>
-                                            <option>Sort by popularity</option>
-                                            <option>Sort by rating</option>
-                                            <option>Sort by newness</option>
-                                            <option>Sort by price</option>
-                                        </select>
                                     </div>
                                 </div>
                             </div>

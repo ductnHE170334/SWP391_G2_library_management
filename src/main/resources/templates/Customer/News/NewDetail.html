@@ -45,7 +45,7 @@
                                 <div class="news-list-box">
                                     <div class="single-news-list">
                                         <figure>
-                                            <img th:src="@{/Customer/images/news-event/new-detail-img.jpg}" alt="News &amp; Event">
+                                            <img th:src="@{'/uploads/' + ${newsItem.image_url}}" style="width: 847.5px; height: 432.52px;" alt="News &amp; Event">
                                         </figure>
                                         <div class="content-block">
                                             <div class="member-info">
@@ -56,7 +56,7 @@
                                                 <ul class="news-event-info">
                                                     <li>
                                                         <a href="#" target="_blank">
-                                                            <i class="fa fa-calendar"><span th:text="${newsItem.date_created}"></span></i>                                                        </a>
+                                                            <i class="fa fa-calendar"><span th:text="${#temporals.format(newsItem.date_created, 'yyyy-MM-dd')}"></span></i>                                                        </a>
                                                     </li>
                                                 </ul>
                                                 <h2 th:text="${newsItem.title}"></h2>

@@ -30,7 +30,7 @@ public class HomePageController {
 
         if (title != null) {
             booksPage = homePageService.findBookByName(title, page, size);
-            theModel.addAttribute("searchtitle", title);
+            theModel.addAttribute("title", title);
         } else {
             booksPage = homePageService.getAllBooks(page, size);
         }

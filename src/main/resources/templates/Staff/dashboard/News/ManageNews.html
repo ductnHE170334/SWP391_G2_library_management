@@ -58,7 +58,7 @@
                                 <tr th:each="news, newsStat : ${newsPage.content}">
                                     <td th:text="${newsStat.count}"></td>
                                     <td th:text="${news.title}"></td>
-                                    <td th:text="${news.date_created}"></td>
+                                    <td th:text="${#temporals.format(news.date_created, 'yyyy-MM-dd')}"></td>
                                     <td th:text="${news.description}"></td>
                                     <td>
                                         <!-- Add action buttons here -->

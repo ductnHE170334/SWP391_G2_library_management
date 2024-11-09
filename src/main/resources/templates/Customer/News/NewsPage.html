@@ -50,7 +50,7 @@
                                     <div class="single-news-list">
                                         <figure>
                                             <a href="news-events-detail.html"><img
-                                                    th:src="@{/Customer/images/news-event/related-event-01.jpg}"
+                                                    th:src="@{'/uploads/' + ${news.image_url}}" style="width: 300px; height: 465px;"
                                                     alt="Related event"></a>
                                         </figure>
                                         <div class="content-block">
@@ -63,7 +63,7 @@
                                                     <li>
                                                         <a href="#" target="_blank">
                                                             <i class="fa fa-calendar"
-                                                               th:text="${news.date_created}"></i>
+                                                               th:text="${#temporals.format(news.date_created, 'yyyy-MM-dd')}"></i>
                                                         </a>
                                                     </li>
                                                 </ul>

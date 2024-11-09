@@ -40,7 +40,7 @@
                 <ul>
                     <li th:each="book : ${top3Books}">
                         <figure>
-                            <img th:src="@{/Customer/images/order-item-01.jpg}" alt="product"/>
+                            <img th:src="@{'/uploads/' + ${book.image_url}}" style="width: 100px; height: 111px;" alt="product"/>
                         </figure>
                         <a th:href="@{/home/bookDetail(bookId=${book.id})}" th:text="${book.name}"></a>
                         <strong>Author:</strong>

@@ -98,7 +98,7 @@
                                                         <td data-title="action" class="product-action">
                                                             <div class="form-delete" style="display: flex; gap: 8px;">
                                                                 <!-- Delete button, disabled if status.id == 2 or other "disable" statuses -->
-                                                                <a th:href="@{/borrow/delete/{userId}/{bookItemId}(userId=${userId}, bookItemId=${borrow.book_item.id})}"
+                                                                <a th:href="@{/borrow/delete/{bookItemId}(bookItemId=${borrow.book_item.id})}"
                                                                    class="btn btn-dark-gray"
                                                                    th:classappend="${borrow.status.id == 2 || borrow.status.id > 2} ? 'disabled' : ''"
                                                                    th:if="${borrow.status.id != 2 && borrow.status.id <= 2}"

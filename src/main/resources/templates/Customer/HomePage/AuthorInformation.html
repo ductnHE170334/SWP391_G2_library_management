@@ -75,7 +75,7 @@
                       <div class="post-thumbnail">
                         <div class="book-list-icon yellow-icon"></div>
                         <a href="books-media-detail-v1.html"><img alt="Book"
-                                                                  th:src="@{/Customer/images/books-media/list-view/book-media-01.jpg}"/></a>
+                                                                  th:src="@{'/uploads/' + ${book.image_url}}" style="width: 300px; height: 465px;"/></a>
                       </div>
                       <div class="post-detail">
                         <div class="books-social-sharing">
